@@ -1,11 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mokesell</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&display=swap"
+      rel="stylesheet">
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    
+
+<body onload="renderProductList('bestsellers')"> <!-- Call the function on page load -->
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+
+      <a href="index.html" class="logo-link">
+        <img src="images/mokesell..png" alt="Logo" class="logo">
+      </a>
+
+      <div class="cart-menu-icons">
+        <a href="cart.html" class="cart-icon-link">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+
+        <!-- Notification element -->
+        <div id="cart-notification" class="cart-notification">
+          <span id="cart-count">0</span>
+        </div>
+
+        <div class="menu-dropdown">
+          <!-- Menu Icon -->
+          <a href="#" class="menu-icon-link">
+            <i class="fa-solid fa-bars"></i>
+          </a>
+
+          <div class="dropdown-content">
+            <a href="product-list.html?category=shop-all" class="menu-link">shop all</a>
+            <a href="product-list.html?category=bestsellers" class="menu-link">bestsellers</a>
+            <a href="product-list.html?category=scrunchies" class="menu-link">scrunchies</a>
+            <a href="product-list.html?category=keychains" class="menu-link">keychains</a>
+            <a href="product-list.html?category=bouquets" class="menu-link">bouquets</a>
+            <a href="index.html#our-story" class="menu-link">our story</a>
+            <a href="#contact-us" class="menu-link">contact us</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+
+
+      </div>
+    </section>
+
+    <!-- Bestsellers -->
+    <section class="product-list-section">
+      <div class="container" id="product-list-container">
+        <!-- Default heading added as a fallback -->
+        <h2 class="section-heading">Products</h2>
+        <div class="products-container" id="products-container"></div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <our-story class="about-section" id="our-story">
+      <div class="container">
+        <!-- Heading for the section (on top) -->
+        <div class="story-heading-container">
+          <h2>our story ❤️</h2>
+        </div>
+
+        <!-- Container for image and text side by side -->
+        <div class="story-container">
+          <!-- Image side -->
+          <div class="split">
+            <img src="images/story-image.jpg" alt="story image" class="story-image">
+          </div>
+
+          <!-- Text side -->
+          <div class="split">
+            <p class="story-text">
+              Hi there! I'm so glad you stopped by Hooked on Yarn! I create handmade crochet pieces right here in
+              Singapore,
+              with love and care. From cozy accessories to thoughtful gifts, every item is crafted by our family-run
+              business, where we love adding a personal touch to everything we create. Whether you're treating yourself
+              or finding
+              something special for a loved one, I hope you'll find a unique creation that's crafted with passion and
+              delivered with love.
+            </p>
+          </div>
+        </div>
+      </div>
+    </our-story>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact-us">
+    <div class="container">
+
+      <div class="footer-social">
+        <!-- Twitter Icon Link -->
+        <a href="https://twitter.com" target="_blank" class="social-icon">
+          <i class="fa-brands fa-twitter"></i>
+        </a>
+
+        <!-- Instagram Icon Link -->
+        <a href="https://instagram.com" target="_blank" class="social-icon">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+
+
+      <div class="footer-links">
+        <ul>
+          <li><a href="product-list.html?category=shop-all">shop all</a></li>
+          <li><a href="product-list.html?category=bestsellers">bestsellers</a></li>
+          <li><a href="product-list.html?category=scrunchies">scrunchies</a></li>
+          <li><a href="product-list.html?category=keychains">keychains</a></li>
+          <li><a href="product-list.html?category=bouquets">bouquets</a></li>
+          <li><a href="index.html#our-story">our story</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <ul>
+          <li><a href="mailto:hookedonloopssg@gmail.com">hookedonloopssg@gmail.com</a></li>
+          <li><a href="tel:+6598765432">+65 9876 5432</a></li>
+        </ul>
+      </div>
+
+
+    </div>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
