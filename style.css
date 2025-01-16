@@ -1,0 +1,114 @@
+/*---------------------------------------- Account Page ----------------------------------------*/
+.account{
+    color: black;
+    position:relative;
+    width: 380px;
+    height: fit-content;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; command this line out for testing */
+    transition: height .2s ease;
+    flex-wrap: nowrap;
+    margin: auto;
+}
+
+.account-page{
+    padding: 10%;
+    display: none;
+    transition: transform.18s ease;
+    content: "";
+}
+
+.account-page.active{
+    display: block;
+}
+
+.account-page .account-signin{
+    transition: none;
+    transform: translateX(-400px);
+}
+
+.account-signin h2, .account-signup h2{
+    font-size: 2em;
+    color: rgba(158, 173, 123, 1);
+}
+
+.account input{
+    width: 80%;
+    padding: 0%;
+}
+
+.signin-input, .signup-input{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid black;
+    margin: 30px 0;
+    padding: 0;
+}
+
+.signin-input label, .signup-input label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: black;
+    font-weight: 500;
+    transition: .5s;
+}
+
+.signin-input input:focus~label, .signin-input input:valid~label{
+    top: -5px;
+}
+
+.signup-input input:focus~label, .signup-input input:valid~label{
+    top: -5px;
+}
+
+.signin-input input, .signup-input input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: black;
+    font-weight: 600;
+}
+
+.account-button{
+    width: 100%;
+    height: 45px;
+    background: black;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+}
+
+.account-signin, .account-signup{
+    font-size: 1em;
+    color: black;
+    text-align: left;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.account-signin p a, .account-signup p a{
+    color: blue;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.account-signin a:hover, .account-signup a:hover{
+    text-decoration: underline;
+}
