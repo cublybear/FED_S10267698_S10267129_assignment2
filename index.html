@@ -2,118 +2,132 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mokesell</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&display=swap"
-      rel="stylesheet">
-  <link rel="stylesheet" href="normalize.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mokesell</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="renderProductList('bestsellers')"> <!-- Call the function on page load -->
-  <!-- Header -->
-  <header class="header">
-    <div class="navbar-container">
+    <!-- Header -->
+    <header class="header">
+        <div class="navbar-container">
+            <div class="nav-section nav-left">
+                <a href="index.html" class="logo-container">
+                    <img src="images/mokesell..png" alt="Logo" class="logo">
+                </a>
+            </div>
 
-      <a href="index.html" class="logo-container">
-        <img src="images/mokesell..png" alt="Logo" class="logo">
-      </a>
+            <div class="nav-section nav-center">
+                <form action="#" class="search-form">
+                    <input type="text" class="search-input" placeholder="Search" required>
+                    <button type="submit" class="search-button">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+            </div>
 
-      <div class="search-bar">
-        <span class="'search-icon"><i class="fa-solid fa-search"></i></span>
-        <input class="search-input" type="search" placeholder="Search...">
-      </div>
+            <div class="nav-section nav-right">
+                <div class="cart-menu-icons">
+                    <a href="cart.html" class="cart-icon-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
 
-      <div class="cart-menu-icons">
-        <a href="cart.html" class="cart-icon-link">
-          <i class="fa-solid fa-cart-shopping"></i>
-        </a>
+                    <!-- Notification element -->
+                    <div id="cart-notification" class="cart-notification">
+                        <span id="cart-count">0</span>
+                    </div>
 
-        <!-- Notification element -->
-        <div id="cart-notification" class="cart-notification">
-          <span id="cart-count">0</span>
+                    <div class="menu-dropdown">
+                        <!-- Menu Icon -->
+                        <a href="#" class="menu-icon-link">
+                            <i class="fa-solid fa-bars"></i>
+                        </a>
+
+                        <div class="dropdown-content">
+                            <a href="#">Link 1</a>
+                            <a href="#">Link 2</a>
+                            <a href="#">Link 3</a>
+                            <a href="#contact-us" class="menu-link">contact us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </header>
 
-        <div class="menu-dropdown">
-          <!-- Menu Icon -->
-          <a href="#" class="menu-icon-link">
-            <i class="fa-solid fa-bars"></i>
-          </a>
+    <!-- Main Content -->
+    <main>
+        <!-- Carousel Section -->
+        <section class="carousel-section">
+            <div class="container">
 
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-            <a href="#contact-us" class="menu-link">contact us</a>
-          </div>
+
+            </div>
+        </section>
+
+        <!-- Bestsellers -->
+        <section class="product-list-section">
+            <div class="container" id="product-list-container">
+                <!-- Default heading added as a fallback -->
+                <h2 class="section-heading">Today's Top Picks</h2>
+                <div class="products-container" id="products-container"></div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact-us">
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">help center</a></li>
+                        <li><a href="#">returns</a></li>
+                        <li><a href="#">feedback</a></li>
+                        <li><a href="#">privacy policy</a></li>
+                        <li><a href="#">contact us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="product-list.html?category=men">men</a></li>
+                        <li><a href="product-list.html?category=women">women</a></li>
+                        <li><a href="product-list.html?category=kids">kids</a></li>
+                        <li><a href="product-list.html?category=baby">baby</a></li>
+                        <li><a href="product-list.html?category=accessories">accessories</a></li>
+                        <li><a href="product-list.html?category=beauty">beauty</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Payment Methods</h4>
+                    <div class="payment-icons">
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                        <i class="fa-brands fa-cc-paypal"></i>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Follow us</h4>
+                    <div class="social-icons">
+                        <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://instagram.com"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main>
-    <!-- Carousel Section -->
-    <section class="carousel-section">
-      <div class="container">
-
-
-      </div>
-    </section>
-
-    <!-- Bestsellers -->
-    <section class="product-list-section">
-      <div class="container" id="product-list-container">
-        <!-- Default heading added as a fallback -->
-        <h2 class="section-heading">Today's Top Picks</h2>
-        <div class="products-container" id="products-container"></div>
-      </div>
-    </section>
-
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer" id="contact-us">
-    <div class="container">
-
-      <div class="footer-social">
-        <!-- Twitter Icon Link -->
-        <a href="https://twitter.com" target="_blank" class="social-icon">
-          <i class="fa-brands fa-twitter"></i>
-        </a>
-
-        <!-- Instagram Icon Link -->
-        <a href="https://instagram.com" target="_blank" class="social-icon">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-      </div>
-
-
-      <div class="footer-links">
-        <ul>
-          <li><a href="product-list.html?category=shop-all">shop all</a></li>
-          <li><a href="product-list.html?category=bestsellers">bestsellers</a></li>
-          <li><a href="product-list.html?category=scrunchies">scrunchies</a></li>
-          <li><a href="product-list.html?category=keychains">keychains</a></li>
-          <li><a href="product-list.html?category=bouquets">bouquets</a></li>
-          <li><a href="index.html#our-story">our story</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-contact">
-        <ul>
-          <li><a href="mailto:hookedonloopssg@gmail.com">hookedonloopssg@gmail.com</a></li>
-          <li><a href="tel:+6598765432">+65 9876 5432</a></li>
-        </ul>
-      </div>
-
-
-    </div>
-  </footer>
-  <script src="script.js"></script>
+    </footer>
+    <script src="script.js"></script>
 </body>
+
 </html>

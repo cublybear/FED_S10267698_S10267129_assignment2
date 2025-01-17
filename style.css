@@ -1,7 +1,14 @@
 /*---------------------------------------- Default Styles ----------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html, body {
     font-family: 'Inter', sans-serif;
 }
+
 .container {
     display: flex;
     position: relative; 
@@ -18,10 +25,11 @@ html, body {
 .navbar-container {
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
     background-color: #C7B9FF; 
-    box-sizing: border-box;
 }
+
 
 .logo {
     width: auto;
@@ -34,7 +42,7 @@ html, body {
 
 /*prevent other parts of the space bar to be able to trigger the effect*/
 .logo-container {
-    width: 280px;
+    width: 200px;
     height: 100px;
     overflow: hidden;
     align-items: center;
@@ -45,13 +53,15 @@ html, body {
     transform: scale(1.05);     /* Slightly enlarge the logo on hover */
 }
 
-.search-bar {
+.search-form {
     display: flex;
-    padding: 10px 14px;
+    padding: 10px 20px;
     border-radius: 28px;
     background: white;
-    width: 50%;
-  }
+    flex: 1; 
+    width: 400px;
+    justify-content: space-between;
+}
 
 .search-input {
     font-size: 16px;
@@ -60,21 +70,36 @@ html, body {
     outline: none;
     border: none;
     background: transparent;
-    flex: 1;
 }
+
+.search-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
 
 .fa-solid.fa-search {
     border: 1.5px solid black;
     padding: 7px 12px;
     border-radius: 20px;
     background-color: #FBFFD1;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.fa-solid.fa-search:hover {
+    transform: scale(1.1);
+}
+
+.nav-section.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .cart-menu-icons {
-    position: absolute;
-    right: 60px;
     display: flex; 
-    gap: 20px;
+    gap: 10px;
     align-items: center;
   }
   
@@ -84,7 +109,6 @@ html, body {
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
   }
-  
   
   .fa-solid.fa-bars:hover, .fa-solid.fa-cart-shopping:hover  {
     transform: scale(1.2); /* Slightly enlarge on hover */
@@ -132,7 +156,7 @@ html, body {
     position: absolute;
     top: 40px; /* Position below the menu icon */
     right: 0;
-    background-color: #ff6f61; /* Match the coral-like background color */
+    background-color: #FBFFD1; /* Match the coral-like background color */
     border-radius: 20px; /* Rounded corners */
     padding: 15px 35px; /* Padding for inner spacing */
     width: 190px; /* Fixed width */
@@ -143,10 +167,13 @@ html, body {
   /* Dropdown Links */
   .dropdown-content a {
     display: block; /* Stack links vertically */
-    color: #FFFBE2; /* Match the light yellow text color */
+    color: black; /* Match the light yellow text color */
+    font-size: 16px; /* Match the font size */
+    font-weight: 500;
     text-decoration: none; /* Remove underline */
     padding: 10px 15px; /* Add vertical spacing between links */
-    border-bottom: 1px solid #F9E2B1; /* Add a subtle divider line */
+    border-bottom: 1.5px solid black; /* Add a subtle divider line */
+    transition: all 0.3s ease;
   }
   
   /* Remove divider for the last link */
@@ -154,16 +181,17 @@ html, body {
     border-bottom: none;
   }
   
-  /* Hover Effects for Links */
   .dropdown-content a:hover {
-    color: #FFB947;
-  }
-  
+    color: #C7B9FF;
+    padding-right: 8px;
+}
+
   .menu-dropdown:hover .dropdown-content {
     visibility: visible; /* Show the dropdown */
     opacity: 1; /* Make it visible */
     padding: 20px 25px; /* Increase hitbox for smoother interaction */
   }
+
 /*---------------------------------------- Account Page ----------------------------------------*/
 .account{
     display: flex;
@@ -297,4 +325,108 @@ html, body {
 
 .account-signin a:hover, .account-signup a:hover{
     text-decoration: underline;
+}
+
+/*---------------------------------------- Footer ----------------------------------------*/
+.footer {
+    background-color: #EBEBEB;
+    padding: 70px 0;
+}
+
+.footer-container{
+    max-width: 1170px;
+    margin: auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.footer-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: black;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #C7B9FF;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: black;
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #C7B9FF;
+    padding-left: 8px;
+}
+
+.social-icons i{
+    color: black;
+    font-size: 20px;
+}
+
+.footer-col .social-icons a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #C7B9FF;
+    margin: 0px 10px 10px 0;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
+}
+
+.payment-icons i{
+    color: black;
+    font-size: 30px;
+    margin-right: 10px;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
+}
+
+.payment-icons i:hover,.social-icons a:hover {
+    transform: scale(1.2); /* Slightly enlarge on hover */
+}
+
+@media(max-width: 767px) {
+    .footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width: 574px) {
+    .footer-col {
+        width: 100%;
+    }
 }
