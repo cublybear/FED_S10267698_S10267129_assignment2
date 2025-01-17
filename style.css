@@ -166,26 +166,44 @@ html, body {
   }
 /*---------------------------------------- Account Page ----------------------------------------*/
 .account{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.account-logo{
+    display: flex;
+    width: 30%;
+    height: auto;
+}
+
+.account-logo img{
+    max-width: 100%;
+    height: auto;
+}
+
+.account-form{
     color: black;
     position:relative;
     width: 380px;
     height: fit-content;
     background: transparent;
-    border: 2px solid white;
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-    display: flex;
     justify-content: center;
     align-items: center;
     /* overflow: hidden; command this line out for testing */
     transition: height .2s ease;
     flex-wrap: nowrap;
-    margin: auto;
+    padding: 50px;
+}
+
+.signin-input, .signup-input{
+    background-color: white;
+    border-radius: 5px;
 }
 
 .account-page{
-    padding: 10%;
     display: none;
     transition: transform.18s ease;
     content: "";
@@ -220,8 +238,9 @@ html, body {
 }
 
 .signin-input label, .signup-input label{
-    position: absolute;
-    top: 50%;
+    position: relative;
+    padding-left: 20px;
+    top: -70%;
     transform: translateY(-50%);
     font-size: 1em;
     color: black;
@@ -230,11 +249,11 @@ html, body {
 }
 
 .signin-input input:focus~label, .signin-input input:valid~label{
-    top: -5px;
+    top: -70px;
 }
 
 .signup-input input:focus~label, .signup-input input:valid~label{
-    top: -5px;
+    top: -70px;
 }
 
 .signin-input input, .signup-input input{
@@ -246,6 +265,7 @@ html, body {
     font-size: 1em;
     color: black;
     font-weight: 600;
+    padding-left: 20px;
 }
 
 .account-button{
@@ -278,4 +298,3 @@ html, body {
 .account-signin a:hover, .account-signup a:hover{
     text-decoration: underline;
 }
-
