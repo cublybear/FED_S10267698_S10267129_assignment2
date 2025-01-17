@@ -15,11 +15,16 @@
 <body onload="renderProductList('bestsellers')"> <!-- Call the function on page load -->
   <!-- Header -->
   <header class="header">
-    <div class="container">
+    <div class="navbar-container">
 
-      <a href="index.html" class="logo-link">
+      <a href="index.html" class="logo-container">
         <img src="images/mokesell..png" alt="Logo" class="logo">
       </a>
+
+      <div class="search-bar">
+        <span class="'search-icon"><i class="fa-solid fa-search"></i></span>
+        <input class="search-input" type="search" placeholder="Search...">
+      </div>
 
       <div class="cart-menu-icons">
         <a href="cart.html" class="cart-icon-link">
@@ -38,12 +43,9 @@
           </a>
 
           <div class="dropdown-content">
-            <a href="product-list.html?category=shop-all" class="menu-link">shop all</a>
-            <a href="product-list.html?category=bestsellers" class="menu-link">bestsellers</a>
-            <a href="product-list.html?category=scrunchies" class="menu-link">scrunchies</a>
-            <a href="product-list.html?category=keychains" class="menu-link">keychains</a>
-            <a href="product-list.html?category=bouquets" class="menu-link">bouquets</a>
-            <a href="index.html#our-story" class="menu-link">our story</a>
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
             <a href="#contact-us" class="menu-link">contact us</a>
           </div>
         </div>
@@ -54,8 +56,8 @@
 
   <!-- Main Content -->
   <main>
-    <!-- Carousell Section -->
-    <section class="hero-section">
+    <!-- Carousel Section -->
+    <section class="carousel-section">
       <div class="container">
 
 
@@ -66,41 +68,11 @@
     <section class="product-list-section">
       <div class="container" id="product-list-container">
         <!-- Default heading added as a fallback -->
-        <h2 class="section-heading">Products</h2>
+        <h2 class="section-heading">Today's Top Picks</h2>
         <div class="products-container" id="products-container"></div>
       </div>
     </section>
 
-    <!-- About Section -->
-    <our-story class="about-section" id="our-story">
-      <div class="container">
-        <!-- Heading for the section (on top) -->
-        <div class="story-heading-container">
-          <h2>our story ❤️</h2>
-        </div>
-
-        <!-- Container for image and text side by side -->
-        <div class="story-container">
-          <!-- Image side -->
-          <div class="split">
-            <img src="images/story-image.jpg" alt="story image" class="story-image">
-          </div>
-
-          <!-- Text side -->
-          <div class="split">
-            <p class="story-text">
-              Hi there! I'm so glad you stopped by Hooked on Yarn! I create handmade crochet pieces right here in
-              Singapore,
-              with love and care. From cozy accessories to thoughtful gifts, every item is crafted by our family-run
-              business, where we love adding a personal touch to everything we create. Whether you're treating yourself
-              or finding
-              something special for a loved one, I hope you'll find a unique creation that's crafted with passion and
-              delivered with love.
-            </p>
-          </div>
-        </div>
-      </div>
-    </our-story>
 
   </main>
 
