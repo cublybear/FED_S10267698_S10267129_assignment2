@@ -193,7 +193,7 @@ html, body {
   }
 
 /*---------------------------------------- Account Page ----------------------------------------*/
-.account{
+.account-container{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -268,7 +268,7 @@ html, body {
 .signin-input label, .signup-input label{
     position: relative;
     padding-left: 20px;
-    top: -70%;
+    top: -50%;
     transform: translateY(-50%);
     font-size: 1em;
     color: black;
@@ -296,7 +296,7 @@ html, body {
     padding-left: 20px;
 }
 
-.account-button{
+#account-signin-submit, #account-signup-submit{
     width: 100%;
     height: 45px;
     background: black;
