@@ -19,7 +19,7 @@ html, body {
     margin: 0 auto;
     padding: 50px 20px;
     box-sizing: border-box;
-  }
+}
 
 /*---------------------------------------- Navbar ----------------------------------------*/
 .navbar-container {
@@ -29,7 +29,6 @@ html, body {
     padding: 0.5rem 1rem;
     background-color: #C7B9FF; 
 }
-
 
 .logo {
     width: auto;
@@ -101,20 +100,20 @@ html, body {
     display: flex; 
     gap: 10px;
     align-items: center;
-  }
+}
   
 .fa-solid.fa-bars, .fa-solid.fa-cart-shopping {
     color: black;
-    font-size: 20px;      /* Adjust the size of the menu icon */
+    font-size: 20px; /* Adjust the size of the menu icon */
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
-  }
+}
   
-  .fa-solid.fa-bars:hover, .fa-solid.fa-cart-shopping:hover  {
+.fa-solid.fa-bars:hover, .fa-solid.fa-cart-shopping:hover {
     transform: scale(1.2); /* Slightly enlarge on hover */
-  }
+}
 
-  .cart-notification {
+.cart-notification {
     position: relative;
     top: -15px;
     right: 25px;
@@ -133,23 +132,22 @@ html, body {
     pointer-events: none; /* Initially hidden */
     transition: opacity 0.3s ease, transform 0.3s ease;
     transform: translateY(-20px); /* Initially hidden above */
-  }
+}
   
-  .cart-notification.visible {
+.cart-notification.visible {
     opacity: 1;
     transform: translateY(0); /* Show notification */
-  }
-  
+}
 
-  /* Dropdown Container */
+/* Dropdown Container */
 .menu-dropdown {
     position: relative;
     display: inline-block;
     padding: 10px 10px; /* Add padding around the icon */
-  }
+}
   
-  /* Dropdown Content */
-  .dropdown-content {
+/* Dropdown Content */
+.dropdown-content {
     visibility: hidden; 
     opacity: 0; 
     text-align: right; 
@@ -162,10 +160,10 @@ html, body {
     width: 190px; /* Fixed width */
     z-index: 10; /* Ensure the dropdown is on top of other elements */
     transition: opacity 0.3s ease, visibility 0s 0.3s ease; /* Smooth transition for visibility */
-  }
+}
   
-  /* Dropdown Links */
-  .dropdown-content a {
+/* Dropdown Links */
+.dropdown-content a {
     display: block; /* Stack links vertically */
     color: black; /* Match the light yellow text color */
     font-size: 16px; /* Match the font size */
@@ -174,26 +172,68 @@ html, body {
     padding: 10px 15px; /* Add vertical spacing between links */
     border-bottom: 1.5px solid black; /* Add a subtle divider line */
     transition: all 0.3s ease;
-  }
+}
   
-  /* Remove divider for the last link */
-  .dropdown-content a:last-child {
+/* Remove divider for the last link */
+.dropdown-content a:last-child {
     border-bottom: none;
-  }
+}
   
-  .dropdown-content a:hover {
+.dropdown-content a:hover {
     color: #C7B9FF;
     padding-right: 8px;
 }
 
-  .menu-dropdown:hover .dropdown-content {
+.menu-dropdown:hover .dropdown-content {
     visibility: visible; /* Show the dropdown */
     opacity: 1; /* Make it visible */
     padding: 20px 25px; /* Increase hitbox for smoother interaction */
-  }
+}
 
 /*---------------------------------------- Account Page ----------------------------------------*/
-.account-container{
+html body {
+    justify-content: center;
+    align-items: center;
+    background-color: #C7B9FF;
+    background-size: cover;
+    background-position: center;
+    place-items: center;
+}
+
+.loading {
+    position: fixed; /* This makes the loading div fixed relative to the viewport */
+    top: 0; /* Position it at the top of the screen */
+    left: 0; /* Position it at the left of the screen */
+    width: 100%; /* Make it span the full width of the screen */
+    height: 100%; /* Make it span the full height of the screen */
+    background: grey; /* Optional: transparent background */
+    color: white;
+    display: flex; /* Flexbox for centering the text */
+    justify-content: center;
+    align-items: center;
+    font-size: 24px; /* Size of the loading text */
+    display: none;
+    opacity: 80%;
+}
+
+.msgs {
+    width: 90%;
+    text-align: center;
+    font-size: 24px;
+    padding: 10px;
+    color: white;
+}
+
+.nocreate {
+    background-color: red;
+    width: 100%;    
+    height: 20%;
+    border-radius: 10px;
+    margin: auto;
+    display: none;
+}
+
+.account-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -201,18 +241,18 @@ html, body {
     flex-direction: row;
 }
 
-.account-logo{
+.account-logo {
     display: flex;
     width: 30%;
     height: auto;
 }
 
-.account-logo img{
+.account-logo img {
     max-width: 100%;
     height: auto;
 }
 
-.account-form{
+.account-form {
     color: black;
     position:relative;
     width: 380px;
@@ -226,37 +266,37 @@ html, body {
     padding: 50px;
 }
 
-.signin-input, .signup-input{
+.signin-input, .signup-input {
     background-color: white;
     border-radius: 5px;
 }
 
-.account-page{
+.account-page {
     display: none;
     transition: transform.18s ease;
     content: "";
 }
 
-.account-page.active{
+.account-page.active {
     display: block;
 }
 
-.account-page .account-signin{
+.account-page .account-signin {
     transition: none;
     transform: translateX(-400px);
 }
 
-.account-signin h2, .account-signup h2{
+.account-signin h2, .account-signup h2 {
     font-size: 2em;
     color: rgba(158, 173, 123, 1);
 }
 
-.account input{
+.account input {
     width: 80%;
     padding: 0%;
 }
 
-.signin-input, .signup-input{
+.signin-input, .signup-input {
     position: relative;
     width: 100%;
     height: 50px;
@@ -265,7 +305,7 @@ html, body {
     padding: 0;
 }
 
-.signin-input label, .signup-input label{
+.signin-input label, .signup-input label {
     position: relative;
     padding-left: 20px;
     top: -50%;
@@ -276,7 +316,7 @@ html, body {
     transition: .5s;
 }
 
-.signin-input input:focus~label, .signin-input input:valid~label{
+.signin-input input:focus~label, .signin-input input:valid~label {
     top: -70px;
 }
 
@@ -284,7 +324,7 @@ html, body {
     top: -70px;
 }
 
-.signin-input input, .signup-input input{
+.signin-input input, .signup-input input {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -296,7 +336,7 @@ html, body {
     padding-left: 20px;
 }
 
-#account-signin-submit, #account-signup-submit{
+#account-signin-submit, #account-signup-submit {
     width: 100%;
     height: 45px;
     background: black;
@@ -309,7 +349,7 @@ html, body {
     font-weight: 500;
 }
 
-.account-signin, .account-signup{
+.account-signin, .account-signup {
     font-size: 1em;
     color: black;
     text-align: left;
@@ -317,13 +357,13 @@ html, body {
     margin: 25px 0 10px;
 }
 
-.account-signin p a, .account-signup p a{
+.account-signin p a, .account-signup p a {
     color: blue;
     text-decoration: none;
     font-weight: 600;
 }
 
-.account-signin a:hover, .account-signup a:hover{
+.account-signin a:hover, .account-signup a:hover {
     text-decoration: underline;
 }
 
@@ -333,7 +373,7 @@ html, body {
     padding: 70px 0;
 }
 
-.footer-container{
+.footer-container {
     max-width: 1170px;
     margin: auto;
 }
@@ -390,7 +430,7 @@ ul {
     padding-left: 8px;
 }
 
-.social-icons i{
+.social-icons i {
     color: black;
     font-size: 20px;
 }
@@ -407,7 +447,7 @@ ul {
     transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
 }
 
-.payment-icons i{
+.payment-icons i {
     color: black;
     font-size: 30px;
     margin-right: 10px;

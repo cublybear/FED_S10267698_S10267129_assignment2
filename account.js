@@ -45,7 +45,6 @@ function getAccounts(limit = 10) {
         .then(data => {
             console.log(data);
         });
-
 };
 
 // Wait for return response
@@ -56,7 +55,7 @@ async function accountexists(number, email) {
             { "Email": email },
             { "Phone Number": number }
         ]
-    })
+    });
     // Wait for response
     const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
         method: "GET",
@@ -67,7 +66,7 @@ async function accountexists(number, email) {
     // Wait for reponse to finish parsing
     const data = await response.json()
 
-    return data.length > 0;  // Returns true if database contains matching records
+    return data.length > 0; // Returns true if database contains matching records
 }
 
 // Create an account
@@ -94,9 +93,11 @@ function createaccount(email, phone, password) {
     fetch("https://fedassignment2-eef5.restdb.io/rest/account", settings)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             getAccounts(); // Refresh the account list
         });
 }
+console.log(document.getElementById("account-signup-submit"))
 
 document.addEventListener("DOMContentLoaded", function () {
     getAccounts();
@@ -110,16 +111,16 @@ document.addEventListener("DOMContentLoaded", function () {
         let contactPhone = document.getElementById("account-phone").value;
         let contactPassword = document.getElementById("account-password").value;
         document.getElementById("loadingscreen").style.display = "flex" // Shows loading screen to wait for check
-        exists = await accountexists(contactPhone, contactEmail); // Checks if account exists with either email or phone number
-        
-        if(!exists) {
-            createaccount(contactEmail, contactPhone, contactPassword) // Creates account if it doesnt exist
+        exists = await accountexists(contactPhone, contactEmail); // checks if account exists with either phone or email
+
+        if(!exists){
+            createaccount(contactEmail, contactPhone, contactPassword) // creates account if it doesnt exist
         }
         else{
-            document.getElementById("nocreate").style.display = "block"
-            setTimeout(function() {
-                document.getElementById("nocreate").style.display = "none"
-            }, 3000)
+            document.getElementById("nocreate").style.display="block"
+            setTimeout(function(){
+                document.getElementById("nocreate").style.display="none"
+            },3000)
         }
         document.getElementById("loadingscreen").style.display = "none"
     });
