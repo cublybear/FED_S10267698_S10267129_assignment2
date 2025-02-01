@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="renderProductList('bestsellers')"> <!-- Call the function on page load -->
+<body>
     <!-- Header -->
     <header class="header">
         <div class="navbar-container">
@@ -57,27 +57,45 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Carousel Section -->
-        <section class="carousel-section">
-            <div class="container">
-
+    <!-- main Content -->
+  <main>
+    <section class="product-details-section">
+      <div class="container">
+        <div class="product-details" id="product-details">
+          <!-- left section -->
+          <div class="left-section">
+            <div class="product-details-carousel">
+              <button class="arrow-button prev">
+                <i class="fa-solid fa-angle-left"></i>
+              </button>
+              <div class="product-details-carousel-images" id="carousel-images"></div>
+              <button class="arrow-button next">
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+            <!-- thumbnail -->
+            <div class="carousel-thumbnails" id="carousel-thumbnails"></div>
+          </div>
+          <!-- right section -->
+          <div class="product-details-info">
+            <h2 id="product-details-name" class="product-details-name">Product Name</h2>
+            <p id="product-details-cat" class="product-details-cat">Product Category, Subcategory</p>
+            <p id="product-details-price" class="product-details-price">S$0.00</p>
+            <p id="product-details-desc" class="product-details-desc">product description</p>
+            <div class="product-details-actions">
+              <div class="quantity-controls">
+                <button class="decrement" id="decrement">-</button>
+                <span class="quantity-display" id="quantity">1</span>
+                <button class="increment" id="increment">+</button>
+              </div>
+              <button class="add-to-cart-button" id="add-to-cart" onclick="addToCart()">Add To Cart</button>
 
             </div>
-        </section>
-
-        <!-- Bestsellers -->
-        <section class="product-list-section">
-            <div class="container" id="product-list-container">
-                <!-- Default heading added as a fallback -->
-                <h2 class="homepage-heading">Today's Top Picks</h2>
-                <div class="products-container" id="products-container"></div>
-            </div>
-        </section>
-
-
-    </main>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
     <!-- Footer -->
     <footer class="footer" id="contact-us">
@@ -121,8 +139,11 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </footer>
+
     <script src="script.js"></script>
 </body>
 

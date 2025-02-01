@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="renderProductList('bestsellers')"> <!-- Call the function on page load -->
+<body>
     <!-- Header -->
     <header class="header">
         <div class="navbar-container">
@@ -59,24 +59,33 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Carousel Section -->
-        <section class="carousel-section">
-            <div class="container">
+        <div class="container">
+            <h1 class="cart-heading">Shopping Cart</h1>
+            <div class="cart-container">
+                <div class="cart-items-section">
+                    <div id="cart-items" class="cart-items">
+                        <!-- Product items will be dynamically inserted here -->
+                    </div>
+                </div>
+                <!-- Cart Summary Section -->
+                <div class="cart-summary">
+                    <h2>Promo Code:</h2>
 
+                    <div class="summary-details">
+                        <div class="promo-code">
+                            <input type="text" id="promo-code" placeholder="type here..." autocomplete="off">
+                        </div>
 
+                        <div class="cart-subprices">
+                            <p>Subtotal: <span id="subtotal" class="product-price">S$0.00</span></p>
+                            <p>Discount: <span id="discount" class="product-price">S$0.00</span></p>
+                        </div>
+                        <p><strong>Total:</strong> <span id="total" class="cart-total">S$0.00</span></p>
+                    </div>
+                    <a href="checkout.html" class="checkout-button">Proceed to Checkout</a>
+                </div>
             </div>
-        </section>
-
-        <!-- Bestsellers -->
-        <section class="product-list-section">
-            <div class="container" id="product-list-container">
-                <!-- Default heading added as a fallback -->
-                <h2 class="homepage-heading">Today's Top Picks</h2>
-                <div class="products-container" id="products-container"></div>
-            </div>
-        </section>
-
-
+        </div>
     </main>
 
     <!-- Footer -->
@@ -121,8 +130,11 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </footer>
+
     <script src="script.js"></script>
 </body>
 
