@@ -7,49 +7,47 @@
     <title>Mokesell</title>
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="renderProductList('bestsellers')"> <!-- Call the function on page load -->
     <!-- Header -->
     <header class="header">
-        <div class="navbar-container">
-            <div class="nav-section nav-left">
-                <a href="index.html" class="logo-container">
-                    <img src="images/mokesell..png" alt="Logo" class="logo">
-                </a>
-            </div>
-
-            <div class="nav-section nav-center">
-                <form action="#" class="search-form">
-                    <input type="text" class="search-input" placeholder="Search">
-                    <button type="submit" class="search-button">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
-            </div>
-
-            <div class="nav-section nav-right">
-                <div class="cart-menu-icons">
-                    <a href="cart.html" class="cart-icon-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
+        <div class="container-fluid navbar-container">
+            <div class="row w-100">
+                <div class="col-12 col-md-4 d-flex justify-content-start align-items-center">
+                    <a href="index.html" class="logo-container">
+                        <img src="images/mokesell..png" alt="Logo" class="logo">
                     </a>
-
-                    <!-- Notification element -->
-                    <div id="cart-notification" class="cart-notification">
-                        <span id="cart-count">0</span>
-                    </div>
-
-                    <div class="menu-dropdown">
-                        <!-- Menu Icon -->
-                        <a href="#" class="menu-icon-link">
-                            <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                    <form action="#" class="search-form w-100">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <button type="submit" class="search-button">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
+                    <div class="cart-menu-icons">
+                        <a href="cart.html" class="cart-icon-link">
+                            <i class="fa-solid fa-cart-shopping"></i>
                         </a>
-
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
-                            <a href="#contact-us" class="menu-link">contact us</a>
+                        <div id="cart-notification" class="cart-notification">
+                            <span id="cart-count">0</span>
+                        </div>
+                        <div class="menu-dropdown">
+                            <a href="#" class="menu-icon-link">
+                                <i class="fa-solid fa-bars"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                <a href="#contact-us" class="menu-link">contact us</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,56 +57,87 @@
 
     <!-- Main Content -->
     <main>
-    <!-- Banner Section (Carousel) -->
-<div class="carousel-container">
-    <div class="carousel" id="carousel">
-        <div class="carousel-item">
-            <img src="image1.jpg" alt="Image 1">
+        <!-- Banner Section (Carousel) -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div id="carouselExampleIndicators" class="carousel slide">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="images/placeholder.jpg" class="d-block mx-auto" alt="placeholder">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/placeholder.jpg" class="d-block mx-auto" alt="placeholder">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="images/placeholder.jpg" class="d-block mx-auto" alt="placeholder">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="carousel-item">
-            <img src="image2.jpg" alt="Image 2">
-        </div>
-        <div class="carousel-item">
-            <img src="image3.jpg" alt="Image 3">
-        </div>
-    </div>
-    <div class="carousel-buttons">
-        <button onclick="prevSlide()">&#10094;</button>
-        <button onclick="nextSlide()">&#10095;</button>
-    </div>
-</div>
 
-    <!-- Feature Buttons -->
-    <div class="features-container">
-        <button class="feature-btn"><i class="fa-solid fa-coins"></i> MokeCoins</button>
-        <button class="feature-btn"><i class="fa-solid fa-dollar-sign"></i> Cashback</button>
-        <button class="feature-btn"><i class="fa-solid fa-gift"></i> Super Deals</button>
-        <button class="feature-btn"><i class="fa-solid fa-gamepad"></i> Minigames</button>
-    </div>
-    
-    <!-- Navigation Bar -->
-    <nav class="category-nav">
-        <a href="#">Men</a>
-        <a href="#">Women</a>
-        <a href="#">Kids</a>
-        <a href="#">Baby</a>
-        <a href="#">Accessories</a>
-        <a href="#">Beauty</a>
-    </nav>
-    
-    <!-- Top Picks Section -->
-    <section class="top-picks">
-        <h2>Today's Top Picks</h2>
-        <div class="gallery-container" id="gallery-container">
-            <!-- Product cards will be rendered here -->
-          </div>
-    </section>
+        <div class="features-container row p-4">
+            <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                <button class="feature-btn"><i class="fa-solid fa-coins"></i> MokeCoins</button>
+            </div>
+            <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                <button class="feature-btn"><i class="fa-solid fa-dollar-sign"></i> Cashback</button>
+            </div>
+            <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                <button class="feature-btn"><i class="fa-solid fa-gift"></i> Super Deals</button>
+            </div>
+            <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                <button class="feature-btn"><i class="fa-solid fa-gamepad"></i> Minigames</button>
+            </div>
+        </div>
+               
+        
+        <!-- Navigation Bar -->
+        <nav class="category-nav container-fluid p-4">
+            <div class="row justify-content-between">
+                <div class="col-auto"><a href="#">Men</a></div>
+                <div class="col-auto"><a href="#">Women</a></div>
+                <div class="col-auto"><a href="#">Kids</a></div>
+                <div class="col-auto"><a href="#">Baby</a></div>
+                <div class="col-auto"><a href="#">Accessories</a></div>
+                <div class="col-auto"><a href="#">Beauty</a></div>
+            </div>
+        </nav>               
+
+        <!-- Top Picks Section -->
+        <section class="top-picks">
+            <h2 class="toppicks-heading">Today's Top Picks</h2>
+            <div class="gallery-container row" id="gallery-container">
+                <!-- Product cards will be rendered here -->
+            </div>
+        </section>
     </main>
+
     <!-- Footer -->
     <footer class="footer" id="contact-us">
-        <div class="footer-container">
-            <div class="footer-row">
-                <div class="footer-col">
+        <div class="container-fluid footer-container">
+            <div class="row footer-row">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Customer Service</h4>
                     <ul>
                         <li><a href="#">help center</a></li>
@@ -118,18 +147,18 @@
                         <li><a href="#">contact us</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Categories</h4>
                     <ul>
-                        <li><a href="product-list.html?category=men">men</a></li>
-                        <li><a href="product-list.html?category=women">women</a></li>
-                        <li><a href="product-list.html?category=kids">kids</a></li>
-                        <li><a href="product-list.html?category=baby">baby</a></li>
-                        <li><a href="product-list.html?category=accessories">accessories</a></li>
-                        <li><a href="product-list.html?category=beauty">beauty</a></li>
+                        <li><a href="gallery.html?category=men">men</a></li>
+                        <li><a href="gallery.html?category=women">women</a></li>
+                        <li><a href="gallery.html?category=kids">kids</a></li>
+                        <li><a href="gallery.html?category=baby">baby</a></li>
+                        <li><a href="gallery.html?category=accessories">accessories</a></li>
+                        <li><a href="gallery.html?category=beauty">beauty</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Payment Methods</h4>
                     <div class="payment-icons">
                         <i class="fa-brands fa-cc-visa"></i>
@@ -137,7 +166,7 @@
                         <i class="fa-brands fa-cc-paypal"></i>
                     </div>
                 </div>
-                <div class="footer-col">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Follow us</h4>
                     <div class="social-icons">
                         <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
@@ -148,6 +177,9 @@
             </div>
         </div>
     </footer>
-    <script src="carousel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

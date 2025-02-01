@@ -13,43 +13,39 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="navbar-container">
-            <div class="nav-section nav-left">
-                <a href="index.html" class="logo-container">
-                    <img src="images/mokesell..png" alt="Logo" class="logo">
-                </a>
-            </div>
-
-            <div class="nav-section nav-center">
-                <form action="#" class="search-form">
-                    <input type="text" class="search-input" placeholder="Search" required>
-                    <button type="submit" class="search-button">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
-            </div>
-
-            <div class="nav-section nav-right">
-                <div class="cart-menu-icons">
-                    <a href="cart.html" class="cart-icon-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
+        <div class="container-fluid navbar-container">
+            <div class="row w-100">
+                <div class="col-12 col-md-4 d-flex justify-content-start align-items-center">
+                    <a href="index.html" class="logo-container">
+                        <img src="images/mokesell..png" alt="Logo" class="logo">
                     </a>
-
-                    <!-- Notification element -->
-                    <div id="cart-notification" class="cart-notification">
-                        <span id="cart-count">0</span>
-                    </div>
-
-                    <div class="menu-dropdown">
-                        <!-- Menu Icon -->
-                        <a href="#" class="menu-icon-link">
-                            <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                    <form action="#" class="search-form w-100">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <button type="submit" class="search-button">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
+                    <div class="cart-menu-icons">
+                        <a href="cart.html" class="cart-icon-link">
+                            <i class="fa-solid fa-cart-shopping"></i>
                         </a>
-
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
-                            <a href="#contact-us" class="menu-link">contact us</a>
+                        <div id="cart-notification" class="cart-notification">
+                            <span id="cart-count">0</span>
+                        </div>
+                        <div class="menu-dropdown">
+                            <a href="#" class="menu-icon-link">
+                                <i class="fa-solid fa-bars"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                <a href="#contact-us" class="menu-link">contact us</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,9 +68,9 @@
 
     <!-- Footer -->
     <footer class="footer" id="contact-us">
-        <div class="footer-container">
-            <div class="footer-row">
-                <div class="footer-col">
+        <div class="container-fluid footer-container">
+            <div class="row footer-row">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Customer Service</h4>
                     <ul>
                         <li><a href="#">help center</a></li>
@@ -84,18 +80,18 @@
                         <li><a href="#">contact us</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Categories</h4>
                     <ul>
-                        <li><a href="product-list.html?category=men">men</a></li>
-                        <li><a href="product-list.html?category=women">women</a></li>
-                        <li><a href="product-list.html?category=kids">kids</a></li>
-                        <li><a href="product-list.html?category=baby">baby</a></li>
-                        <li><a href="product-list.html?category=accessories">accessories</a></li>
-                        <li><a href="product-list.html?category=beauty">beauty</a></li>
+                        <li><a href="gallery.html?category=men">men</a></li>
+                        <li><a href="gallery.html?category=women">women</a></li>
+                        <li><a href="gallery.html?category=kids">kids</a></li>
+                        <li><a href="gallery.html?category=baby">baby</a></li>
+                        <li><a href="gallery.html?category=accessories">accessories</a></li>
+                        <li><a href="gallery.html?category=beauty">beauty</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Payment Methods</h4>
                     <div class="payment-icons">
                         <i class="fa-brands fa-cc-visa"></i>
@@ -103,7 +99,7 @@
                         <i class="fa-brands fa-cc-paypal"></i>
                     </div>
                 </div>
-                <div class="footer-col">
+                <div class="col-12 col-md-3 footer-col">
                     <h4>Follow us</h4>
                     <div class="social-icons">
                         <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
@@ -112,8 +108,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </footer>
 
