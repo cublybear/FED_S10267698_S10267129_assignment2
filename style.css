@@ -466,6 +466,84 @@ ul {
     transform: scale(1.2); /* Slightly enlarge on hover */
 }
 
+/*---------------------------------------- Home ----------------------------------------*/
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px 0px; 
+}
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.carousel-item {
+    min-width: 100%;
+    height: 300px;
+    background: #ddd;
+}
+.carousel-buttons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+.carousel-buttons button {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+.features-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 80px;
+}
+.feature-btn {
+    background: #FBFFD1;
+    border: 1.5px solid black;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 15px 25px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: transform 0.3s ease;
+}
+
+.feature-btn:hover {
+    transform: scale(1.05);
+}
+
+.category-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 30px 50px;
+    border-top: 1.5px solid #757575;
+    border-bottom: 1.5px solid #757575;
+}
+
+.category-nav a {
+    font-size: 16px;
+    padding: 0px 40px;
+    color: black;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.category-nav a:hover {
+    color: #C7B9FF;
+}
+
+.top-picks {
+    padding: 30px;
+}
+
 /*---------------------------------------- Product Gallery ----------------------------------------*/
 /* product list section */
   .gallery-container {
