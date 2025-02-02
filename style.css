@@ -981,7 +981,7 @@ input[type="radio"], input[type="checkbox"] {
 
 @media(max-width: 767px) {
     .container {
-        padding: 0px;
+        padding: 30px 20px;
     }
     .footer-col {
         width: 50%;
