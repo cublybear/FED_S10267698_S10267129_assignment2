@@ -356,7 +356,7 @@ html body{
   height: 400px;
   width: 400px;
   position: relative;
-  background-color: lightgray;
+  background-color: #D9CFFF;
   padding: 25px;
 }
 
@@ -438,6 +438,64 @@ ul{
 
 .card.flip .back-view{
   transform: rotateY(0);
+}
+
+/*---------------------------------------- Community ----------------------------------------*/
+/* Community Section */
+h1 {
+  text-align: center;
+  margin: 20px;
+  padding: 20px;
+}
+
+/* Grid Layout */
+.community-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  max-width: 90%;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.community-post {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.community-post-image {
+  width: 100%;
+  height: 200px;
+  background-color: #d3d3d3;
+  border-radius: 8px;
+}
+
+.community-post-title {
+  font-weight: bold;
+}
+
+.community-post-pfp {
+  width: 30px;        /* Desired width of the circle */
+  height: 30px;       /* Height equal to width to form a square container */
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover;  /* Ensures the image fills the square container properly */
+}
+
+.community-post-username {
+  font-size: 14px;
+  color: gray;
+}
+
+.community-post-likes {
+  font-size: 14px;
+  color: red;
+}
+
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /*---------------------------------------- Footer ----------------------------------------*/
