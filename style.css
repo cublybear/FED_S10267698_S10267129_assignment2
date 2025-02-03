@@ -678,16 +678,26 @@ ul {
     padding: 0px 50px;
   }
   
+  .subcategory-nav {
+    display: flex;
+    justify-content: center;
+  }
+
+  .subcategory-nav a {
+    text-decoration: none;
+    color: black;
+  }
+
   .card-link {
     text-decoration: none;
     color: black;
   }
 
-  .gallery .card {
+  .card gallery{
     transition: transform 0.3s ease; /* Smooth zoom-in animation */
   }
   
-  .gallery .card:hover{
+  .card:hover{
     transform: scale(1.05); /* Zooms the image by 20% */
     border: 1.5px solid #C7B9FF; /* Change the border color on hover */
   }
