@@ -1,176 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minigame</title>
+    <title>Mokesell</title>
+    <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        body{
-            background: gray;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <!-- Minigame 1 -->
-    <!-- <div class="memory-game">
-        <ul class="cards">
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/3534/3534312.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/9752/9752702.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/2957/2957307.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/7223/7223124.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/1785/1785388.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/1012/1012573.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/3089/3089623.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/3751/3751526.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/3534/3534312.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/9752/9752702.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/2957/2957307.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/7223/7223124.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/1785/1785388.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/1012/1012573.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/3089/3089623.png" alt="card-img">
-                </div>
-            </li>
-            <li class="card">
-                <div class="front-view">
-                    <span>?</span>
-                </div>
-                <div class="back-view">
-                    <img src="https://cdn-icons-png.flaticon.com/128/3751/3751526.png" alt="card-img">
-                </div>
-            </li>
-        </ul>
-    </div> -->
 
-    <!-- Minigame 2 -->
-    <div class="snake-game">
-        <div class="snake-game-details">
-            <span class="snake-game-score">Score: 0</span>
-            <span class="snake-game-high-score">High Score: 50</span>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid navbar-container">
+            <div class="row w-100">
+                <div class="col-12 col-md-4 d-flex justify-content-start align-items-center">
+                    <a href="index.html" class="logo-container">
+                        <img src="images/mokesell..png" alt="Logo" class="logo">
+                    </a>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                    <form action="#" class="search-form w-100">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <button type="submit" class="search-button">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
+                    <div class="cart-menu-icons">
+                        <a href="cart.html" class="cart-icon-link">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div id="cart-notification" class="cart-notification">
+                            <span id="cart-count">0</span>
+                        </div>
+                        <div class="menu-dropdown">
+                            <a href="#" class="menu-icon-link">
+                                <i class="fa-solid fa-bars"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="gallery.html?category=men">Men</a>
+                                <a href="gallery.html?category=women">Women</a>
+                                <a href="gallery.html?category=kids">Kids</a>
+                                <a href="gallery.html?category=baby">Baby</a>
+                                <a href="gallery.html?category=accessories">Accessories</a>
+                                <a href="gallery.html?category=beauty">Beauty</a>
+                                <a href="#contact-us" class="menu-link">Contact Us</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="snake-game-play-board">
-          <div class="block" style="grid-area: 10/13"></div>
-          <div class="snake" style="grid-area: 25/10"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="minigame-list">
+            <ul class="minigame" id="rock-paper-scissors-game" data-game-id="rock-paper-scissors">
+                <img src="https://mangobile.com/wp-content/uploads/2023/09/image.png">
+                <p>Rock Paper Scissors</p>
+            </ul>
+            <ul class="minigame" id="moke-memory-game" data-game-id="moke-memory-game">
+                <img src="images/moke-memory-game.png">
+                <p>Moke's Memory Pair</p>
+            </ul>
+            <ul class="minigame" id="tic-tac-toe-game" data-game-id="tic-tac-toe-game">
+                <img src="images/tic-tac-toe.png">
+                <p>Tic Tac Toe</p>
+            </ul>
+            <ul class="minigame" id="number-guesser-game" data-game-id="number-guesser-game">
+                <img src="images/number-guesser.jpg">
+                <p>Number Guesser</p>
+            </ul>
+            <ul class="minigame" id="mokersaur-game" data-game-id="mokersaur-game">
+                <img src="images/mokersaur.png">
+                <p>Mokersaur</p>
+            </ul>
+            <ul class="minigame" id="moke-snake-game" data-game-id="moke-snake-game">
+                <img src="images/moke-snake.jpg">
+                <p>Moke Snake</p>
+            </ul>            
         </div>
+
+        <!-- Game Content -->
+        <div class="game-content" id="moke-memory-game">
+            <h2>Moke's Memory Pair Game</h2>
+            <div class="memory-game">
+                <ul class="cards">
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/3534/3534312.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/9752/9752702.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/2957/2957307.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/7223/7223124.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/1785/1785388.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/1012/1012573.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/3089/3089623.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/3751/3751526.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/3534/3534312.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/9752/9752702.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/2957/2957307.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/7223/7223124.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/1785/1785388.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/1012/1012573.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/3089/3089623.png" alt="card-img">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <div class="front-view">
+                            <span>?</span>
+                        </div>
+                        <div class="back-view">
+                            <img src="https://cdn-icons-png.flaticon.com/128/3751/3751526.png" alt="card-img">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="game-content" id="moke-snake">
+            <h2>Moke Snake Game</h2>
+            <div class="snake-game">
+                <div class="snake-game-details">
+                    <span class="snake-game-score">Score: 0</span>
+                    <span class="snake-game-high-score">High Score: 50</span>
+                </div>
+                <div class="snake-game-play-board">
+                <div class="block" style="grid-area: 10/13"></div>
+                <div class="snake" style="grid-area: 25/10"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-content" id="mokersaur">
+            <h2>Mokersaur Game</h2>
+            <!-- Add the game content here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact-us">
+        <div class="container-fluid footer-container">
+            <div class="row footer-row">
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">help center</a></li>
+                        <li><a href="#">returns</a></li>
+                        <li><a href="#">feedback</a></li>
+                        <li><a href="#">privacy policy</a></li>
+                        <li><a href="#">contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="gallery.html?category=men">men</a></li>
+                        <li><a href="gallery.html?category=women">women</a></li>
+                        <li><a href="gallery.html?category=kids">kids</a></li>
+                        <li><a href="gallery.html?category=baby">baby</a></li>
+                        <li><a href="gallery.html?category=accessories">accessories</a></li>
+                        <li><a href="gallery.html?category=beauty">beauty</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Payment Methods</h4>
+                    <div class="payment-icons">
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                        <i class="fa-brands fa-cc-paypal"></i>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Follow us</h4>
+                    <div class="social-icons">
+                        <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://instagram.com"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script src="minigame.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>
