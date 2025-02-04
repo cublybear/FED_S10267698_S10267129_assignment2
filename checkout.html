@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -56,70 +57,67 @@
     <!-- main Content -->
     <main>
         <div class="container">
-            <h1 class="section-heading">Checkout</h1>
-            <div class="cart-container">
-                <div class="checkout-left">
-                    <!-- Billing Details -->
-                    <section class="billing-details">
-                        <h2 class="subheading">Billing Details</h2>
-                        <div class="address-option">
-                            <input type="radio" name="billing" checked>
-                            <label>Name Tan<br>Blk 123 Address Address Road<br>Singapore 123456 #12-34</label>
-                        </div>
-                        <div class="address-option">
-                            <input type="radio" name="billing">
-                            <label>Name Tan<br>Blk 123 Address Address Road<br>Singapore 123456 #12-34</label>
-                        </div>
-                    </section>
-
-                    <!-- Payment Method -->
-                    <section class="payment-method">
-                        <h2 class="subheading">Payment Method</h2>
-                        <label class="payment-option">
-                            <input type="radio" name="payment" checked> Credit/Debit Card
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment"> PayNow/PayLah!
-                        </label>
-                        <label class="payment-option">
-                            <input type="radio" name="payment"> Another method
-                        </label>
+          <h1 class="section-heading">Checkout</h1>
+      
+          <div class="row g-3">
+            <!-- Left Section (Billing & Payment) -->
+            <div class="col-lg-7 col-md-12">
+              <section class="billing-details">
+                <h2 class="subheading">Billing Details</h2>
+                <div class="address-option">
+                  <input type="radio" name="billing" checked>
+                  <label>Name Tan<br>Blk 123 Address Address Road<br>Singapore 123456 #12-34</label>
                 </div>
-                </section>
-
-                <!-- Checkout Summary Section (right) -->
-                <div class="checkout-right">
-                    <div id="checkout-summary" class="checkout-summary">
-                        <div id="checkout-items">
-                            <!-- Product items will be dynamically inserted here -->
-                        </div>
-
-                        <h2 class="subheading">Vouchers Available</h2>
-                        <label class="voucher-option">
-                            <input type="radio" name="voucher" checked> 15% OFF (Min. Spend S$0)
-                        </label>
-                        <label class="voucher-option">
-                            <input type="radio" name="voucher"> Free Shipping (Min. Spend S$15)
-                        </label>
-
-                        <label class="moke-coins">
-                            <input type="checkbox" checked> Redeem 326 MokeCoins
-                        </label>
-
-                        <div class="summary-details">
-                            <div class="cart-subprices">
-                                <p>Subtotal: <span id="subtotal" class="product-price">S$0.00</span></p>
-                                <p>Discount: <span id="discount" class="product-price">S$0.00</span></p>
-                            </div>
-                            <p><strong>Total:</strong> <span id="total" class="cart-total">S$0.00</span></p>
-                        </div>
-
-                        <a href="checkout.html" class="checkout-button">place order</a>
-                    </div>
-                </div> <!-- Close checkout-right -->
-            </div> <!-- Close checkout-container -->
-        </div> <!-- Close container -->
-    </main> <!-- Close main -->
+                <div class="address-option">
+                  <input type="radio" name="billing">
+                  <label>Name Tan<br>Blk 123 Address Address Road<br>Singapore 123456 #12-34</label>
+                </div>
+              </section>
+      
+              <section class="payment-method">
+                <h2 class="subheading">Payment Method</h2>
+                <label class="payment-option">
+                  <input type="radio" name="payment" checked> Credit/Debit Card
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment"> PayNow/PayLah!
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="payment"> Another method
+                </label>
+              </section>
+            </div>
+      
+            <!-- Right Section (Order Summary) -->
+            <div class="col-lg-5 col-md-12">
+              <div class="checkout-summary p-3">
+                <h2 class="subheading">Vouchers Available</h2>
+                <label class="voucher-option">
+                  <input type="radio" name="voucher" checked> 15% OFF (Min. Spend S$0)
+                </label>
+                <label class="voucher-option">
+                  <input type="radio" name="voucher"> Free Shipping (Min. Spend S$15)
+                </label>
+      
+                <label class="moke-coins">
+                  <input type="checkbox" checked> Redeem 326 MokeCoins
+                </label>
+      
+                <div class="summary-details">
+                  <div class="cart-subprices">
+                    <p>Subtotal: <span id="subtotal" class="product-price">S$0.00</span></p>
+                    <p>Discount: <span id="discount" class="product-price">S$0.00</span></p>
+                  </div>
+                  <p><strong>Total:</strong> <span id="total" class="cart-total">S$0.00</span></p>
+                </div>
+      
+                <a href="checkout.html" class="checkout-button btn btn-primary w-100">Place Order</a>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </main>
+      
 
     <!-- Footer -->
     <footer class="footer" id="contact-us">
@@ -167,6 +165,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
