@@ -1,299 +1,157 @@
 [
-    {
-      "name": "Classic T-Shirt",
-      "price": 19.99,
-      "category": "men",
-      "subcategory": "tops",
-      "description": "A comfortable classic t-shirt for everyday wear.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Classic T-Shirt",
-      "price": 19.99,
-      "category": "men",
-      "subcategory": "skirts",
-      "description": "A comfortable classic t-shirt for everyday wear.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Classic T-Shirt",
-      "price": 19.99,
-      "category": "men",
-      "subcategory": "dress",
-      "description": "A comfortable classic t-shirt for everyday wear.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Classic T-Shirt",
-      "price": 19.99,
-      "category": "men",
-      "subcategory": "outerwear",
-      "description": "A comfortable classic t-shirt for everyday wear.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Classic T-Shirt",
-      "price": 19.99,
-      "category": "men",
-      "subcategory": "bottom",
-      "description": "A comfortable classic t-shirt for everyday wear.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Casual Blouse",
-      "price": 25.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A casual blouse for a relaxed yet stylish look.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Formal Shirt",
-      "price": 29.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A formal shirt perfect for business or elegant events.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Summer Tank Top",
-      "price": 18.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A lightweight summer tank top for hot days.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Graphic Tee",
-      "price": 22.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A graphic tee for a casual and fun look.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Button-Up Shirt",
-      "price": 32.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A button-up shirt for a polished appearance.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Knitted Top",
-      "price": 27.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A cozy knitted top perfect for cooler weather.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Crop Top",
-      "price": 21.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A stylish crop top for a trendy look.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Long Sleeve Blouse",
-      "price": 28.99,
-      "category": "women",
-      "subcategory": "tops",
-      "description": "A long-sleeve blouse for cooler days with a touch of elegance.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Casual Blouse",
-      "price": 25.99,
-      "category": "women",
-      "subcategory": "skirts",
-      "description": "A casual blouse for a relaxed yet stylish look.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Casual Blouse",
-      "price": 25.99,
-      "category": "women",
-      "subcategory": "dress",
-      "description": "A casual blouse for a relaxed yet stylish look.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Casual Blouse",
-      "price": 25.99,
-      "category": "women",
-      "subcategory": "outerwear",
-      "description": "A casual blouse for a relaxed yet stylish look.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Casual Blouse",
-      "price": 25.99,
-      "category": "women",
-      "subcategory": "bottom",
-      "description": "A casual blouse for a relaxed yet stylish look.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Kids Graphic T-Shirt",
-      "price": 15.99,
-      "category": "kids",
-      "subcategory": "tops",
-      "description": "A fun graphic t-shirt for kids to express their style.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Kids Graphic T-Shirt",
-      "price": 15.99,
-      "category": "kids",
-      "subcategory": "skirts",
-      "description": "A fun graphic t-shirt for kids to express their style.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Kids Graphic T-Shirt",
-      "price": 15.99,
-      "category": "kids",
-      "subcategory": "dress",
-      "description": "A fun graphic t-shirt for kids to express their style.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Kids Graphic T-Shirt",
-      "price": 15.99,
-      "category": "kids",
-      "subcategory": "outerwear",
-      "description": "A fun graphic t-shirt for kids to express their style.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Kids Graphic T-Shirt",
-      "price": 15.99,
-      "category": "kids",
-      "subcategory": "bottom",
-      "description": "A fun graphic t-shirt for kids to express their style.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Baby Onesie",
-      "price": 12.99,
-      "category": "baby",
-      "subcategory": "tops",
-      "description": "A soft and comfortable onesie for babies.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Baby Onesie",
-      "price": 12.99,
-      "category": "baby",
-      "subcategory": "skirts",
-      "description": "A soft and comfortable onesie for babies.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Baby Onesie",
-      "price": 12.99,
-      "category": "baby",
-      "subcategory": "dress",
-      "description": "A soft and comfortable onesie for babies.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Baby Onesie",
-      "price": 12.99,
-      "category": "baby",
-      "subcategory": "outerwear",
-      "description": "A soft and comfortable onesie for babies.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Baby Onesie",
-      "price": 12.99,
-      "category": "baby",
-      "subcategory": "bottom",
-      "description": "A soft and comfortable onesie for babies.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Leather Wallet",
-      "price": 49.99,
-      "category": "accessories",
-      "subcategory": "tops",
-      "description": "A stylish leather wallet for everyday use.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Leather Wallet",
-      "price": 49.99,
-      "category": "accessories",
-      "subcategory": "skirts",
-      "description": "A stylish leather wallet for everyday use.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Leather Wallet",
-      "price": 49.99,
-      "category": "accessories",
-      "subcategory": "dress",
-      "description": "A stylish leather wallet for everyday use.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Leather Wallet",
-      "price": 49.99,
-      "category": "accessories",
-      "subcategory": "outerwear",
-      "description": "A stylish leather wallet for everyday use.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Leather Wallet",
-      "price": 49.99,
-      "category": "accessories",
-      "subcategory": "bottom",
-      "description": "A stylish leather wallet for everyday use.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Luxury Face Cream",
-      "price": 39.99,
-      "category": "beauty",
-      "subcategory": "tops",
-      "description": "A rich face cream for luxurious skincare.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Luxury Face Cream",
-      "price": 39.99,
-      "category": "beauty",
-      "subcategory": "skirts",
-      "description": "A rich face cream for luxurious skincare.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Luxury Face Cream",
-      "price": 39.99,
-      "category": "beauty",
-      "subcategory": "dress",
-      "description": "A rich face cream for luxurious skincare.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Luxury Face Cream",
-      "price": 39.99,
-      "category": "beauty",
-      "subcategory": "outerwear",
-      "description": "A rich face cream for luxurious skincare.",
-      "image": "images/white-blouse.jpg"
-    },
-    {
-      "name": "Luxury Face Cream",
-      "price": 39.99,
-      "category": "beauty",
-      "subcategory": "bottom",
-      "description": "A rich face cream for luxurious skincare.",
-      "image": "images/white-blouse.jpg"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "name": "Classic Beige T-Shirt",
+    "price": 19.99,
+    "category": "men",
+    "subcategory": "all, bestsellers, tops",
+    "sizing": "M",
+    "description": "A comfortable classic t-shirt for everyday wear.",
+    "image1": "images/m-beigeshirt.jpg",
+    "image2": "images/m-beigeshirt.jpg",
+    "image3": "images/m-beigeshirt.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Waistcoat Dress",
+    "price": 25.99,
+    "category": "women",
+    "subcategory": "all, bestsellers, dress",
+    "size": "S",
+    "description": "A casual blouse for a relaxed yet stylish look.",
+    "image1": "images/w-waistcoatdress1.jpg",
+    "image2": "images/w-waistcoatdress2.jpg",
+    "image3": "images/w-waistcoatdress3.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Waistcoat Dress",
+    "price": 25.99,
+    "category": "women",
+    "subcategory": "all, bestsellers, dress",
+    "size": "M",
+    "description": "A casual blouse for a relaxed yet stylish look.",
+    "image1": "images/w-waistcoatdress1.jpg",
+    "image2": "images/w-waistcoatdress2.jpg",
+    "image3": "images/w-waistcoatdress3.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Waistcoat Dress",
+    "price": 25.99,
+    "category": "women",
+    "subcategory": "all, bestsellers, dress",
+    "size": "L",
+    "description": "A casual blouse for a relaxed yet stylish look.",
+    "image1": "images/w-waistcoatdress1.jpg",
+    "image2": "images/w-waistcoatdress2.jpg",
+    "image3": "images/w-waistcoatdress3.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Knit Sweater with Hearts",
+    "price": 29.99,
+    "category": "women",
+    "subcategory": "all, bestsellers, outerwear",
+    "size": "M",
+    "description": "A formal shirt perfect for business or elegant events.",
+    "image1": "images/w-knitsweaterwithhearts.jpg",
+    "image2": "images/w-knitsweaterwithhearts.jpg",
+    "image3": "images/w-knitsweaterwithhearts.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Soft Check Mini Skirt",
+    "price": 18.99,
+    "category": "women",
+    "subcategory": "all, bestsellers, bottoms",
+    "size": "M",
+    "description": "A lightweight summer tank top for hot days.",
+    "image1": "images/w-softcheckminiskirt.jpg",
+    "image2": "images/w-softcheckminiskirt.jpg",
+    "image3": "images/w-softcheckminiskirt.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Denim Trousers",
+    "price": 22.99,
+    "category": "women",
+    "subcategory": "all, bestsellers, bottoms",
+    "size": "M",
+    "description": "A graphic tee for a casual and fun look.",
+    "image1": "images/w-denimtrousers.jpg",
+    "image2": "images/w-denimtrousers.jpg",
+    "image3": "images/w-denimtrousers.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Strapless Midi Dress",
+    "price": 22.99,
+    "category": "women",
+    "subcategory": "all, dress",
+    "size": "M",
+    "description": "A graphic tee for a casual and fun look.",
+    "image1": "images/w-straplessmididress.jpg",
+    "image2": "images/w-straplessmididress.jpg",
+    "image3": "images/w-straplessmididress.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Belted Ribbed T-Shirt",
+    "price": 22.99,
+    "category": "women",
+    "subcategory": "all, dress",
+    "size": "M",
+    "description": "A graphic tee for a casual and fun look.",
+    "image1": "images/w-beltedribbedshirt.jpg",
+    "image2": "images/w-beltedribbedshirt.jpg",
+    "image3": "images/w-beltedribbedshirt.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Denim-Effect Jacket",
+    "price": 22.99,
+    "category": "women",
+    "subcategory": "all, bestsellers, outerwear",
+    "size": "M",
+    "description": "A graphic tee for a casual and fun look.",
+    "image1": "images/w-denimeffectjacket.jpg",
+    "image2": "images/w-denimeffectjacket.jpg",
+    "image3": "images/w-denimeffectjacket.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Ribbed Top",
+    "price": 22.99,
+    "category": "women",
+    "subcategory": "all, dress",
+    "size": "M",
+    "description": "A graphic tee for a casual and fun look.",
+    "image1": "images/w-ribbedtop.jpg",
+    "image2": "images/w-ribbedtop.jpg",
+    "image3": "images/w-ribbedtop.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Heart Collar Dress",
+    "price": 15.99,
+    "category": "kids",
+    "subcategory": "all, bestsellers, girl",
+    "size": "M",
+    "description": "A fun graphic t-shirt for kids to express their style.",
+    "image1": "images/k-heartcollardress.jpg",
+    "image2": "images/k-heartcollardress.jpg",
+    "image3": "images/k-heartcollardress.jpg"
+  },
+  {
+    "id": 13,
+    "name": "Necklace with Metal Pieces",
+    "price": 15.99,
+    "category": "accessories",
+    "subcategory": "all, bestsellers, jewelry",
+    "description": "A stylish leather wallet for everyday use.",
+    "image1": "images/a-necklacewithemtalpieces.jpg",
+    "image2": "images/a-necklacewithemtalpieces.jpg",
+    "image3": "images/a-necklacewithemtalpieces.jpg"
+  }
+]
