@@ -728,17 +728,28 @@ ul {
 }
 
 /*---------------------------------------- Home ----------------------------------------*/
+#carouselExampleIndicators {
+  width: 100%; /* Ensure the carousel container takes up the full width */
+  max-width: 100%; /* Prevent overflow */
+}
 
 .carousel-inner {
-  width: 100%;
-  height: 400px; /* Set a fixed height for the carousel */
-  display: flex;
-  align-items: center;
+  height: 400px;           /* Set the height based on your desired size */
+  overflow: hidden;        /* Hide any overflow from the carousel items */
 }
 
-.carousel-inner img {
-    object-fit: cover;
+.carousel-item {
+  align-items: center;     /* Center content vertically */
+  height: 100%;            /* Ensure carousel items fill the container */
 }
+
+.carousel-item img {
+  max-width: 100%;         /* Ensure images do not overflow horizontally */
+  max-height: 100%;        /* Ensure images do not overflow vertically */
+  object-fit: contain;     /* Ensure the square image maintains its aspect ratio */
+  margin: 0 auto;          /* Center the image horizontally */
+}
+
 
 .carousel-control-next,
 .carousel-control-prev {
@@ -810,15 +821,55 @@ ul {
   padding: 0px 50px;
 }
 
+#category-heading {
+  margin-bottom: 0px;
+}
+
 .subcategory-nav {
   display: flex;
   justify-content: center;
+  gap: 40px;
 }
 
 .subcategory-nav a {
   text-decoration: none;
   color: black;
+  font-size: 16px;
+  position: relative;
+  padding-bottom: 5px;
+  transition: color 0.3s ease;
 }
+
+.subcategory-nav a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.subcategory-nav a:hover {
+  color: black;
+}
+
+.subcategory-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Keep underline on active subcategory */
+.subcategory-nav .active-subcategory {
+  font-weight: bold;
+}
+
+.subcategory-nav .active-subcategory::after {
+  transform: scaleX(1);
+}
+
+
 
 .card-link {
   text-decoration: none;
@@ -857,13 +908,20 @@ ul {
 .product-details-name {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .product-details-price {
   font-size: 20px;
   font-weight: bold;
   margin: 10px 0 20px;
+}
+
+/* Style the dropdown to have a specific look */
+select.form-select {
+  background-color: #f9f9f9;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .product-details-desc {
@@ -874,22 +932,26 @@ ul {
 /* Actions (Quantity and Button) */
 .product-details-actions {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
   align-items: center;
   margin-top: 50px;
+  padding: 10px 0px;
 }
-
 .add-to-cart-button {
   background-color: #C7B9FF;
-  white-space: nowrap;
+  white-space: normal;  /* Allow text to wrap if needed */
   border: none;
-  padding: 15px 80px;
+  padding: 15px 70px; /* Adjust padding to make the button more compact */
   border-radius: 20px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.3s ease;
+  width: auto;  /* Allow button width to be controlled by content */
+  max-width: 250px; /* Set a maximum width to avoid overly wide buttons */
+  margin: 0 auto; /* Center the button */
 }
+
 
 .add-to-cart-button:hover {
   background-color: #D9CFFF;

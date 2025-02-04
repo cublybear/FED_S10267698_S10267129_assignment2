@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
 </head>
 
 <body>
@@ -46,7 +45,7 @@
                                 <a href="#">Link 1</a>
                                 <a href="#">Link 2</a>
                                 <a href="#">Link 3</a>
-                                <a href="#contact-us" class="menu-link">contact us</a>
+                                <a href="#contact-us" class="menu-link">Contact Us</a>
                             </div>
                         </div>
                     </div>
@@ -60,67 +59,57 @@
         <section class="product-details-section">
             <div class="container">
                 <div class="row product-details align-items-center">
-                    <!-- Left Section -->
-                    <div class="col-12 col-md-6 left-section">
-                        <div id="carouselExampleIndicators" class="carousel slide">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                    class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                    aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                    aria-label="Slide 3"></button>
+                    <!-- Left Section (Images) -->
+                    <div class="col-12 col-lg-6">
+                        <div id="product-image-container">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators"></div>
+                                <div class="carousel-inner"></div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="images/product-placeholder.jpg" class="d-block mx-auto" alt="placeholder">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="images/product-placeholder.jpg" class="d-block mx-auto" alt="placeholder">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="images/product-placeholder.jpg" class="d-block mx-auto" alt="placeholder">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
                         </div>
                     </div>
-    
-                    <!-- Right Section -->
-                    <div class="col-12 col-md-6 product-details-info">
-                        <h2 id="product-details-name" class="product-details-name">Product Name</h2>
-                        <p id="product-details-cat" class="product-details-cat">Product Category</p>
-                        <select class="form-select" aria-label="Default select example">
+
+                    <!-- Right Section (Product Details) -->
+                    <div class="col-12 col-lg-6 product-details-info">
+                        <h2 id="product-name" class="product-details-name"></h2>
+                        <p id="product-cat" class="product-details-cat"></p>
+                        <p id="product-price" class="product-details-price"></p>
+
+                        <!-- Size Selection -->
+                        <select class="form-select" aria-label="Choose Size" id="product-size">
                             <option selected>Choose Size</option>
                             <option value="S">S</option>
                             <option value="M">M</option>
                             <option value="L">L</option>
-                          </select>
-                        <p id="product-details-price" class="product-details-price">S$0.00</p>
-                        <p id="product-details-desc" class="product-details-desc">Product description will be here</p>
+                        </select>
+
+                        <!-- Sold-out Status -->
+                        <p id="size-status" class="sold-out-message" style="color: red; display: none;">Sold out</p>
+
+                        <p id="product-desc" class="product-details-desc"></p>
+
+                        <!-- Quantity Controls & Add to Cart Button -->
                         <div class="product-details-actions">
-                            <div class="quantity-controls">
+                            <div class="quantity-controls d-flex align-items-center">
                                 <button class="decrement" id="decrement">-</button>
                                 <span class="quantity-display" id="quantity">1</span>
                                 <button class="increment" id="increment">+</button>
                             </div>
-                            <button class="add-to-cart-button" id="add-to-cart" onclick="addToCart()">Add To Cart</button>
+                            <button class="add-to-cart-button mx-auto" id="add-to-cart">Add To Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    
 
     <!-- Footer -->
     <footer class="footer" id="contact-us">
@@ -129,22 +118,22 @@
                 <div class="col-12 col-md-3 footer-col">
                     <h4>Customer Service</h4>
                     <ul>
-                        <li><a href="#">help center</a></li>
-                        <li><a href="#">returns</a></li>
-                        <li><a href="#">feedback</a></li>
-                        <li><a href="#">privacy policy</a></li>
-                        <li><a href="#">contact us</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-3 footer-col">
                     <h4>Categories</h4>
                     <ul>
-                        <li><a href="gallery.html?category=men">men</a></li>
-                        <li><a href="gallery.html?category=women">women</a></li>
-                        <li><a href="gallery.html?category=kids">kids</a></li>
-                        <li><a href="gallery.html?category=baby">baby</a></li>
-                        <li><a href="gallery.html?category=accessories">accessories</a></li>
-                        <li><a href="gallery.html?category=beauty">beauty</a></li>
+                        <li><a href="gallery.html?category=men">Men</a></li>
+                        <li><a href="gallery.html?category=women">Women</a></li>
+                        <li><a href="gallery.html?category=kids">Kids</a></li>
+                        <li><a href="gallery.html?category=baby">Baby</a></li>
+                        <li><a href="gallery.html?category=accessories">Accessories</a></li>
+                        <li><a href="gallery.html?category=beauty">Beauty</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-3 footer-col">
@@ -156,7 +145,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-3 footer-col">
-                    <h4>Follow us</h4>
+                    <h4>Follow Us</h4>
                     <div class="social-icons">
                         <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
                         <a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a>
@@ -166,8 +155,9 @@
             </div>
         </div>
     </footer>
+
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </body>
