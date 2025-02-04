@@ -70,8 +70,9 @@ async function accountexists(number, email) {
 }
 
 // Create an account
-function createaccount(email, phone, password) {
+function createaccount(username, email, phone, password) {
     let jsondata = {
+        "Username": username,
         "Email": email,
         "Phone Number": phone,
         "Password": password,
@@ -107,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
     
         // Get the form values
+        let contactUsername = document.getElementById("account-username").value;
         let contactEmail = document.getElementById("account-email").value;
         let contactPhone = document.getElementById("account-phone").value;
         let contactPassword = document.getElementById("account-password").value;
@@ -114,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         exists = await accountexists(contactPhone, contactEmail); // checks if account exists with either phone or email
 
         if(!exists){
-            createaccount(contactEmail, contactPhone, contactPassword) // creates account if it doesnt exist
+            createaccount(contactUsername, contactEmail, contactPhone, contactPassword) // creates account if it doesnt exist
         }
         else{
             document.getElementById("nocreate").style.display="block"

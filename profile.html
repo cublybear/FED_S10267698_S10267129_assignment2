@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mokesell</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid navbar-container">
+            <div class="row w-100">
+                <div class="col-12 col-md-4 d-flex justify-content-start align-items-center">
+                    <a href="index.html" class="logo-container">
+                        <img src="images/mokesell..png" alt="Logo" class="logo">
+                    </a>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                    <form action="#" class="search-form w-100">
+                        <input type="text" class="search-input" placeholder="Search">
+                        <button type="submit" class="search-button">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
+                    <div class="cart-menu-icons">
+                        <a href="cart.html" class="cart-icon-link">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                        <div id="cart-notification" class="cart-notification">
+                            <span id="cart-count">0</span>
+                        </div>
+                        <div class="menu-dropdown">
+                            <a href="#" class="menu-icon-link">
+                                <i class="fa-solid fa-bars"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="gallery.html?category=men">Men</a>
+                                <a href="gallery.html?category=women">Women</a>
+                                <a href="gallery.html?category=kids">Kids</a>
+                                <a href="gallery.html?category=baby">Baby</a>
+                                <a href="gallery.html?category=accessories">Accessories</a>
+                                <a href="gallery.html?category=beauty">Beauty</a>
+                                <a href="#contact-us" class="menu-link">Contact Us</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main section -->
+    <main>
+        <div class="container">
+            <div class="profile">
+                <p><strong>1jwh3r23ur24</strong></p>
+                <p>12 Followers | 123 Following</p>
+            </div>
+            <div class="features-container row p-4">
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-wallet"></i> To Pay</button>
+                </div>
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-boxes-packing"></i> To Ship</button>
+                </div>
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-truck"></i> To Receive</button>
+                </div>
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-star"></i> To Rate</button>
+                </div>
+            </div>
+            <div class="features-container row p-4">
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-coins"></i> MokeCoins</button>
+                </div>
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-dollar-sign"></i> Cashback</button>
+                </div>
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-gift"></i> Super Deals</button>
+                </div>
+                <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
+                    <button class="feature-btn"><i class="fa-solid fa-gamepad"></i> Minigames</button>
+                </div>
+            </div>
+            <div class="profile-account-details">
+                <h3>Account Details</h3>
+                <form id="edit-signup-form">
+                    <div class="signup-input" >
+                        <input class="form-control" id="account-username" name="Username" data-type="text" type="text" required>
+                        <label>Username</label>
+                    </div>
+                    <div class="signup-input" >
+                        <input class="form-control" id="account-email" name="Email" data-type="text" type="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="signup-input">
+                        <input class="form-control" id="account-phone" name="Phone Number" data-type="text" type="number" required>
+                        <label>Phone Number</label>
+                    </div>
+                    <div class="signup-input">
+                        <input class="form-control" id="account-password" name="Password" data-type="text" type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <input type="submit" value="EDIT" class="account-button" id="account-signup-submit">
+                </form>
+            </div>
+
+            <div class="profile-card-details">
+                <h3>Payment Details</h3>
+                <form id="edit-card-form">
+                    <div class="card-input" >
+                        <input class="form-control" id="card-number" name="Card Number" data-type="number" type="number" required>
+                        <label>Card Number: 1234 5678 1234 5678</label>
+                    </div>
+                    <div class="card-input" >
+                        <input class="form-control" id="card-cvv" name="Card CCV" data-type="number" type="number" required>
+                        <label>CVV: 123</label>
+                    </div>
+                    <div class="card-input">
+                        <input class="form-control" id="card-date" name="Expiry Date" data-type="date" type="date" required>
+                        <label>Expiration: 12/30</label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="profile-shipping-details">
+                <h3>Shipping Details</h3>
+                <form id="edit-shipping-form">
+                    <div class="shipping-input" >
+                        <input class="form-control" id="shipping-name" name="Name" data-type="text" type="text" required>
+                        <label>Name: Tan</label>
+                    </div>
+                    <div class="shipping-input">
+                        <input class="form-control" id="shipping-address" name="Shipping Address" data-type="text" type="text" required>
+                        <label>Blk 123 Address Address Road, Singapore 123456 #12-34</label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer">
+                <button class="logout">Log Out</div>
+                <button class="delete">Delete Account</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact-us">
+        <div class="container-fluid footer-container">
+            <div class="row footer-row">
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">help center</a></li>
+                        <li><a href="#">returns</a></li>
+                        <li><a href="#">feedback</a></li>
+                        <li><a href="#">privacy policy</a></li>
+                        <li><a href="#">contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="gallery.html?category=men">men</a></li>
+                        <li><a href="gallery.html?category=women">women</a></li>
+                        <li><a href="gallery.html?category=kids">kids</a></li>
+                        <li><a href="gallery.html?category=baby">baby</a></li>
+                        <li><a href="gallery.html?category=accessories">accessories</a></li>
+                        <li><a href="gallery.html?category=beauty">beauty</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Payment Methods</h4>
+                    <div class="payment-icons">
+                        <i class="fa-brands fa-cc-visa"></i>
+                        <i class="fa-brands fa-cc-mastercard"></i>
+                        <i class="fa-brands fa-cc-paypal"></i>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 footer-col">
+                    <h4>Follow us</h4>
+                    <div class="social-icons">
+                        <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://instagram.com"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
