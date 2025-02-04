@@ -1,358 +1,426 @@
 /*---------------------------------------- Default Styles ----------------------------------------*/
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html body{
-    font-family: 'Inter', sans-serif !important;
+html body {
+  font-family: 'Inter', sans-serif !important;
 }
 
 .container {
-    display: flex;
-    position: relative; 
-    flex-direction: column;
-    justify-content: center;
-    max-width: 100%;
-    width: 100%;
-    margin: 0 auto;
-    padding: 50px 20px;
-    box-sizing: border-box;
-    overflow: hidden;
+  display: flex;
+  position: relative; 
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .section-heading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
-    font-weight: bold;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  font-weight: bold;
+}
 
 /*---------------------------------------- Navbar ----------------------------------------*/
 .navbar-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 1rem;
-    background-color: #C7B9FF; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background-color: #C7B9FF; 
 }
 
 .logo {
-    width: auto;
-    height: 100%;
-    transition: transform 0.3s ease; /* Smooth scaling effect */
-    flex-shrink: 0;
-    display: flex;
-    object-fit: cover;
+  width: auto;
+  height: 100%;
+  transition: transform 0.3s ease; /* Smooth scaling effect */
+  flex-shrink: 0;
+  display: flex;
+  object-fit: cover;
 }
 
 /*prevent other parts of the space bar to be able to trigger the effect*/
 .logo-container {
-    width: 200px;
-    height: 100px;
-    overflow: hidden;
-    align-items: center;
-    display: flex;
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+  align-items: center;
+  display: flex;
 }
-  
+
 .logo-container:hover .logo {
-    transform: scale(1.05);     /* Slightly enlarge the logo on hover */
+  transform: scale(1.05);     /* Slightly enlarge the logo on hover */
 }
 
 .search-form {
-    display: flex;
-    padding: 10px 20px;
-    border-radius: 28px;
-    background: white;
-    flex: 1; 
-    width: 400px;
-    justify-content: space-between;
+  display: flex;
+  padding: 10px 20px;
+  border-radius: 28px;
+  background: white;
+  flex: 1; 
+  width: 400px;
+  justify-content: space-between;
 }
 
 .search-input {
-    font-size: 16px;
-    color: black;
-    margin-left: 14px;
-    outline: none;
-    border: none;
-    background: transparent;
+  font-size: 16px;
+  color: black;
+  margin-left: 14px;
+  outline: none;
+  border: none;
+  background: transparent;
 }
 
 .search-button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 
 
 .fa-solid.fa-search {
-    border: 1.5px solid black;
-    padding: 7px 12px;
-    border-radius: 20px;
-    background-color: #FBFFD1;
-    transition: transform 0.3s ease, filter 0.3s ease;
+  border: 1.5px solid black;
+  padding: 7px 12px;
+  border-radius: 20px;
+  background-color: #FBFFD1;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .fa-solid.fa-search:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .nav-section.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .cart-menu-icons {
-    display: flex; 
-    gap: 10px;
-    align-items: center;
+  display: flex; 
+  gap: 10px;
+  align-items: center;
 }
-  
+
 .fa-solid.fa-bars, .fa-solid.fa-cart-shopping {
-    color: black;
-    font-size: 20px; /* Adjust the size of the menu icon */
-    cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
+  color: black;
+  font-size: 20px; /* Adjust the size of the menu icon */
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
 }
-  
+
 .fa-solid.fa-bars:hover, .fa-solid.fa-cart-shopping:hover {
-    transform: scale(1.2); /* Slightly enlarge on hover */
+  transform: scale(1.2); /* Slightly enlarge on hover */
 }
 
 /* Dropdown Container */
 .menu-dropdown {
-    position: relative;
-    display: inline-block;
-    padding: 10px 10px; /* Add padding around the icon */
+  position: relative;
+  display: inline-block;
+  padding: 10px 10px; /* Add padding around the icon */
 }
-  
+
 /* Dropdown Content */
 .dropdown-content {
-    visibility: hidden; 
-    opacity: 0; 
-    text-align: right; 
-    position: absolute;
-    top: 40px; /* Position below the menu icon */
-    right: 0;
-    background-color: #FBFFD1; /* Match the coral-like background color */
-    border-radius: 20px; /* Rounded corners */
-    padding: 15px 35px; /* Padding for inner spacing */
-    width: 190px; /* Fixed width */
-    z-index: 10; /* Ensure the dropdown is on top of other elements */
-    transition: opacity 0.3s ease, visibility 0s 0.3s ease; /* Smooth transition for visibility */
+  visibility: hidden; 
+  opacity: 0; 
+  text-align: right; 
+  position: absolute;
+  top: 40px; /* Position below the menu icon */
+  right: 0;
+  background-color: #FBFFD1; /* Match the coral-like background color */
+  border-radius: 20px; /* Rounded corners */
+  padding: 15px 35px; /* Padding for inner spacing */
+  width: 190px; /* Fixed width */
+  z-index: 10; /* Ensure the dropdown is on top of other elements */
+  transition: opacity 0.3s ease, visibility 0s 0.3s ease; /* Smooth transition for visibility */
 }
-  
+
 /* Dropdown Links */
 .dropdown-content a {
-    display: block; /* Stack links vertically */
-    color: black; /* Match the light yellow text color */
-    font-size: 16px; /* Match the font size */
-    font-weight: 500;
-    text-decoration: none; /* Remove underline */
-    padding: 10px 15px; /* Add vertical spacing between links */
-    border-bottom: 1.5px solid black; /* Add a subtle divider line */
-    transition: all 0.3s ease;
+  display: block; /* Stack links vertically */
+  color: black; /* Match the light yellow text color */
+  font-size: 16px; /* Match the font size */
+  font-weight: 500;
+  text-decoration: none; /* Remove underline */
+  padding: 10px 15px; /* Add vertical spacing between links */
+  border-bottom: 1.5px solid black; /* Add a subtle divider line */
+  transition: all 0.3s ease;
 }
-  
+
 /* Remove divider for the last link */
 .dropdown-content a:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
-  
+
 .dropdown-content a:hover {
-    color: #C7B9FF;
-    padding-right: 8px;
+  color: #C7B9FF;
+  padding-right: 8px;
 }
 
 .menu-dropdown:hover .dropdown-content {
-    visibility: visible; /* Show the dropdown */
-    opacity: 1; /* Make it visible */
-    padding: 20px 25px; /* Increase hitbox for smoother interaction */
+  visibility: visible; /* Show the dropdown */
+  opacity: 1; /* Make it visible */
+  padding: 20px 25px; /* Increase hitbox for smoother interaction */
 }
 
 /*---------------------------------------- Account Page ----------------------------------------*/
 .account-container {
+  display: grid;
+  grid-template-columns: 1fr; /* One column by default */
+  grid-template-rows: auto; /* Automatically adjust rows */
+  place-items: center;
   justify-content: center;
   align-items: center;
   background-color: #C7B9FF;
   background-size: cover;
   background-position: center;
-  place-items: center;
   padding-top: 100px;
   padding-bottom: 100px;
 }
 
 .loading {
-    position: fixed; /* This makes the loading div fixed relative to the viewport */
-    top: 0; /* Position it at the top of the screen */
-    left: 0; /* Position it at the left of the screen */
-    width: 100%; /* Make it span the full width of the screen */
-    height: 100%; /* Make it span the full height of the screen */
-    background: grey; /* Optional: transparent background */
-    color: white;
-    display: flex; /* Flexbox for centering the text */
-    justify-content: center;
-    align-items: center;
-    font-size: 24px; /* Size of the loading text */
-    display: none;
-    opacity: 80%;
+  position: fixed; /* This makes the loading div fixed relative to the viewport */
+  top: 0; /* Position it at the top of the screen */
+  left: 0; /* Position it at the left of the screen */
+  width: 100%; /* Make it span the full width of the screen */
+  height: 100%; /* Make it span the full height of the screen */
+  background: grey; /* Optional: transparent background */
+  color: white;
+  display: flex; /* Flexbox for centering the text */
+  justify-content: center;
+  align-items: center;
+  font-size: 24px; /* Size of the loading text */
+  display: none;
+  opacity: 80%;
 }
 
 .msgs {
-    width: 90%;
-    text-align: center;
-    font-size: 24px;
-    padding: 10px;
-    color: white;
+  width: 90%;
+  text-align: center;
+  font-size: 24px;
+  padding: 10px;
+  color: white;
 }
 
 .nocreate {
-    background-color: red;
-    width: 100%;    
-    height: 20%;
-    border-radius: 10px;
-    margin: auto;
-    display: none;
+  background-color: red;
+  width: 100%;    
+  height: 20%;
+  border-radius: 10px;
+  margin: auto;
+  display: none;
 }
 
 .account-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  justify-content: flex-start;
+  gap: 20px;
+  flex-direction: row;
 }
 
 .account-logo {
-    display: flex;
-    width: 30%;
-    height: auto;
+  width: 60%;
+  max-width: 600px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .account-logo img {
-    max-width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
+  max-width: 600px;
 }
 
 .account-form {
-    color: black;
-    position:relative;
-    width: 380px;
-    height: fit-content;
-    background: transparent;
-    justify-content: center;
-    align-items: center;
-    /* overflow: hidden; command this line out for testing */
-    transition: height .2s ease;
-    flex-wrap: nowrap;
-    padding: 50px;
+  color: black;
+  position:relative;
+  width: 350px;
+  height: fit-content;
+  background: transparent;
+  justify-content: center;
+  align-items: center;
+  /* overflow: hidden; command this line out for testing */
+  transition: height .2s ease;
+  flex-wrap: nowrap;
 }
 
 .signin-input, .signup-input {
-    background-color: white;
-    border-radius: 5px;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .account-page {
-    display: none;
-    transition: transform.18s ease;
-    content: "";
+  display: none;
+  transition: transform.18s ease;
+  content: "";
 }
 
 .account-page.active {
-    display: block;
+  display: block;
 }
 
 .account-page .account-signin {
-    transition: none;
-    transform: translateX(-400px);
+  transition: none;
+  transform: translateX(-400px);
 }
 
 .account-signin h2, .account-signup h2 {
-    font-size: 2em;
-    color: rgba(158, 173, 123, 1);
+  font-size: 2em;
+  color: rgba(158, 173, 123, 1);
 }
 
 .account input {
-    width: 80%;
-    padding: 0%;
+  width: 80%;
+  padding: 0%;
 }
 
 .signin-input, .signup-input {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    border-bottom: 2px solid black;
-    margin: 30px 0;
-    padding: 0;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border-bottom: 2px solid black;
+  margin: 30px 0;
+  padding: 0;
 }
 
 .signin-input label, .signup-input label {
-    position: relative;
-    padding-left: 20px;
-    top: -50%;
-    transform: translateY(-50%);
-    font-size: 1em;
-    color: black;
-    font-weight: 500;
-    transition: .5s;
+  position: relative;
+  padding-left: 20px;
+  top: -50%;
+  transform: translateY(-50%);
+  font-size: 1em;
+  color: black;
+  font-weight: 500;
+  transition: .5s;
 }
 
 .signin-input input:focus~label, .signin-input input:valid~label {
-    top: -70px;
+  top: -70px;
 }
 
 .signup-input input:focus~label, .signup-input input:valid~label{
-    top: -70px;
+  top: -70px;
 }
 
 .signin-input input, .signup-input input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1em;
-    color: black;
-    font-weight: 600;
-    padding-left: 20px;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  color: black;
+  font-weight: 600;
+  padding-left: 20px;
 }
 
 #account-signin-submit, #account-signup-submit {
-    width: 100%;
-    height: 45px;
-    background: black;
-    border: none;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1em;
-    color: white;
-    font-weight: 500;
+  width: 100%;
+  height: 45px;
+  background: black;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  color: white;
+  font-weight: 500;
 }
 
 .account-signin, .account-signup {
-    font-size: 1em;
-    color: black;
-    text-align: left;
-    font-weight: 500;
-    margin: 25px 0 10px;
+  font-size: 1em;
+  color: black;
+  text-align: left;
+  font-weight: 500;
+  margin: 25px 0 10px;
 }
 
 .account-signin p a, .account-signup p a {
-    color: blue;
-    text-decoration: none;
-    font-weight: 600;
+  color: blue;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .account-signin a:hover, .account-signup a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .account-container {
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+    gap: 20px;
+  }
 }
 
 /*---------------------------------------- Minigame ----------------------------------------*/
+/* Styling the minigame-list container */
+.minigame-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  padding: 20px;
+  justify-items: center; /* Centering the items in each grid cell */
+  grid-template-rows: auto; /* Let rows adjust automatically based on content */
+}
+
+/* Styling individual minigame items */
+.minigame {
+  list-style-type: none;
+  text-align: center;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.minigame img {
+  width: 100%;
+  max-width: 150px; /* Restrict max width of images */
+  height: auto;
+  border-radius: 8px;
+}
+
+.minigame p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Hide all games initially */
+.game-content {
+  display: none;
+}
+
+/* Show the active game */
+.game-content.active {
+  display: block;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  .minigame-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .minigame-list {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+  }
+}
+
 /* Minigame 1 */
 .memory-game{
   height: 400px;

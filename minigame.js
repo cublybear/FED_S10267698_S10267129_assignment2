@@ -1,3 +1,25 @@
+// Get all the game items (minigame list items)
+const gameItems = document.querySelectorAll('.minigame');
+
+// Function to change the active game
+function changeGame(gameId) {
+    // Hide all games
+    const allGames = document.querySelectorAll('.game-content');
+    allGames.forEach(game => game.classList.remove('active'));
+
+    // Show the selected game
+    const selectedGame = document.getElementById(gameId);
+    selectedGame.classList.add('active');
+}
+
+// Add event listeners to the game items
+gameItems.forEach(item => {
+    item.addEventListener('click', function() {
+        const gameId = item.getAttribute('data-game-id');
+        changeGame(gameId);
+    });
+});
+
 //---------------------------------------- Minigame 1 ----------------------------------------
 const cards = document.querySelectorAll(".card");
 let matchCard = 0;
