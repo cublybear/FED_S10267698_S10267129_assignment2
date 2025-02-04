@@ -825,12 +825,12 @@ ul {
   color: black;
 }
 
-.card gallery{
+.card{
   transition: transform 0.3s ease; /* Smooth zoom-in animation */
 }
 
 .card:hover{
-  transform: scale(1.05); /* Zooms the image by 20% */
+  transform: scale(1.025); /* Zooms the image by 20% */
   border: 1.5px solid #C7B9FF; /* Change the border color on hover */
 }
 
