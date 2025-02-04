@@ -13,6 +13,10 @@
             min-height: 100vh;
         }
 
+        body{
+            background: gray;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -21,7 +25,8 @@
     </style>
 </head>
 <body>
-    <div class="memory-game">
+    <!-- Minigame 1 -->
+    <!-- <div class="memory-game">
         <ul class="cards">
             <li class="card">
                 <div class="front-view">
@@ -152,7 +157,18 @@
                 </div>
             </li>
         </ul>
-    </div>
+    </div> -->
+
+    <!-- Minigame 2 -->
+    <div class="snake-game">
+        <div class="snake-game-details">
+            <span class="snake-game-score">Score: 0</span>
+            <span class="snake-game-high-score">High Score: 50</span>
+        </div>
+        <div class="snake-game-play-board">
+          <div class="block" style="grid-area: 10/13"></div>
+          <div class="snake" style="grid-area: 25/10"></div>
+        </div>
     <script src="minigame.js"></script>
 </body>
 </html>
