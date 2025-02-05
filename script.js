@@ -1,3 +1,4 @@
+//----------------------------------------------------- JSON ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     fetch("products.json")
         .then(response => response.json())
@@ -17,6 +18,40 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error loading products:", error);
         });
 });
+
+//----------------------------------------------------- API ----------------------------------------------------
+// document.addEventListener("DOMContentLoaded", function () {
+//     const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';  // Your RestDB API URL
+//     const apikey = '678b1d1a19b96a08c0af6336';  // Your RestDB API key
+
+//     fetch(apiUrl, {
+//         method: 'GET',
+//         headers: {
+//             'x-apikey': apikey,  // Your RestDB API key
+//             'Content-Type': 'application/json',
+//             "Cache-Control": "no-cache"
+//         }
+//     })
+//         .then(response => response.json()) // Parse the response as JSON
+//         .then(products => {
+//             console.log(products);
+
+//             const urlParams = new URLSearchParams(window.location.search);
+//             const productId = urlParams.get("id");
+//             const category = urlParams.get("category") || "Products";
+//             const subcategory = urlParams.get("subcategory") || "all";
+
+//             if (productId) {
+//                 displayProductDetails(productId, products);
+//             } else {
+//                 displayProductGallery(category, subcategory, products);
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Error loading products:", error);
+//         });
+// });
+
 
 // ----------------------------------------------------- Product Details ----------------------------------------------------
 function displayProductDetails(productId, products) {
