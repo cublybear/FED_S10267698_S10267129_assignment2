@@ -61,7 +61,7 @@
 
     <!-- Main section -->
     <main>
-        <div class="container">
+        <div class="profile-container">
             <div class="profile">
                 <p><strong>1jwh3r23ur24</strong></p>
                 <p>12 Followers | 123 Following</p>
@@ -94,6 +94,7 @@
                     <button class="feature-btn"><i class="fa-solid fa-gamepad"></i> Minigames</button>
                 </div>
             </div>
+            
             <div class="profile-account-details">
                 <h3>Account Details</h3>
                 <form id="edit-signup-form">
@@ -113,7 +114,7 @@
                         <input class="form-control" id="account-password" name="Password" data-type="text" type="password" required>
                         <label>Password</label>
                     </div>
-                    <input type="submit" value="EDIT" class="account-button" id="account-signup-submit">
+                    <input type="submit" value="Edit Account Details" class="account-button" id="account-submit">
                 </form>
             </div>
 
@@ -129,9 +130,9 @@
                         <label>CVV: 123</label>
                     </div>
                     <div class="card-input">
-                        <input class="form-control" id="card-date" name="Expiry Date" data-type="date" type="date" required>
-                        <label>Expiration: 12/30</label>
+                        <input class="form-control" id="card-date" name="Expiry Date" type="date" required>
                     </div>
+                    <input type="submit" value="Edit Payment Details" class="card-button" id="card-submit">
                 </form>
             </div>
 
@@ -146,12 +147,13 @@
                         <input class="form-control" id="shipping-address" name="Shipping Address" data-type="text" type="text" required>
                         <label>Blk 123 Address Address Road, Singapore 123456 #12-34</label>
                     </div>
+                    <input type="submit" value="Add Address" class="shipping-button" id="shipping-submit">
                 </form>
             </div>
 
-            <div class="footer">
-                <button class="logout">Log Out</div>
-                <button class="delete">Delete Account</div>
+            <div class="profile-logout-delete-buttons">
+                <button class="logout">Log Out</button>
+                <button class="delete">Delete Account</button>
             </div>
         </div>
     </main>

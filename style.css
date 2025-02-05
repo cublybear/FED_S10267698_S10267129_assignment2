@@ -186,6 +186,8 @@ html body {
   background-position: center;
   padding-top: 100px;
   padding-bottom: 100px;
+  gap: 20px;
+  flex-direction: row;
 }
 
 .loading {
@@ -219,15 +221,6 @@ html body {
   border-radius: 10px;
   margin: auto;
   display: none;
-}
-
-.account-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  justify-content: flex-start;
-  gap: 20px;
-  flex-direction: row;
 }
 
 .account-logo {
@@ -276,11 +269,6 @@ html body {
 .account-page .account-signin {
   transition: none;
   transform: translateX(-400px);
-}
-
-.account-signin h2, .account-signup h2 {
-  font-size: 2em;
-  color: rgba(158, 173, 123, 1);
 }
 
 .account input {
@@ -364,6 +352,193 @@ html body {
     grid-template-columns: 1fr 1fr; /* Two columns layout */
     gap: 20px;
   }
+}
+
+/*---------------------------------------- Profile ----------------------------------------*/
+.profile-container{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.profile-account-details, .profile-card-details, .profile-shipping-details, .profile-account-buttons{
+  padding: 20px;
+}
+
+.account-button {
+  width: 100%;
+  height: 45px;
+  background: #FBFFD1;
+  outline: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1em;
+  color: black;
+  font-weight: 500;
+}
+
+.profile-card-details {
+  transition: transform.18s ease;
+  content: "";
+}
+
+.profile-card-details input {
+  width: 100%;
+  padding: 0%;
+}
+
+.card-input {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border-bottom: 2px solid black;
+  margin: 30px 0;
+  padding: 0;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.card-input label {
+  position: relative;
+  padding-left: 20px;
+  top: -50%;
+  transform: translateY(-50%);
+  font-size: 1em;
+  color: black;
+  font-weight: 500;
+  transition: .5s;
+}
+
+.card-input input:focus~label, .card-input input:valid~label{
+  top: -70px;
+}
+
+.card-input input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  color: black;
+  font-weight: 600;
+  padding-left: 20px;
+}
+
+.card-button {
+  width: 100%;
+  height: 45px;
+  background: #C7B9FF;
+  outline: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1em;
+  color: black;
+  font-weight: 500;
+}
+
+.profile-shipping-details {
+  transition: transform.18s ease;
+  content: "";
+}
+
+.profile-shipping-details input {
+  width: 100%;
+  padding: 0%;
+}
+
+.shipping-input {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  border-bottom: 2px solid black;
+  margin: 30px 0;
+  padding: 0;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.shipping-input label {
+  position: relative;
+  padding-left: 20px;
+  top: -50%;
+  transform: translateY(-50%);
+  font-size: 1em;
+  color: black;
+  font-weight: 500;
+  transition: .5s;
+}
+
+.shipping-input input:focus~label, .shipping-input input:valid~label{
+  top: -70px;
+}
+
+.shipping-input input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  color: black;
+  font-weight: 600;
+  padding-left: 20px;
+}
+
+.shipping-button {
+  width: 100%;
+  height: 45px;
+  background: #C7B9FF;
+  outline: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1em;
+  color: black;
+  font-weight: 500;
+}
+
+.profile-logout-delete-buttons {
+  display: flex;               /* Use flexbox to lay out the buttons */
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.profile-logout-delete-buttons button {
+  padding: 10px 20px;           /* Add padding to the buttons */
+  font-size: 14px;              /* Adjust font size */
+  border: none;                 /* Remove border */
+  cursor: pointer;             /* Change cursor to pointer */
+}
+
+.logout {
+  width: 30%;
+  height: 45px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #C7B9FF;
+  color: black;
+  border-radius: 5px;
+}
+
+.delete {
+  width: 30%;
+  height: 45px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 5px;
 }
 
 /*---------------------------------------- Minigame ----------------------------------------*/
