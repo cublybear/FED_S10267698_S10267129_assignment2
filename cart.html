@@ -37,17 +37,6 @@
                         <div id="cart-notification" class="cart-notification">
                             <span id="cart-count">0</span>
                         </div>
-                        <div class="menu-dropdown">
-                            <a href="#" class="menu-icon-link">
-                                <i class="fa-solid fa-bars"></i>
-                            </a>
-                            <div class="dropdown-content">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                                <a href="#contact-us" class="menu-link">contact us</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -56,57 +45,38 @@
 
     <main>
         <div class="container">
-          <h2 class="section-heading">Shopping Cart</h2>
-      
-          <div class="row g-2 justify-content-center align-items-start" style="max-width: 960px; margin: auto;">
-            
-            <!-- Cart Items Section -->
-            <div class="col-lg-7 col-md-12">
-              <div id="cart-items" class="cart-items card-items-section">
-                <div class="card mb-3 cart-item-card" style="max-width: 540px;">
-                  <div class="row g-0">
-                    <div class="col-md-3">
-                      <img src="images/product-placeholder.jpg" class="img-fluid rounded-start cart-item-img" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title cart-item-title">Product Name</h5>
-                        <p class="card-text cart-item-category">Category, SubCategory</p>
-                        <p class="cart-price cart-item-price">$99.99</p>
-                      </div>
-                    </div>
-                  </div>
+            <h2 class="section-heading">Shopping Cart</h2>
+
+            <div class="row g-5 justify-content-center align-items-start" style="max-width: 960px; margin: auto;">
+                <!-- Cart Items Section -->
+                <div id="cart-items-container" class="col-lg-6 col-md-12">
+                    <!-- Dynamic Cart Items will be inserted here -->
                 </div>
-              </div>
-            </div>
-      
-            <!-- Cart Summary Section -->
-            <div class="col-lg-5 col-md-12">
-              <div class="cart-summary p-4">
-                <h2>Promo Code:</h2>
-      
-                <div class="summary-details">
-                  <div class="promo-code">
-                    <input type="text" id="promo-code" placeholder="type here..." autocomplete="off">
-                  </div>
-      
-                  <div class="cart-subprices">
-                    <p>Subtotal: <span id="subtotal" class="product-price">S$0.00</span></p>
-                    <p>Discount: <span id="discount" class="product-price">S$0.00</span></p>
-                  </div>
-                  <p><strong>Total:</strong> <span id="total" class="cart-total">S$0.00</span></p>
+
+                <!-- Cart Summary Section -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="cart-summary p-4">
+                        <h2>Promo Code:</h2>
+
+                        <div class="summary-details">
+                            <div class="promo-code">
+                                <input type="text" id="promo-code" placeholder="type here..." autocomplete="off">
+                            </div>
+
+                            <div class="cart-subprices">
+                                <p>Subtotal: <span id="subtotal" class="product-price">S$0.00</span></p>
+                                <p>Discount: <span id="discount" class="product-price">S$0.00</span></p>
+                            </div>
+                            <p><strong>Total:</strong> <span id="total" class="cart-total">S$0.00</span></p>
+                        </div>
+
+                        <a href="checkout.html" class="checkout-button">Proceed to Checkout</a>
+                    </div>
                 </div>
-      
-                <a href="checkout.html" class="checkout-button">Proceed to Checkout</a>
-              </div>
             </div>
-      
-          </div>
         </div>
-      </main>
-      
-      
-      
+    </main>
+
     <!-- Footer -->
     <footer class="footer" id="contact-us">
         <div class="container-fluid footer-container">
