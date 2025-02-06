@@ -207,7 +207,7 @@ html body {
 }
 
 .msgs {
-  width: 90%;
+  width: 100%;
   text-align: center;
   font-size: 24px;
   padding: 10px;
@@ -574,13 +574,25 @@ html body {
 }
 
 /* Hide all games initially */
+/* Wrapper that holds the game content */
+.game-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px); /* Adjust the height to account for header and footer */
+  padding: 20px;
+}
+
 .game-content {
-  display: none;
+  display: none; /* Hide all game content initially */
+  text-align: center;
+  width: 100%; /* Ensure the content stretches across the screen */
 }
 
 /* Show the active game */
 .game-content.active {
-  display: block;
+  display: flex;
 }
 
 /* Responsive Design for smaller screens */
@@ -609,7 +621,7 @@ ul{
   list-style-type: none;
 }
 
-.cards, .front-view, .back-view{
+.memory-cards, .front-view, .back-view{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -627,14 +639,14 @@ ul{
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-.cards{
+.memory-cards{
   height: 100%;
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.cards .card{
+.memory-cards .memory-card{
   cursor: pointer;
   position: relative;
   perspective: 800px;
@@ -643,7 +655,7 @@ ul{
   width: calc(100% / 4 - 10px);
 }
 
-.card.shake{
+.memory-card.shake{
   animation: shake 0.35s ease-in-out
 }
 @keyframes shake{
@@ -664,24 +676,24 @@ ul{
   }
 }
 
-.card .front-view span{
+.memory-card .front-view span{
   font-size: 40px;
   color: #C7B9FF;
 }
 
-.card .back-view{
+.memory-card .back-view{
   transform: rotateY(180deg);
 }
 
-.card .back-view img{
+.memory-card .back-view img{
   max-width: 45px;
 }
 
-.card.flip .front-view{
+.memory-card.flip .front-view{
   transform: rotateY(180deg);
 }
 
-.card.flip .back-view{
+.memory-card.flip .back-view{
   transform: rotateY(0);
 }
 
@@ -706,7 +718,7 @@ ul{
   height: 100%;
   display: grid;
   grid-template: repeat(30, 1fr)/repeat(30, 1fr);
-  background: white;
+  background: lightgrey;
 }
 
 .snake-game-play-board .block{
@@ -718,91 +730,47 @@ ul{
 }
 
 /*---------------------------------------- Community ----------------------------------------*/
-/* Community Section */
 h1 {
   text-align: center;
   margin: 20px;
   padding: 20px;
 }
 
-/* Grid Layout */
-.community-post-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* Creates 4 equal columns */
-  gap: 15px;
-  max-width: 90%;
-  margin: auto;
-  margin-bottom: 30px;
-}
-
-.community-post {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.community-post-image {
+.post-con{
   width: 100%;
-  height: 200px;
-  background-color: #d3d3d3;
-  border-radius: 8px;
 }
 
-.community-post-title {
-  font-weight: bold;
-}
-
-.community-post-pfp {
+.post-con{
   display: flex;
-  gap: 10px;
-  width: 30px;        /* Desired width of the circle */
-  height: 30px;       /* Height equal to width to form a square container */
-  border-radius: 50%; /* Makes the image circular */
-  object-fit: cover;  /* Ensures the image fills the square container properly */
+  flex-direction: row;
+  padding: 10px;
 }
 
-.community-post-username {
+.indivcon {
+  margin: 10px auto;
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  height: auto;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.box1 .boxes:nth-child(odd) {
+  height: 14rem;
+  width: 100%;
+}
+
+.box3 .boxes:nth-child(odd) {
+  height: 17rem;
+  width: 100%;
+}
+
+.sub {
   display: flex;
-  width: 70%;
-  font-size: 14px;
-  color: gray;
-}
-
-.community-post-likes {
-  font-size: 14px;
-  color: red;
-}
-
-.add-post {
-  display: flex;
-  justify-content: center;  /* Centers the button horizontally */
-  align-items: center;      /* Centers the button vertically */
-  position: fixed;          /* Keeps it fixed on the screen */
-  top: 80%;
-  left: 50%;                /* Horizontal centering */
-  transform: translateX(-50%);  /* Adjusts to exact center */
-  width: 100%;              /* Ensures it spans the full width */
-  grid-column: span 4;      /* Make it span across all 4 columns */
-}
-
-.add-post-button {
-  background-color: red;
-  padding: 10px 20px;
-  border-radius: 20px;
-  color: white;
-  font-size: 16px;
-}
-
-@media (max-width: 1024px) {
-  .community-post-container {
-    grid-template-columns: repeat(3, 1fr);  /* 3 columns on medium-sized screens */
-  }
-}
-
-@media (max-width: 600px) {
-  .community-post-container {
-    grid-template-columns: repeat(1, 1fr);  /* 1 column on medium-sized screens */
-  }
+  flex-direction: column;
+  width: 100%;
+  margin: 1px 10px;
 }
 
 /*---------------------------------------- Footer ----------------------------------------*/
@@ -1043,8 +1011,6 @@ ul {
 .subcategory-nav .active-subcategory::after {
   transform: scaleX(1);
 }
-
-
 .card-link {
   text-decoration: none;
   color: black;
