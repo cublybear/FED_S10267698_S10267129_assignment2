@@ -1011,7 +1011,6 @@ ul {
 .subcategory-nav .active-subcategory::after {
   transform: scaleX(1);
 }
-
 .card-link {
   text-decoration: none;
   color: black;
@@ -1125,40 +1124,25 @@ select.form-select {
   text-align: center;
 }
   /*---------------------------------------- Cart ----------------------------------------*/
-  /* Cart Items Section Styling */
-.cart-item-card {
-  border: 2px solid #ddd;  /* Border around each cart item card */
-  border-radius: none;
+.cart-card {
   border: none !important;
-  margin-bottom: 20px;
+  border-radius: 0px !important;
 }
 
-/* Cart Item Image */
-.cart-item-img {
-  object-fit: cover;
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
+.cart-card .btn-close {
+  font-size: 14px; /* Makes the button icon smaller */
 }
 
-/* Cart Item Title */
-.cart-item-title {
-  font-size: 20px;
+
+.cart-card:hover {
+  transform: none;
+  border-color: none;
+}
+
+  .cart-price {
   font-weight: bold;
-  color: #333;
-}
-
-/* Cart Item Category */
-.cart-item-category {
-  font-size: 14px;
-  color: #777;
-}
-
-/* Cart Item Price */
-.cart-item-price {
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 10px;
+  font-size: 16px;
+  color: black;
 }
 
   /* Cart Summary Section */

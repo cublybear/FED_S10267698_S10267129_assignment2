@@ -8,9 +8,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A timeless beige t-shirt designed for comfort and style. Perfect for casual outings and everyday wear.",
-    "image1": "images/m-beigeshirt.jpg",
-    "image2": "images/m-beigeshirt.jpg",
-    "image3": "images/m-beigeshirt.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-beigeshirt_zgkhmn.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-beigeshirt_zgkhmn.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-beigeshirt_zgkhmn.jpg"
   },
   {
     "id": "M2",
@@ -21,9 +21,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A casual yet stylish washed hoodie with a relaxed fit. Features a front pouch pocket and ribbed trims for added comfort.",
-    "image1": "images/m-washedhoodie.jpg",
-    "image2": "images/m-washedhoodie.jpg",
-    "image3": "images/m-washedhoodie.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-washedhoodie_oxlezq.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-washedhoodie_oxlezq.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-washedhoodie_oxlezq.jpg"
   },
   {
     "id": "M3",
@@ -34,9 +34,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "Durable and stylish cargo denim trousers with multiple utility pockets. Designed for both function and fashion with an adjustable hem.",
-    "image1": "images/m-cargodenimtrousers.jpg",
-    "image2": "images/m-cargodenimtrousers.jpg",
-    "image3": "images/m-cargodenimtrousers.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/m-cargodenimtrousers_pnysyx.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/m-cargodenimtrousers_pnysyx.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/m-cargodenimtrousers_pnysyx.jpg"
   },
   {
     "id": "W1",
@@ -47,9 +47,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A stylish waistcoat dress that blends sophistication with comfort. Its sleek design makes it a perfect choice for any occasion.",
-    "image1": "images/w-waistcoatdress1.jpg",
-    "image2": "images/w-waistcoatdress2.jpg",
-    "image3": "images/w-waistcoatdress3.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-waistcoatdress1_haoz5s.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-waistcoatdress2_pvhb9t.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747240/w-waistcoatdress3_dk9lsr.jpg"
   },
   {
     "id": "W2",
@@ -60,9 +60,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A chic and trendy mini skirt with a soft checkered pattern. The lightweight fabric ensures comfort throughout the day.",
-    "image1": "images/w-softcheckminiskirt.jpg",
-    "image2": "images/w-softcheckminiskirt.jpg",
-    "image3": "images/w-softcheckminiskirt.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-softcheckminiskirt_dvt19o.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-softcheckminiskirt_dvt19o.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-softcheckminiskirt_dvt19o.jpg"
   },
   {
     "id": "W3",
@@ -73,9 +73,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A pair of stylish denim trousers with a relaxed fit. Designed for versatility, they can be dressed up or down effortlessly.",
-    "image1": "images/w-denimtrousers.jpg",
-    "image2": "images/w-denimtrousers.jpg",
-    "image3": "images/w-denimtrousers.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-denimtrousers_kw3z2y.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-denimtrousers_kw3z2y.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-denimtrousers_kw3z2y.jpg"
   },
   {
     "id": "W4",
@@ -86,9 +86,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "An elegant strapless midi dress designed for a sleek and sophisticated look. Perfect for special occasions or casual evenings.",
-    "image1": "images/w-straplessmididress.jpg",
-    "image2": "images/w-straplessmididress.jpg",
-    "image3": "images/w-straplessmididress.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-straplessmididress_y8zctm.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-straplessmididress_y8zctm.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-straplessmididress_y8zctm.jpg"
   },
   {
     "id": "W5",
@@ -99,9 +99,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A trendy ribbed t-shirt featuring a stylish belt accent. A must-have for a fashionable yet comfortable look.",
-    "image1": "images/w-beltedribbedshirt.jpg",
-    "image2": "images/w-beltedribbedshirt.jpg",
-    "image3": "images/w-beltedribbedshirt.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-beltedribbedshirt_ipisyy.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-beltedribbedshirt_ipisyy.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-beltedribbedshirt_ipisyy.jpg"
   },
   {
     "id": "W6",
@@ -112,9 +112,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A trendy denim-effect jacket with a soft and comfortable feel. A versatile piece that pairs well with any outfit.",
-    "image1": "images/w-denimeffectjacket.jpg",
-    "image2": "images/w-denimeffectjacket.jpg",
-    "image3": "images/w-denimeffectjacket.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-denimeffectjacket_okaxkc.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-denimeffectjacket_okaxkc.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-denimeffectjacket_okaxkc.jpg"
   },
   {
     "id": "W7",
@@ -125,9 +125,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A sleek and minimalistic ribbed top designed for everyday wear. Its fitted silhouette makes it an ideal choice for layering.",
-    "image1": "images/w-ribbedtop.jpg",
-    "image2": "images/w-ribbedtop.jpg",
-    "image3": "images/w-ribbedtop.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-ribbedtop_zo36sl.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-ribbedtop_zo36sl.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-ribbedtop_zo36sl.jpg"
   },
   {
     "id": "K1",
@@ -138,9 +138,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A charming dress featuring a heart-shaped collar for a sweet and playful look. Made from soft fabric to ensure comfort all day long.",
-    "image1": "images/k-heartcollardress.jpg",
-    "image2": "images/k-heartcollardress.jpg",
-    "image3": "images/k-heartcollardress.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-heartcollardress_i8bmou.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-heartcollardress_i8bmou.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-heartcollardress_i8bmou.jpg"
   },
   {
     "id": "K2",
@@ -151,9 +151,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A fun and colorful printed t-shirt designed for kids. Made from soft cotton for all-day comfort and play.",
-    "image1": "images/k-kidsprintedshirt.jpg",
-    "image2": "images/k-kidsprintedshirt.jpg",
-    "image3": "images/k-kidsprintedshirt.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-kidsprintedshirt_ux6k8g.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-kidsprintedshirt_ux6k8g.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-kidsprintedshirt_ux6k8g.jpg"
   },
   {
     "id": "A1",
@@ -164,9 +164,9 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A timeless gold necklace with delicate circular and tubular metal details. Perfect for adding a touch of elegance to any outfit.",
-    "image1": "images/a-elegantgoldnecklace.jpg",
-    "image2": "images/a-elegantgoldnecklace.jpg",
-    "image3": "images/a-elegantgoldnecklace.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-elegantgoldnecklace_xhtjsi.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-elegantgoldnecklace_xhtjsi.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-elegantgoldnecklace_xhtjsi.jpg"
   },
   {
     "id": "A2",
@@ -177,8 +177,8 @@
     "size": "S, M, L",
     "stock": "5, 10, 0",
     "description": "A classic black leather belt designed for durability and style. A must-have accessory that complements both casual and formal looks.",
-    "image1": "images/a-blackleatherbelt.jpg",
-    "image2": "images/a-blackleatherbelt.jpg",
-    "image3": "images/a-blackleatherbelt.jpg"
+    "image1": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-blackleatherbelt_nwzppg.jpg",
+    "image2": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-blackleatherbelt_nwzppg.jpg",
+    "image3": "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-blackleatherbelt_nwzppg.jpg"
   }
 ]

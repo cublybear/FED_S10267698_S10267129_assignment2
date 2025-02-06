@@ -1,3 +1,4 @@
+//----------------------------------------------------- JSON (testing) ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     fetch("products.json")
         .then(response => response.json())
@@ -8,15 +9,70 @@ document.addEventListener("DOMContentLoaded", function () {
             const subcategory = urlParams.get("subcategory") || "all";
 
             if (productId) {
-                displayProductDetails(productId, products);
+                // Find the specific product based on the 'productId'
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    displayProductDetails(productId, products);
+                    setupCartFunctions(product); // Now pass the 'product' object
+                } else {
+                    console.error('Product not found');
+                }
             } else {
                 displayProductGallery(category, subcategory, products);
+            }
+
+            // Load cart from sessionStorage and render cart items if on cart page
+            cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+            console.log("cart", cart);
+
+            // Only render cart items if on cart page
+            if (document.getElementById("cart-items-container")) {
+                renderCartItems();
+            }
+
+            // Only render checkout summary if on checkout page
+            if (document.getElementById("checkout-summary")) {
+                renderCheckoutSummary();
             }
         })
         .catch(error => {
             console.error("Error loading products:", error);
         });
 });
+
+
+//----------------------------------------------------- API ----------------------------------------------------
+// document.addEventListener("DOMContentLoaded", function () {
+//     const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';  // Your RestDB API URL
+//     const apikey = '678b1d1a19b96a08c0af6336';  // Your RestDB API key
+
+//     fetch(apiUrl, {
+//         method: 'GET',
+//         headers: {
+//             'x-apikey': apikey,  // Your RestDB API key
+//             'Content-Type': 'application/json',
+//             "Cache-Control": "no-cache"
+//         }
+//     })
+//         .then(response => response.json()) // Parse the response as JSON
+//         .then(products => {
+//             console.log(products);
+
+//             const urlParams = new URLSearchParams(window.location.search);
+//             const productId = urlParams.get("id");
+//             const category = urlParams.get("category") || "Products";
+//             const subcategory = urlParams.get("subcategory") || "all";
+
+//             if (productId) {
+//                 displayProductDetails(productId, products);
+//             } else {
+//                 displayProductGallery(category, subcategory, products);
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Error loading products:", error);
+//         });
+// });
 
 // ----------------------------------------------------- Product Details ----------------------------------------------------
 function displayProductDetails(productId, products) {
@@ -85,54 +141,42 @@ function displayProductDetails(productId, products) {
         document.getElementById("product-cat").textContent = displayText;
     }
 
-    // Size selection logic
-    const sizeSelect = document.getElementById("product-size");
-    const sizes = product.size.split(", ");
-    const stocks = product.stock.split(", ");
-    
-    // Reset size options and add new ones based on product sizes
-    sizeSelect.innerHTML = "<option selected>Choose Size</option>";
-    sizes.forEach((size, index) => {
-        const option = document.createElement("option");
-        option.value = size;
-        option.textContent = size;
-        sizeSelect.appendChild(option);
+    document.getElementById("add-to-cart").addEventListener("click", function () {
+        addToCart(product);
     });
+    
 
-    // Handle stock levels for selected size
-    sizeSelect.addEventListener("change", function () {
-        const selectedSize = sizeSelect.value;
-        const sizeIndex = sizes.indexOf(selectedSize);
+    const sizeSelect = document.getElementById("product-size");
+const sizes = product.size.split(", ");
+const stocks = product.stock.split(", ");
 
+// Reset size options and add new ones based on product sizes
+sizeSelect.innerHTML = "<option selected>Choose Size</option>";
+sizes.forEach((size, index) => {
+    const option = document.createElement("option");
+    option.value = size;
+    option.textContent = size;
+    sizeSelect.appendChild(option);
+});
+
+// Handle stock levels for selected size
+sizeSelect.addEventListener("change", function () {
+    const selectedSize = sizeSelect.value;
+    const sizeIndex = sizes.indexOf(selectedSize);
+
+    // Ensure the index is valid
+    if (sizeIndex !== -1) {
         // Show "Sold out" message if stock is 0, otherwise hide it
-        if (stocks[sizeIndex] === "0") {
+        if (parseInt(stocks[sizeIndex], 10) === 0) {
             document.getElementById("size-status").style.display = "block"; // Show "Sold out"
         } else {
             document.getElementById("size-status").style.display = "none"; // Hide "Sold out"
         }
-    });
+    }
+});
 
-    // Quantity controls
-    const quantityDisplay = document.getElementById("quantity");
-    let quantity = 1;
-
-    document.getElementById("increment").addEventListener("click", function() {
-        quantity++;
-        quantityDisplay.textContent = quantity;
-    });
-
-    document.getElementById("decrement").addEventListener("click", function() {
-        if (quantity > 1) {
-            quantity--;
-            quantityDisplay.textContent = quantity;
-        }
-    });
-
-    // Add to cart button
-    document.getElementById("add-to-cart").addEventListener("click", function() {
-        alert(`Added ${quantity} x ${product.name} to the cart.`);
-    });
 }
+
 // ----------------------------------------------------- Product Gallery ----------------------------------------------------
 function displayProductGallery(category, subcategory, products) {
     let filteredProducts = products.filter(product => product.category.toLowerCase() === category.toLowerCase());
@@ -146,9 +190,14 @@ function displayProductGallery(category, subcategory, products) {
     const subcategoryNav = document.querySelector(".subcategory-nav");
     const categoryHeading = document.getElementById("category-heading");
 
-    gallery.innerHTML = "";
-    subcategoryNav.innerHTML = "";
+    categoryHeading.textContent = category && category.charAt(0).toUpperCase() + category.slice(1) || "Category";
+    console.log(categoryHeading);  // This will print null if the element isn't found
+
+    if (categoryHeading) {
     categoryHeading.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+    } else {
+    console.error("Element with ID 'category-heading' not found.");
+    }
 
     const displayedProductNames = new Set();
     const subcategoriesSet = new Set();
@@ -231,4 +280,339 @@ function displayProductGallery(category, subcategory, products) {
         }
         subcategoryNav.appendChild(subcategoryItem);
     });
+}
+
+// ----------------------------------------------------- Cart ----------------------------------------------------
+// f: render cart items
+function renderCartItems() {
+    const cartItemsContainer = document.querySelector('#cart-items-container'); // Adjust to the correct container
+    
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+    } else {
+        cartItemsContainer.innerHTML = ''; // Clear the container before rendering new items
+
+        cart.forEach((product, index) => {
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.classList.add('col-lg-6', 'col-md-12');
+
+            const cartCardDiv = document.createElement('div');
+            cartCardDiv.classList.add('card', 'mb-3', 'cart-card');
+            cartItemDiv.appendChild(cartCardDiv);
+
+            const productImageDiv = document.createElement('div');
+            productImageDiv.classList.add('col-5', 'col-sm-4');
+            const productImage = document.createElement('img');
+            productImage.classList.add('img-fluid', 'product-image');
+            productImage.src = product.imageUrl;
+            productImage.alt = product.name;
+            productImageDiv.appendChild(productImage);
+
+            const productInfoDiv = document.createElement('div');
+            productInfoDiv.classList.add('col-7', 'col-sm-8', 'd-flex', 'flex-column', 'justify-content-between');
+            const cardBodyDiv = document.createElement('div');
+            cardBodyDiv.classList.add('d-flex', 'justify-content-between', 'align-items-center');
+            
+            const productDetailsDiv = document.createElement('div');
+            productDetailsDiv.classList.add('card-body');
+            
+            const productName = document.createElement('h5');
+            productName.classList.add('card-title', 'cart-title');
+            productName.textContent = product.name;
+            
+            const productCategory = document.createElement('p');
+            productCategory.classList.add('card-text', 'cart-text');
+            productCategory.textContent = `${product.category}, Size: ${product.size}`;
+            
+            const productPrice = document.createElement('p');
+            productPrice.classList.add('card-text', 'cart-price');
+            productPrice.textContent = `$${product.price.toFixed(2)}`;
+            
+            productDetailsDiv.appendChild(productName);
+            productDetailsDiv.appendChild(productCategory);
+            productDetailsDiv.appendChild(productPrice);
+            cardBodyDiv.appendChild(productDetailsDiv);
+
+            // Quantity Controls (Increment/Decrement)
+            const quantityControlsDiv = document.createElement('div');
+            quantityControlsDiv.classList.add('quantity-controls');
+            const incrementButton = document.createElement('button');
+            incrementButton.textContent = '+';
+            const decrementButton = document.createElement('button');
+            decrementButton.textContent = '-';
+            const quantityDisplay = document.createElement('span');
+            quantityDisplay.textContent = product.quantity;
+
+            quantityControlsDiv.appendChild(decrementButton);
+            quantityControlsDiv.appendChild(quantityDisplay);
+            quantityControlsDiv.appendChild(incrementButton);
+            cardBodyDiv.appendChild(quantityControlsDiv);
+
+            // Remove Button
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            cardBodyDiv.appendChild(removeButton);
+
+            // Append elements to the card
+            cartCardDiv.appendChild(productImageDiv);
+            cartCardDiv.appendChild(productInfoDiv);
+            cartInfoDiv.appendChild(cardBodyDiv);
+
+            // Event Listeners for Quantity Adjustment
+            incrementButton.addEventListener("click", () => {
+                product.quantity++;
+                quantityDisplay.textContent = product.quantity;
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCartItems(); // Re-render the cart
+                updateCartTotal();
+            });
+
+            decrementButton.addEventListener("click", () => {
+                if (product.quantity > 1) {
+                    product.quantity--;
+                    quantityDisplay.textContent = product.quantity;
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    renderCartItems(); // Re-render the cart
+                    updateCartTotal();
+                }
+            });
+
+            // Remove Button Logic
+            removeButton.addEventListener("click", () => {
+                cart.splice(index, 1); // Remove the item from the cart
+                localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+                renderCartItems(); // Re-render cart items
+                updateCartTotal(); // Update totals
+            });
+
+            cartItemsContainer.appendChild(cartItemDiv);
+        });
+
+        updateCartTotal(); // Ensure the total is updated after rendering
+    }
+}
+
+
+//   // f: render checkout page
+//   function renderCheckoutSummary() {
+//     const cartItemsContainer = document.getElementById("checkout-items");
+//     if (!cartItemsContainer) {
+//       console.error("Cart container not found!");
+//       return;
+//     }
+  
+//     cartItemsContainer.innerHTML = ""; // Clear existing items
+  
+//     cart.forEach(item => {
+//       const cartItemDiv = document.createElement("div");
+//       cartItemDiv.classList.add("checkout-item");
+  
+//       // Product Image
+//       const productImage = document.createElement("img");
+//       productImage.src = item.images && item.images.length > 0 ? item.images[0] : "scrunchies/cute one.jpg";
+//       productImage.alt = item.images && item.images.length > 0 ? item.name : "No image available";
+  
+//       // Product Details
+//       const productDetails = document.createElement("div");
+//       productDetails.classList.add("checkout-details");
+  
+//       const productName = document.createElement("p");
+//       productName.textContent = `${item.name}`;
+//       productName.classList.add("checkout-product-name");
+  
+//       const productQuantity = document.createElement("p");
+//       productQuantity.textContent = `qty : ${item.quantity}`;
+//       productQuantity.classList.add("product-subname");
+  
+//       const productPrice = document.createElement("p");
+//       productPrice.textContent = `S$${(item.price * item.quantity).toFixed(2)}`;
+//       productPrice.classList.add("checkout-product-price");
+  
+//       productDetails.appendChild(productName);
+//       productDetails.appendChild(productQuantity);
+//       productDetails.appendChild(productPrice);
+  
+//       // Append elements to cart item
+//       cartItemDiv.appendChild(productImage);
+//       cartItemDiv.appendChild(productDetails);
+//       cartItemsContainer.appendChild(cartItemDiv);
+//     });
+  
+//     updateCheckoutTotal();
+//   }
+  
+  // f: setup cart functions (quantity, add to cart)
+  function setupCartFunctions(product) {
+    const addToCartButton = document.getElementById("add-to-cart");
+    const incrementButton = document.getElementById("increment");
+    const decrementButton = document.getElementById("decrement");
+    const quantityDisplay = document.getElementById("quantity");
+  
+    if (!incrementButton || !decrementButton || !quantityDisplay) {
+      console.error("Quantity buttons or display not found.");
+      return;
+    }
+  
+    // Initialize quantity button logic
+    const getQuantity = setupQuantityButtons(incrementButton, decrementButton, quantityDisplay);
+  
+    if (addToCartButton) {
+      addToCartButton.addEventListener("click", () => {
+        const quantity = getQuantity(); // Get the current quantity
+        console.log("Adding to cart:", product.id, quantity);
+        addToCart(product.id, quantity);
+        showCartNotification(product, quantity);
+      });
+    } else {
+      console.error("Add to Cart button not found.");
+    }
+  }
+  
+  // f: add to cart
+  function addToCart(product) {
+    const sizeSelect = document.getElementById("product-size");
+    const selectedSize = sizeSelect.value;
+    const quantity = parseInt(document.getElementById("quantity").textContent);
+
+    if (selectedSize === "Choose Size") {
+        alert("Please choose a size.");
+        return;
+    }
+
+    const cartProduct = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        subcategory: product.subcategory,
+        size: selectedSize,
+        quantity: quantity,
+        image1: product.image1
+    };
+
+    let cartItems = JSON.parse(sessionStorage.getItem("cartItems")) || [];
+    const existingProductIndex = cartItems.findIndex(item => item.id === cartProduct.id && item.size === cartProduct.size);
+
+    if (existingProductIndex > -1) {
+        cartItems[existingProductIndex].quantity += quantity;
+    } else {
+        cartItems.push(cartProduct);
+    }
+
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+    console.log(sessionStorage.getItem("cartItems"));
+}
+
+  
+  // f: update cart total price summary
+  function updateCartTotal() {
+    const subtotalElement = document.getElementById("subtotal");
+    const discountElement = document.getElementById("discount");
+    const totalElement = document.getElementById("total");
+  
+    let subtotal = 0;
+  
+    cart.forEach(item => {
+      subtotal += item.price * item.quantity;
+    });
+  
+    const discount = 0; // Adjust this based on promo code logic
+    const total = subtotal - discount;
+  
+    subtotalElement.textContent = `S$${subtotal.toFixed(2)}`;
+    discountElement.textContent = `S$${discount.toFixed(2)}`;
+    totalElement.textContent = `S$${total.toFixed(2)}`;
+  }
+  
+  // f: update checkout total price summary
+  function updateCheckoutTotal() {
+    let subtotal = 0;
+    cart.forEach(item => {
+      subtotal += item.price * item.quantity;
+    });
+  
+    const shipping = 5.00; // Shipping cost (could be dynamic)
+    const total = subtotal + shipping;
+  
+    document.getElementById("subtotal").textContent = `S$${subtotal.toFixed(2)}`;
+    document.getElementById("shipping").textContent = `S$${shipping.toFixed(2)}`;
+    document.getElementById("total").textContent = `S$${total.toFixed(2)}`;
+  }
+  
+  // f: quantity update
+  function setupQuantityButtons(incrementButton, decrementButton, quantityDisplay, initialQuantity = 1) {
+    let quantity = initialQuantity;
+  
+    const updateQuantityDisplay = () => {
+      quantityDisplay.textContent = quantity;
+    };
+  
+    incrementButton.addEventListener("click", () => {
+      quantity++;
+      updateQuantityDisplay();
+    });
+  
+    decrementButton.addEventListener("click", () => {
+      if (quantity > 1) {
+        quantity--;
+        updateQuantityDisplay();
+      }
+    });
+  
+    updateQuantityDisplay(); // Initialize display
+    return () => quantity; // Return a function to get the current quantity
+  }
+  
+  // f: update the cart notification
+  function updateCartNotification() {
+  
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0); // Calculate the total number of items in the cart
+    const cartNotification = document.getElementById("cart-notification");
+    const cartCountElement = document.getElementById("cart-count");
+  
+    cartCountElement.textContent = cartCount; // Update the count in the notification
+  
+    // show notification if cart is not empty
+    if (cartCount > 0) {
+      cartNotification.classList.add("visible");
+    } else {
+      cartNotification.classList.remove("visible");
+    }
+  }
+  
+  // f: show notification in product.html
+  function showCartNotification(product, quantity) {
+    const notification = document.querySelector(".notification");
+    const body = document.body;
+    const notificationContainer = document.querySelector(".notification-container");  // To find the notification container
+  
+    if (notification.classList.contains("visible")) {
+      notification.classList.remove("visible");
+    }
+  
+    document.getElementById("notification-name").textContent = `"${product.name}" x${quantity}`;
+    notification.classList.add("visible");
+  
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  
+    setTimeout(() => {
+      notification.classList.remove("visible");
+      body.classList.remove("notification-visible"); // Remove the space after notification disappears
+    }, 4000);
+  }
+
+  function showCartNotification() {
+    const cartNotification = document.getElementById("cart-notification");
+
+    if (cartNotification) {  // Ensure the element exists before interacting with it
+        cartNotification.classList.add("visible");
+        setTimeout(() => {
+            cartNotification.classList.remove("visible");
+        }, 3000);
+    } else {
+        console.error("Cart notification element not found!");
+    }
 }
