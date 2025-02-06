@@ -128,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
     getAccounts(); 
     // Add new contact event listener 
     document.getElementById("account-signup-submit").addEventListener("click", async function (e) { 
-        console.log("hihi") 
         e.preventDefault(); 
      
         // Get the form values 

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Mokesell</title> 
     <link rel="stylesheet" href="style.css" type="text/css"> 
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
     <script src="https://kit.fontawesome.com/fcf58dc318.js" crossorigin="anonymous"></script> 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous"> 
@@ -17,11 +16,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script> 
     <script src="https://fedassignment2-eef5.restdb.io/assets/js/jquery-serialize-object.min.js"></script> 
     <script src="https://fedassignment2-eef5.restdb.io/assets/js/jquery.datetimepicker.full.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.1/lodash.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head> 
  
 <body> 
-    <div class="loading" id="loadingscreen">add your loading page</div> 
+    <div class="loading" id="loadingscreen">        
+        <dotlottie-player src="https://lottie.host/3c21a388-775a-4c30-8dfa-47d1850f72f3/2flB88VcIK.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
+    </div>
     <div class="msgs"> 
         <div class="nocreate" id="nocreate">You already have an account with this Email/Phone number</div> 
         <div class="nocreate" id="noaccount">Your Password/Username is incorrect or does not exist</div> 
