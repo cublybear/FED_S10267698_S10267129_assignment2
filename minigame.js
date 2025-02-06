@@ -1,22 +1,48 @@
-// Get all the game items (minigame list items)
-const gameItems = document.querySelectorAll('.minigame');
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to show the corresponding game based on the game ID in the URL
+    function showGameById(gameId) {
+        // Hide all non-game content
+        const nonGameElements = document.querySelectorAll('.minigame-list');
+        nonGameElements.forEach(element => {
+            element.style.display = 'none';
+        });
 
-// Function to change the active game
-function changeGame(gameId) {
-    // Hide all games
-    const allGames = document.querySelectorAll('.game-content');
-    allGames.forEach(game => game.classList.remove('active'));
+        // Hide all game content sections initially
+        const gameContents = document.querySelectorAll('.game-content');
+        gameContents.forEach(content => {
+            content.style.display = 'none';
+        });
 
-    // Show the selected game
-    const selectedGame = document.getElementById(gameId);
-    selectedGame.classList.add('active');
-}
+        // Show the selected game content
+        const selectedGameContent = document.getElementById(gameId);
+        if (selectedGameContent) {
+            selectedGameContent.style.display = 'block';
+        } else {
+            console.error("Game content not found:", gameId);
+        }
+    }
 
-// Add event listeners to the game items
-gameItems.forEach(item => {
-    item.addEventListener('click', function() {
-        const gameId = item.getAttribute('data-game-id');
-        changeGame(gameId);
+    // Extract game ID from the URL query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameIdFromURL = urlParams.get('id');
+
+    // If there's a game ID in the URL, display the corresponding game
+    if (gameIdFromURL) {
+        showGameById(gameIdFromURL);
+    }
+
+    // Add click event listeners to game items
+    const gameItems = document.querySelectorAll('.minigame');
+    gameItems.forEach(item => {
+        item.addEventListener('click', function () {
+            const gameId = item.getAttribute('data-game-id');
+
+            // Update the URL to reflect the game ID
+            history.pushState(null, '', '?id=' + gameId);
+
+            // Show the corresponding game content
+            showGameById(gameId);
+        });
     });
 });
 
@@ -174,13 +200,13 @@ const initGame = () => {
     let htmlMarkup = `<div class="block" style="grid-area: ${blockY}/${blockX}"></div>`;  // food block
 
     // Check if snake touches the block
-    // Check if snake touches the block
 if (snakeX === blockX && snakeY === blockY){
     changeFoodPosition();
     snakeBody.push({ x: blockX, y: blockY }); // Push block to snake body array
     score++; // increment score by 1
 
-    if (score > highScore) {  // Update the high score only if the current score is higher
+    // Update the high score only if the current score is higher
+    if (score > highScore) {
         highScore = score;
         localStorage.setItem("snake-game-high-score", highScore); // Save new high score
     }
@@ -189,7 +215,6 @@ if (snakeX === blockX && snakeY === blockY){
     scoreElement.innerText = `Score: ${score}`;
     highScoreElement.innerText = `High score: ${highScore}`;
     }
-
 
     // Move snake body forward
     for (let i = snakeBody.length - 1; i > 0; i--) {
