@@ -8,32 +8,31 @@ document.addEventListener("DOMContentLoaded", function () {
             const category = urlParams.get("category") || "Products";
             const subcategory = urlParams.get("subcategory") || "all";
 
+            // Load cart data after fetching the products
+            cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+            // Call renderCartItems after cart data is loaded
+            renderCartItems();
+            updateCartNotification();
+
             if (productId) {
-                // Find the specific product based on the 'productId'
                 const product = products.find(p => p.id === productId);
                 if (product) {
                     displayProductDetails(productId, products);
-                    setupCartFunctions(product); // Now pass the 'product' object
                 } else {
-                    console.error('Product not found');
+                    console.error("Product not found");
                 }
             } else {
                 displayProductGallery(category, subcategory, products);
             }
 
-            // Load cart from sessionStorage and render cart items if on cart page
-            cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-            console.log("cart", cart);
-
-            // Only render cart items if on cart page
+            // Ensure #cart-items-container exists before calling renderCartItems
             if (document.getElementById("cart-items-container")) {
                 renderCartItems();
+            } else {
+                console.error("Error: #cart-items-container not found.");
             }
 
-            // Only render checkout summary if on checkout page
-            if (document.getElementById("checkout-summary")) {
-                renderCheckoutSummary();
-            }
         })
         .catch(error => {
             console.error("Error loading products:", error);
@@ -97,85 +96,112 @@ function displayProductDetails(productId, products) {
 
     // Loop through images to create carousel items and indicators
     images.forEach((image, index) => {
-        // Create the carousel indicator button
         const indicator = document.createElement("button");
         indicator.setAttribute("type", "button");
         indicator.setAttribute("data-bs-target", "#carouselExampleIndicators");
         indicator.setAttribute("data-bs-slide-to", index);
         indicator.setAttribute("aria-label", `Slide ${index + 1}`);
-        if (index === 0) indicator.classList.add("active"); // Make the first indicator active
+        if (index === 0) indicator.classList.add("active");
 
-        // Create the carousel item (image container)
         const carouselItem = document.createElement("div");
         carouselItem.classList.add("carousel-item");
-        if (index === 0) carouselItem.classList.add("active"); // Make the first image active
+        if (index === 0) carouselItem.classList.add("active");
 
-        // Create the image element
         const img = document.createElement("img");
         img.src = image;
         img.classList.add("d-block", "mx-auto");
         img.alt = product.name;
 
-        // Append the image to the carousel item
         carouselItem.appendChild(img);
-
-        // Append the carousel item and the indicator to their respective parent elements
         carouselInner.appendChild(carouselItem);
         carouselIndicators.appendChild(indicator);
     });
 
-    // Display category and subcategory together (e.g., Women, Dress)
+    // Display category and subcategory together
     const subcategories = product.subcategory.split(",").map(sub => sub.trim());
     const filteredSubcategories = subcategories.filter(sub => sub.toLowerCase() !== "all" && sub.toLowerCase() !== "bestsellers");
 
-    // Capitalize the category and subcategory
     const categoryText = product.category.charAt(0).toUpperCase() + product.category.slice(1);
-    const subcategoryText = filteredSubcategories
-        .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
-        .join(", ");
+    const subcategoryText = filteredSubcategories.map(sub => sub.charAt(0).toUpperCase() + sub.slice(1)).join(", ");
 
     const displayText = [categoryText, subcategoryText].filter(Boolean).join(", ");
-
-    // Display the combined category and subcategory text
     if (displayText) {
         document.getElementById("product-cat").textContent = displayText;
     }
 
-    document.getElementById("add-to-cart").addEventListener("click", function () {
-        addToCart(product);
-    });
-    
-
+    // Handle size selection and stock level
     const sizeSelect = document.getElementById("product-size");
-const sizes = product.size.split(", ");
-const stocks = product.stock.split(", ");
+    const sizes = product.size.split(", ");
+    const stocks = product.stock.split(", ");
 
-// Reset size options and add new ones based on product sizes
-sizeSelect.innerHTML = "<option selected>Choose Size</option>";
-sizes.forEach((size, index) => {
-    const option = document.createElement("option");
-    option.value = size;
-    option.textContent = size;
-    sizeSelect.appendChild(option);
-});
+    // Reset size options and add new ones based on product sizes
+    sizeSelect.innerHTML = "<option selected>Choose Size</option>";
+    sizes.forEach((size, index) => {
+        const option = document.createElement("option");
+        option.value = size;
+        option.textContent = size;
+        sizeSelect.appendChild(option);
+    });
 
-// Handle stock levels for selected size
-sizeSelect.addEventListener("change", function () {
-    const selectedSize = sizeSelect.value;
-    const sizeIndex = sizes.indexOf(selectedSize);
+    // Handle stock levels for selected size
+    sizeSelect.addEventListener("change", function () {
+        const selectedSize = sizeSelect.value;
+        const sizeIndex = sizes.indexOf(selectedSize);
 
-    // Ensure the index is valid
-    if (sizeIndex !== -1) {
-        // Show "Sold out" message if stock is 0, otherwise hide it
-        if (parseInt(stocks[sizeIndex], 10) === 0) {
-            document.getElementById("size-status").style.display = "block"; // Show "Sold out"
-        } else {
-            document.getElementById("size-status").style.display = "none"; // Hide "Sold out"
+        if (sizeIndex !== -1) {
+            if (parseInt(stocks[sizeIndex], 10) === 0) {
+                document.getElementById("size-status").style.display = "block"; // Show "Sold out"
+            } else {
+                document.getElementById("size-status").style.display = "none"; // Hide "Sold out"
+            }
         }
-    }
-});
+    });
 
+    // Initialize quantity control
+    const quantityDisplay = document.querySelector(".quantity-display");
+    const decrementButton = document.querySelector(".decrement");
+    const incrementButton = document.querySelector(".increment");
+
+    // Call the quantity control function
+    handleQuantityControls(quantityDisplay, decrementButton, incrementButton);
+
+    // Handle adding product to cart
+    document.getElementById("add-to-cart").addEventListener("click", function () {
+        const selectedSize = sizeSelect.value;
+        const sizeIndex = sizes.indexOf(selectedSize);
+
+        // Check if size is selected
+        if (selectedSize === "Choose Size" || selectedSize === "") {
+            // Show the alert if no size is selected
+            const alert = document.getElementById("size-alert");
+            alert.style.display = "block"; // Show the alert
+            alert.classList.add("show");  // Make the alert visible with Bootstrap animation
+
+            // Hide the alert after 3 seconds
+            setTimeout(function () {
+                alert.classList.remove("show");  // Fade out the alert smoothly
+                alert.style.display = "none"; // Actually hide the alert after fade
+            }, 3000); // 3 seconds for the alert to disappear
+        } else if (parseInt(stocks[sizeIndex], 10) === 0) {
+            // If the selected size is sold out, show a different alert
+            const soldOutAlert = document.getElementById("sold-out-alert");
+            soldOutAlert.style.display = "block"; // Show the sold-out alert
+            soldOutAlert.classList.add("show");
+
+            // Hide the alert after 3 seconds
+            setTimeout(function () {
+                soldOutAlert.classList.remove("show");
+                soldOutAlert.style.display = "none";
+            }, 3000);
+        } else {
+            // Proceed with adding the product to cart
+            addToCart(product);
+        }
+    });
 }
+
+
+
 
 // ----------------------------------------------------- Product Gallery ----------------------------------------------------
 function displayProductGallery(category, subcategory, products) {
@@ -283,193 +309,154 @@ function displayProductGallery(category, subcategory, products) {
 }
 
 // ----------------------------------------------------- Cart ----------------------------------------------------
-// f: render cart items
+// Retrieve cart data from sessionStorage
+function getCart() {
+    return JSON.parse(sessionStorage.getItem("cart")) || [];
+}
+
+// Save cart data to sessionStorage
+function saveCart(cart) {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+}
+
 function renderCartItems() {
-    const cartItemsContainer = document.querySelector('#cart-items-container'); // Adjust to the correct container
-    
+    const cartItemsContainer = document.querySelector("#cart-items-container");
+
+    if (!cartItemsContainer) {
+        console.error("Error: #cart-items-container not found.");
+        return;
+    }
+
+    let cart = getCart();
+    cartItemsContainer.innerHTML = ""; // Clear previous items before rendering
+
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
     } else {
-        cartItemsContainer.innerHTML = ''; // Clear the container before rendering new items
-
         cart.forEach((product, index) => {
             const cartItemDiv = document.createElement('div');
-            cartItemDiv.classList.add('col-lg-6', 'col-md-12');
+            cartItemDiv.classList.add('row', 'align-items-center');
 
             const cartCardDiv = document.createElement('div');
-            cartCardDiv.classList.add('card', 'mb-3', 'cart-card');
-            cartItemDiv.appendChild(cartCardDiv);
+            cartCardDiv.classList.add('card', 'cart-card');
+
+            // Create the remove button
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('btn-close');
+            closeButton.setAttribute('aria-label', 'Close');
+            closeButton.style.position = 'absolute';
+            closeButton.style.top = '20px';
+            closeButton.style.right = '10px';
+
+            // Card body and content
+            const cartCardBody = document.createElement('div');
+            cartCardBody.classList.add('card-body');
+
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('row', 'g-0', 'align-items-center');
 
             const productImageDiv = document.createElement('div');
-            productImageDiv.classList.add('col-5', 'col-sm-4');
+            productImageDiv.classList.add('col-4', 'col-sm-3');
             const productImage = document.createElement('img');
-            productImage.classList.add('img-fluid', 'product-image');
-            productImage.src = product.imageUrl;
-            productImage.alt = product.name;
+            productImage.classList.add('img-fluid', 'rounded');
+            productImage.src = product.image1;
             productImageDiv.appendChild(productImage);
 
             const productInfoDiv = document.createElement('div');
-            productInfoDiv.classList.add('col-7', 'col-sm-8', 'd-flex', 'flex-column', 'justify-content-between');
+            productInfoDiv.classList.add('col-8', 'col-sm-9');
             const cardBodyDiv = document.createElement('div');
-            cardBodyDiv.classList.add('d-flex', 'justify-content-between', 'align-items-center');
-            
-            const productDetailsDiv = document.createElement('div');
-            productDetailsDiv.classList.add('card-body');
-            
-            const productName = document.createElement('h5');
-            productName.classList.add('card-title', 'cart-title');
+            cardBodyDiv.classList.add('card-body', 'd-flex', 'flex-column', 'justify-content-between');
+
+            const productName = document.createElement("h5");
+            productName.classList.add("card-title", "cart-title");
             productName.textContent = product.name;
-            
+
             const productCategory = document.createElement('p');
             productCategory.classList.add('card-text', 'cart-text');
-            productCategory.textContent = `${product.category}, Size: ${product.size}`;
-            
-            const productPrice = document.createElement('p');
-            productPrice.classList.add('card-text', 'cart-price');
-            productPrice.textContent = `$${product.price.toFixed(2)}`;
-            
-            productDetailsDiv.appendChild(productName);
-            productDetailsDiv.appendChild(productCategory);
-            productDetailsDiv.appendChild(productPrice);
-            cardBodyDiv.appendChild(productDetailsDiv);
+            const categoryText = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+            let subcategoryText = product.subcategory
+                .split(",")
+                .map(sub => sub.trim())
+                .filter(sub => sub.toLowerCase() !== "all" && sub.toLowerCase() !== "bestsellers")
+                .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
+                .join(", ");
+            productCategory.textContent = `${categoryText}, ${subcategoryText}, ${product.size}`;
 
-            // Quantity Controls (Increment/Decrement)
-            const quantityControlsDiv = document.createElement('div');
-            quantityControlsDiv.classList.add('quantity-controls');
-            const incrementButton = document.createElement('button');
-            incrementButton.textContent = '+';
+            const productPrice = document.createElement("p");
+            productPrice.classList.add("card-text", "cart-price");
+            productPrice.textContent = `S$${(product.price * product.quantity).toFixed(2)}`; // Update price based on quantity
+
+            cardBodyDiv.appendChild(productName);
+            cardBodyDiv.appendChild(productCategory);
+            cardBodyDiv.appendChild(productPrice);
+
+            // Quantity Controls
+            const quantityControlsDiv = document.createElement("div");
+            quantityControlsDiv.classList.add("quantity-controls", "d-flex", "align-items-center");
+
             const decrementButton = document.createElement('button');
-            decrementButton.textContent = '-';
+            decrementButton.classList.add('decrement');
+            decrementButton.textContent = "-";
+
             const quantityDisplay = document.createElement('span');
+            quantityDisplay.classList.add('quantity-display');
             quantityDisplay.textContent = product.quantity;
+
+            const incrementButton = document.createElement('button');
+            incrementButton.classList.add('decrement');
+            incrementButton.textContent = "+";
+
+            // Bind the quantity control event listeners
+            handleQuantityControls(quantityDisplay, decrementButton, incrementButton, index);
 
             quantityControlsDiv.appendChild(decrementButton);
             quantityControlsDiv.appendChild(quantityDisplay);
             quantityControlsDiv.appendChild(incrementButton);
             cardBodyDiv.appendChild(quantityControlsDiv);
 
-            // Remove Button
-            const removeButton = document.createElement('button');
-            removeButton.textContent = 'Remove';
-            cardBodyDiv.appendChild(removeButton);
+            // Assemble the cart item
+            productInfoDiv.appendChild(cardBodyDiv);
+            rowDiv.appendChild(productImageDiv);
+            rowDiv.appendChild(productInfoDiv);
+            cartCardDiv.appendChild(cartCardBody);
+            cartCardDiv.appendChild(rowDiv);
+            cartCardDiv.appendChild(closeButton);
 
-            // Append elements to the card
-            cartCardDiv.appendChild(productImageDiv);
-            cartCardDiv.appendChild(productInfoDiv);
-            cartInfoDiv.appendChild(cardBodyDiv);
-
-            // Event Listeners for Quantity Adjustment
-            incrementButton.addEventListener("click", () => {
-                product.quantity++;
-                quantityDisplay.textContent = product.quantity;
-                localStorage.setItem("cart", JSON.stringify(cart));
-                renderCartItems(); // Re-render the cart
-                updateCartTotal();
-            });
-
-            decrementButton.addEventListener("click", () => {
-                if (product.quantity > 1) {
-                    product.quantity--;
-                    quantityDisplay.textContent = product.quantity;
-                    localStorage.setItem("cart", JSON.stringify(cart));
-                    renderCartItems(); // Re-render the cart
-                    updateCartTotal();
-                }
-            });
-
-            // Remove Button Logic
-            removeButton.addEventListener("click", () => {
-                cart.splice(index, 1); // Remove the item from the cart
-                localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
-                renderCartItems(); // Re-render cart items
-                updateCartTotal(); // Update totals
-            });
-
+            cartItemDiv.appendChild(cartCardDiv);
             cartItemsContainer.appendChild(cartItemDiv);
-        });
 
-        updateCartTotal(); // Ensure the total is updated after rendering
+            // Close button event listener
+            closeButton.addEventListener('click', () => removeCartItem(index));
+        });
     }
+
+    // Update the cart total and cart notification
+    updateCartTotal();
+    updateCartNotification();
 }
 
-
-//   // f: render checkout page
-//   function renderCheckoutSummary() {
-//     const cartItemsContainer = document.getElementById("checkout-items");
-//     if (!cartItemsContainer) {
-//       console.error("Cart container not found!");
-//       return;
-//     }
-  
-//     cartItemsContainer.innerHTML = ""; // Clear existing items
-  
-//     cart.forEach(item => {
-//       const cartItemDiv = document.createElement("div");
-//       cartItemDiv.classList.add("checkout-item");
-  
-//       // Product Image
-//       const productImage = document.createElement("img");
-//       productImage.src = item.images && item.images.length > 0 ? item.images[0] : "scrunchies/cute one.jpg";
-//       productImage.alt = item.images && item.images.length > 0 ? item.name : "No image available";
-  
-//       // Product Details
-//       const productDetails = document.createElement("div");
-//       productDetails.classList.add("checkout-details");
-  
-//       const productName = document.createElement("p");
-//       productName.textContent = `${item.name}`;
-//       productName.classList.add("checkout-product-name");
-  
-//       const productQuantity = document.createElement("p");
-//       productQuantity.textContent = `qty : ${item.quantity}`;
-//       productQuantity.classList.add("product-subname");
-  
-//       const productPrice = document.createElement("p");
-//       productPrice.textContent = `S$${(item.price * item.quantity).toFixed(2)}`;
-//       productPrice.classList.add("checkout-product-price");
-  
-//       productDetails.appendChild(productName);
-//       productDetails.appendChild(productQuantity);
-//       productDetails.appendChild(productPrice);
-  
-//       // Append elements to cart item
-//       cartItemDiv.appendChild(productImage);
-//       cartItemDiv.appendChild(productDetails);
-//       cartItemsContainer.appendChild(cartItemDiv);
-//     });
-  
-//     updateCheckoutTotal();
-//   }
-  
-  // f: setup cart functions (quantity, add to cart)
-  function setupCartFunctions(product) {
-    const addToCartButton = document.getElementById("add-to-cart");
-    const incrementButton = document.getElementById("increment");
-    const decrementButton = document.getElementById("decrement");
-    const quantityDisplay = document.getElementById("quantity");
-  
-    if (!incrementButton || !decrementButton || !quantityDisplay) {
-      console.error("Quantity buttons or display not found.");
-      return;
-    }
-  
-    // Initialize quantity button logic
-    const getQuantity = setupQuantityButtons(incrementButton, decrementButton, quantityDisplay);
-  
-    if (addToCartButton) {
-      addToCartButton.addEventListener("click", () => {
-        const quantity = getQuantity(); // Get the current quantity
-        console.log("Adding to cart:", product.id, quantity);
-        addToCart(product.id, quantity);
-        showCartNotification(product, quantity);
-      });
+// Update Cart Quantity
+function updateCartQuantity(index, newQuantity) {
+    let cart = getCart();
+    if (newQuantity > 0) {
+        cart[index].quantity = newQuantity;
     } else {
-      console.error("Add to Cart button not found.");
+        cart.splice(index, 1); // Remove the item from the cart if quantity is 0
     }
-  }
-  
-  // f: add to cart
-  function addToCart(product) {
+    saveCart(cart); // Save the updated cart
+    renderCartItems(); // Re-render the cart to reflect changes
+}
+
+// Remove Cart Item
+function removeCartItem(index) {
+    let cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCartItems();
+}
+
+// Add to Cart
+function addToCart(product) {
     const sizeSelect = document.getElementById("product-size");
     const selectedSize = sizeSelect.value;
     const quantity = parseInt(document.getElementById("quantity").textContent);
@@ -479,140 +466,68 @@ function renderCartItems() {
         return;
     }
 
-    const cartProduct = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        category: product.category,
-        subcategory: product.subcategory,
-        size: selectedSize,
-        quantity: quantity,
-        image1: product.image1
-    };
-
-    let cartItems = JSON.parse(sessionStorage.getItem("cartItems")) || [];
-    const existingProductIndex = cartItems.findIndex(item => item.id === cartProduct.id && item.size === cartProduct.size);
+    let cart = getCart();
+    const existingProductIndex = cart.findIndex(item => item.id === product.id && item.size === selectedSize);
 
     if (existingProductIndex > -1) {
-        cartItems[existingProductIndex].quantity += quantity;
+        cart[existingProductIndex].quantity += quantity;
     } else {
-        cartItems.push(cartProduct);
+        cart.push({ ...product, size: selectedSize, quantity });
     }
 
-    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-    console.log(sessionStorage.getItem("cartItems"));
+    saveCart(cart);
+    updateCartNotification();
 }
 
-  
-  // f: update cart total price summary
-  function updateCartTotal() {
+// Update Cart Notification
+function updateCartNotification() {
+    const cartCountElement = document.getElementById("cart-count");
+    let cart = getCart();
+    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    if (totalItems > 0) {
+        cartCountElement.textContent = totalItems > 99 ? "99+" : totalItems;
+        cartCountElement.classList.add("badge", "rounded-pill", "bg-danger", "position-absolute", "top-0", "start-100", "translate-middle");
+    } else {
+        cartCountElement.textContent = "";
+        cartCountElement.classList.remove("badge", "rounded-pill", "bg-danger", "position-absolute", "top-0", "start-100", "translate-middle");
+    }
+}
+
+// Update Cart Total
+function updateCartTotal() {
     const subtotalElement = document.getElementById("subtotal");
     const discountElement = document.getElementById("discount");
     const totalElement = document.getElementById("total");
-  
-    let subtotal = 0;
-  
-    cart.forEach(item => {
-      subtotal += item.price * item.quantity;
-    });
-  
-    const discount = 0; // Adjust this based on promo code logic
-    const total = subtotal - discount;
-  
+
+    let cart = getCart();
+    let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    let discount = 0; // Modify as needed
+    let total = subtotal - discount;
+
     subtotalElement.textContent = `S$${subtotal.toFixed(2)}`;
     discountElement.textContent = `S$${discount.toFixed(2)}`;
     totalElement.textContent = `S$${total.toFixed(2)}`;
-  }
-  
-  // f: update checkout total price summary
-  function updateCheckoutTotal() {
-    let subtotal = 0;
-    cart.forEach(item => {
-      subtotal += item.price * item.quantity;
-    });
-  
-    const shipping = 5.00; // Shipping cost (could be dynamic)
-    const total = subtotal + shipping;
-  
-    document.getElementById("subtotal").textContent = `S$${subtotal.toFixed(2)}`;
-    document.getElementById("shipping").textContent = `S$${shipping.toFixed(2)}`;
-    document.getElementById("total").textContent = `S$${total.toFixed(2)}`;
-  }
-  
-  // f: quantity update
-  function setupQuantityButtons(incrementButton, decrementButton, quantityDisplay, initialQuantity = 1) {
-    let quantity = initialQuantity;
-  
-    const updateQuantityDisplay = () => {
-      quantityDisplay.textContent = quantity;
-    };
-  
-    incrementButton.addEventListener("click", () => {
-      quantity++;
-      updateQuantityDisplay();
-    });
-  
-    decrementButton.addEventListener("click", () => {
-      if (quantity > 1) {
-        quantity--;
-        updateQuantityDisplay();
-      }
-    });
-  
-    updateQuantityDisplay(); // Initialize display
-    return () => quantity; // Return a function to get the current quantity
-  }
-  
-  // f: update the cart notification
-  function updateCartNotification() {
-  
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0); // Calculate the total number of items in the cart
-    const cartNotification = document.getElementById("cart-notification");
-    const cartCountElement = document.getElementById("cart-count");
-  
-    cartCountElement.textContent = cartCount; // Update the count in the notification
-  
-    // show notification if cart is not empty
-    if (cartCount > 0) {
-      cartNotification.classList.add("visible");
-    } else {
-      cartNotification.classList.remove("visible");
-    }
-  }
-  
-  // f: show notification in product.html
-  function showCartNotification(product, quantity) {
-    const notification = document.querySelector(".notification");
-    const body = document.body;
-    const notificationContainer = document.querySelector(".notification-container");  // To find the notification container
-  
-    if (notification.classList.contains("visible")) {
-      notification.classList.remove("visible");
-    }
-  
-    document.getElementById("notification-name").textContent = `"${product.name}" x${quantity}`;
-    notification.classList.add("visible");
-  
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  
-    setTimeout(() => {
-      notification.classList.remove("visible");
-      body.classList.remove("notification-visible"); // Remove the space after notification disappears
-    }, 4000);
-  }
-
-  function showCartNotification() {
-    const cartNotification = document.getElementById("cart-notification");
-
-    if (cartNotification) {  // Ensure the element exists before interacting with it
-        cartNotification.classList.add("visible");
-        setTimeout(() => {
-            cartNotification.classList.remove("visible");
-        }, 3000);
-    } else {
-        console.error("Cart notification element not found!");
-    }
 }
+
+function handleQuantityControls(quantityDisplay, decrementButton, incrementButton, index) {
+    let quantity = parseInt(quantityDisplay.textContent, 10) || 1; // Ensure the starting quantity is valid
+
+    // Decrement quantity
+    decrementButton.addEventListener("click", function () {
+        if (quantity > 1) {
+            quantity--; // Decrease quantity by 1
+            quantityDisplay.textContent = quantity;
+            updateCartQuantity(index, quantity); // Update the cart with new quantity
+        }
+    });
+
+    // Increment quantity
+    incrementButton.addEventListener("click", function () {
+        quantity++; // Increase quantity by 1
+        quantityDisplay.textContent = quantity;
+        updateCartQuantity(index, quantity); // Update the cart with new quantity
+    });
+}
+
+

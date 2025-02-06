@@ -31,12 +31,15 @@
                 </div>
                 <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
                     <div class="cart-menu-icons">
-                        <a href="cart.html" class="cart-icon-link">
+                        <a href="cart.html" class="cart-icon-link position-relative">
                             <i class="fa-solid fa-cart-shopping"></i>
+                            <span id="cart-count"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                0
+                                <span class="visually-hidden">items in cart</span>
+                            </span>
                         </a>
-                        <div id="cart-notification" class="cart-notification">
-                            <span id="cart-count">0</span>
-                        </div>
+
                         <div class="menu-dropdown">
                             <a href="#" class="menu-icon-link">
                                 <i class="fa-solid fa-bars"></i>
@@ -67,11 +70,13 @@
                             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-indicators"></div>
                                 <div class="carousel-inner"></div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
@@ -94,10 +99,19 @@
                         </select>
 
                         <!-- Sold-out Status -->
-                        <p id="size-status" class="sold-out-message" style="color: red; display: none;">Sold out</p>
+                        <div id="sold-out-alert" class="alert alert-danger alert-dismissible fade" role="alert" style="display:none;">
+                            Sorry! The selected size is currently sold out. 
+                        </div>
+                        
 
                         <p id="product-desc" class="product-details-desc"></p>
-                        <div id="alert-container"></div>
+
+                        <div id="size-alert" class="alert alert-warning alert-dismissible fade" role="alert"
+                            style="display:none;">
+                            Please select a size before adding to the cart.
+                        </div>
+
+
                         <!-- Quantity Controls & Add to Cart Button -->
                         <div class="product-details-actions">
                             <div class="quantity-controls d-flex align-items-center">
@@ -106,7 +120,6 @@
                                 <button class="increment" id="increment">+</button>
                             </div>
                             <button class="add-to-cart-button mx-auto" id="add-to-cart">Add To Cart</button>
-
                         </div>
                     </div>
                 </div>
