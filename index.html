@@ -32,12 +32,15 @@
                 </div>
                 <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
                     <div class="cart-menu-icons">
-                        <a href="cart.html" class="cart-icon-link">
+                        <a href="cart.html" class="cart-icon-link position-relative">
                             <i class="fa-solid fa-cart-shopping"></i>
+                            <span id="cart-count"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                0
+                                <span class="visually-hidden">items in cart</span>
+                            </span>
                         </a>
-                        <div id="cart-notification" class="cart-notification">
-                            <span id="cart-count">0</span>
-                        </div>
+
                         <div class="menu-dropdown">
                             <a href="#" class="menu-icon-link">
                                 <i class="fa-solid fa-bars"></i>
@@ -46,11 +49,9 @@
                                 <a href="gallery.html?category=men">Men</a>
                                 <a href="gallery.html?category=women">Women</a>
                                 <a href="gallery.html?category=kids">Kids</a>
-                                <a href="gallery.html?category=baby">Baby</a>
                                 <a href="gallery.html?category=accessories">Accessories</a>
                                 <a href="#contact-us" class="menu-link">Contact Us</a>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -113,8 +114,8 @@
                 <button class="feature-btn"><i class="fa-solid fa-gamepad"></i> Minigames</button>
             </div>
         </div>
-               
-        
+
+
         <!-- Navigation Bar -->
         <nav class="category-nav container-fluid p-4">
             <div class="row justify-content-between">
@@ -125,7 +126,7 @@
                 <div class="col-auto"><a href="#">Accessories</a></div>
                 <div class="col-auto"><a href="#">Beauty</a></div>
             </div>
-        </nav>               
+        </nav>
 
         <!-- Top Picks Section -->
         <section class="top-picks">
