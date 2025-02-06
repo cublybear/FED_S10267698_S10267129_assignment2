@@ -958,10 +958,13 @@ ul {
 .gallery-container {
   display: flex;
   flex-wrap: wrap; /* Allow rows to wrap */
-  justify-content: flex-start; /* Center the group of rows horizontally */
+  justify-content: center; /* Center the group of rows horizontally */
   align-content: center; 
-  gap: 40px;
-  padding: 0px 50px;
+  gap: 10px;
+  position: relative; 
+  flex-direction: column;
+  max-width: 100%;
+  width: 100%;
 }
 
 #category-heading {
@@ -1011,6 +1014,7 @@ ul {
 .subcategory-nav .active-subcategory::after {
   transform: scaleX(1);
 }
+
 .card-link {
   text-decoration: none;
   color: black;

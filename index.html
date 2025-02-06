@@ -12,7 +12,7 @@
     <script src="https://kit.fontawesome.com/c0e5014365.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="renderProductList('bestsellers')"> <!-- Call the function on page load -->
+<body>
     <!-- Header -->
     <header class="header">
         <div class="container-fluid navbar-container">
@@ -32,15 +32,12 @@
                 </div>
                 <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
                     <div class="cart-menu-icons">
-                        <a href="cart.html" class="cart-icon-link position-relative">
+                        <a href="cart.html" class="cart-icon-link">
                             <i class="fa-solid fa-cart-shopping"></i>
-                            <span id="cart-count"
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                0
-                                <span class="visually-hidden">items in cart</span>
-                            </span>
                         </a>
-
+                        <div id="cart-notification" class="cart-notification">
+                            <span id="cart-count">0</span>
+                        </div>
                         <div class="menu-dropdown">
                             <a href="#" class="menu-icon-link">
                                 <i class="fa-solid fa-bars"></i>
@@ -49,6 +46,7 @@
                                 <a href="gallery.html?category=men">Men</a>
                                 <a href="gallery.html?category=women">Women</a>
                                 <a href="gallery.html?category=kids">Kids</a>
+                                <a href="gallery.html?category=baby">Baby</a>
                                 <a href="gallery.html?category=accessories">Accessories</a>
                                 <a href="#contact-us" class="menu-link">Contact Us</a>
                             </div>
@@ -76,13 +74,13 @@
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="images/placeholder.jpg" class="d-block mx-auto" alt="placeholder">
+                                <img src="images/carousel1.jpg" class="d-block w-100" alt="placeholder">
                             </div>
                             <div class="carousel-item">
-                                <img src="images/placeholder.jpg" class="d-block mx-auto" alt="placeholder">
+                                <img src="images/carousel2.jpg" class="d-block w-100" alt="placeholder">
                             </div>
                             <div class="carousel-item">
-                                <img src="images/placeholder.jpg" class="d-block mx-auto" alt="placeholder">
+                                <img src="images/carousel3.jpg" class="d-block w-100" alt="placeholder">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -100,6 +98,7 @@
             </div>
         </div>
 
+        <!-- Features Section -->
         <div class="features-container row p-4">
             <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
                 <button class="feature-btn"><i class="fa-solid fa-coins"></i> MokeCoins</button>
@@ -115,25 +114,26 @@
             </div>
         </div>
 
-
-        <!-- Navigation Bar -->
+        <!-- Category Navigation -->
         <nav class="category-nav container-fluid p-4">
             <div class="row justify-content-between">
-                <div class="col-auto"><a href="#">Men</a></div>
-                <div class="col-auto"><a href="#">Women</a></div>
-                <div class="col-auto"><a href="#">Kids</a></div>
-                <div class="col-auto"><a href="#">Baby</a></div>
-                <div class="col-auto"><a href="#">Accessories</a></div>
-                <div class="col-auto"><a href="#">Beauty</a></div>
+                <div class="col-auto"><a href="gallery.html?category=men">Men</a></div>
+                <div class="col-auto"><a href="gallery.html?category=women">Women</a></div>
+                <div class="col-auto"><a href="gallery.html?category=kids">Kids</a></div>
+                <div class="col-auto"><a href="gallery.html?category=accessories">Accessories</a></div>
             </div>
         </nav>
 
         <!-- Top Picks Section -->
         <section class="top-picks">
-            <h2 class="toppicks-heading">Today's Top Picks</h2>
-            <div class="gallery-container row" id="gallery-container">
-                <!-- Product cards will be rendered here -->
+            <div class="container">
+                <h2 class="toppicks-heading">Today's Top Picks</h2>
+
+                <div class="row" id="product-gallery">
+                    <!-- Product Cards will be added here dynamically by JS -->
+                </div>
             </div>
+
         </section>
     </main>
 
@@ -157,9 +157,7 @@
                         <li><a href="gallery.html?category=men">men</a></li>
                         <li><a href="gallery.html?category=women">women</a></li>
                         <li><a href="gallery.html?category=kids">kids</a></li>
-                        <li><a href="gallery.html?category=baby">baby</a></li>
                         <li><a href="gallery.html?category=accessories">accessories</a></li>
-                        <li><a href="gallery.html?category=beauty">beauty</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-3 footer-col">
@@ -181,8 +179,8 @@
             </div>
         </div>
     </footer>
+
     <script src="script.js"></script>
-    <script src="products.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
