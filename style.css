@@ -1217,19 +1217,13 @@ select.form-select {
 }
 
 .checkout-button {
-  display: block;
-  text-align: center;
-  width: 100%;
-  background-color: #C7B9FF;
-  color: black;
-  text-decoration: none;
-  padding: 15px;
-  border-radius: 30px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  background-color: #C7B9FF !important;
+  color: black !important;
+  border: none !important;
+  padding: 10px 0px !important;
+  border-radius: 20px !important;
+  transition: transform 0.3s ease !important;
+  font-weight: bold !important;
 }
 
 .checkout-button:hover {
