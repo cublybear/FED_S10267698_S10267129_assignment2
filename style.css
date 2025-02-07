@@ -498,8 +498,80 @@ html body {
   font-weight: 500;
 }
 
+.profile-customer-support{
+  padding: 20px;
+}
+
+.profile-customer-support-details {
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.profile-contact-us {
+  display: flex; /* Aligns the icon and text in a row */
+  align-items: center; /* Vertically centers the items */
+  flex: 1; /* Allows the items to grow and share space equally */
+  border: solid 1px black;
+  background-color: #FBFFD1;
+  border-radius: 30px;
+  gap: 20px;
+}
+
+.profile-contact-us img {
+  width: 30px; /* Adjust image size */
+  height: 30px; /* Adjust image height */
+  margin-left: 15px; /* Space between the image and text */
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column; /* Stack the paragraphs vertically */
+}
+
+.contact-details p {
+  margin: 0; /* Remove margin between paragraphs */
+  line-height: 1.2; /* Adjust line height for better spacing */
+}
+
+.profile-customer-feedback {
+  width: 100%;
+  max-width: 500px; /* Max width of the feedback form */
+  margin: 0 auto; /* Center the form */
+  padding: 20px;
+}
+
+.profile-customer-feedback h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical; /* Allow the text area to resize vertically */
+  margin-bottom: 15px; /* Space between textarea and button */
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  background-color: #C7B9FF;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .profile-logout-delete-buttons {
-  display: flex;               /* Use flexbox to lay out the buttons */
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
@@ -543,6 +615,16 @@ html body {
 
 /*---------------------------------------- Minigame ----------------------------------------*/
 /* Styling the minigame-list container */
+.minigame-back{
+  width: 20px;
+  height: auto;
+  margin: 20px;
+}
+
+.minigame-back:hover{
+  transform: scale(1.2);
+}
+
 .minigame-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
@@ -615,6 +697,7 @@ html body {
   position: relative;
   background-color: #D9CFFF;
   padding: 25px;
+  margin: auto;
 }
 
 ul{
