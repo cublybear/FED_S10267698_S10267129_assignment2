@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(products => {
             console.log("Products loaded:", products);
+            updateCartNotification();
 
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get("id");
@@ -25,7 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const cartContainer = document.getElementById("cart-items-container");
             if (cartContainer) {
                 renderCartItems();
-                updateCartNotification();
+            }
+
+            // Load checkout summary only if we're on the checkout page
+            const checkoutContainer = document.getElementById("checkout-items");
+            if (checkoutContainer) {
+                renderCheckout();
             }
 
             if (productId) {
@@ -170,7 +176,7 @@ function displayProductDetails(productId, products) {
         if (sizeIndex !== -1) {
             if (parseInt(stocks[sizeIndex], 10) === 0) {
                 document.getElementById("size-status").style.display = "block"; // Show "Sold out"
-            } 
+            }
         }
     });
 
@@ -363,11 +369,6 @@ function renderCartItems() {
             closeButton.classList.add('btn-close');
             closeButton.setAttribute('aria-label', 'Close');
 
-            // Directly add the close button to the top-right of the card
-            closeButton.style.position = 'absolute';
-            closeButton.style.top = '20px'; // Adjusted position to lower the button
-            closeButton.style.right = '10px';
-
             // Create the card-body div
             const cartCardBody = document.createElement('div');
             cartCardBody.classList.add('card-body');
@@ -410,7 +411,7 @@ function renderCartItems() {
             let subcategoryText = product.subcategory
                 .split(",")
                 .map(sub => sub.trim())
-                .filter(sub => sub.toLowerCase() !== "all" )
+                .filter(sub => sub.toLowerCase() !== "all")
                 .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
                 .join(", ");
 
@@ -556,5 +557,112 @@ function handleQuantityControls(quantityDisplay, decrementButton, incrementButto
 
     return quantity; // Return the current quantity (in case you need to use it elsewhere)
 }
+
+// Function to render checkout summary (on the checkout page)
+function renderCheckout() {
+    const checkoutItemsContainer = document.querySelector("#checkout-items");
+
+    // Check if the container exists before proceeding
+    if (!checkoutItemsContainer) {
+        console.error("Error: #checkout-items not found.");
+        return;
+    }
+
+    let cart = getCart(); // Always fetch updated cart data
+    checkoutItemsContainer.innerHTML = ""; // Clear previous items before rendering
+
+    if (cart.length === 0) {
+        checkoutItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+    } else {
+        cart.forEach((product, index) => {
+            const checkoutItemDiv = document.createElement('div');
+            checkoutItemDiv.classList.add('row', 'align-items-center', 'mb-3'); // Add spacing between items
+
+            const checkoutCardDiv = document.createElement('div');
+            checkoutCardDiv.classList.add('card', 'checkout-card', 'd-flex', 'flex-row');
+
+            // Create the remove button and set its attributes
+            const closeButton = document.createElement('button');
+            closeButton.classList.add('btn-close');
+            closeButton.setAttribute('aria-label', 'Close');
+
+             // Use removeCartItem() to remove item on click
+             closeButton.addEventListener("click", () => {
+                removeCartItem(index);
+                renderCheckout(); // Re-render the checkout page
+            });
+
+            // Product Row (Image + Details)
+            const rowDiv = document.createElement('div');
+            rowDiv.classList.add('row', 'g-0', 'align-items-center');
+
+            // Product Image
+            const productImageDiv = document.createElement('div');
+            productImageDiv.classList.add('col-4', 'col-sm-3'); // Image takes 4 cols on mobile, 3 on small+
+            const productImage = document.createElement('img');
+            productImage.classList.add('img-fluid', 'rounded');
+            productImage.src = product.image1; // Assuming the product has an image property
+            productImage.alt = product.name; // Alt text for accessibility
+            productImageDiv.appendChild(productImage);
+
+            // Product Details (Name, Price, Category, Size, Quantity)
+            const productInfoDiv = document.createElement('div');
+            productInfoDiv.classList.add('col-8', 'col-sm-9');
+
+            const cardBodyDiv = document.createElement('div');
+            cardBodyDiv.classList.add('card-body', 'd-flex', 'flex-column', 'justify-content-between');
+
+            const productName = document.createElement("h5");
+            productName.classList.add("card-title", "checkout-title");
+            productName.textContent = `${product.name} x${product.quantity}`;
+
+            const productCategory = document.createElement('p');
+            productCategory.classList.add('card-text', 'checkout-text');
+
+            // Handle subcategory (exclude "bestsellers" and "all")
+            let categoryText = product.category
+                .split(",")
+                .map(sub => sub.trim())
+                .filter(sub => sub.toLowerCase() !== "bestsellers")
+                .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
+                .join(", ");
+
+            let subcategoryText = product.subcategory
+                .split(",")
+                .map(sub => sub.trim())
+                .filter(sub => sub.toLowerCase() !== "all")
+                .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
+                .join(", ");
+
+            productCategory.textContent = `${categoryText}, ${subcategoryText}, ${product.size}`;
+
+            const productPrice = document.createElement("p");
+            productPrice.classList.add("card-text", "checkout-price");
+            productPrice.textContent = `S$${(product.price * product.quantity).toFixed(2)}`; // Total price based on quantity
+
+            // Append product details to the card body
+            cardBodyDiv.appendChild(productName);
+            cardBodyDiv.appendChild(productCategory);
+            cardBodyDiv.appendChild(productPrice);
+
+            // Append the card body and image to the row
+            productInfoDiv.appendChild(cardBodyDiv);
+            rowDiv.appendChild(productImageDiv);
+            rowDiv.appendChild(productInfoDiv);
+
+            // Append everything to the checkout card
+            checkoutCardDiv.appendChild(closeButton);
+            checkoutCardDiv.appendChild(rowDiv);
+            checkoutItemDiv.appendChild(checkoutCardDiv);
+
+            // Append the checkout item to the container
+            checkoutItemsContainer.appendChild(checkoutItemDiv);
+        });
+    }
+
+    updateCartTotal(); // Update the total price
+    updateCartNotification(); // Update the cart notification (if necessary)
+}
+
 
 
