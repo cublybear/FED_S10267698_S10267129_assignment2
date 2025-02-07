@@ -362,12 +362,6 @@ html body {
   padding: 20px;
 }
 
-.profile-subheading {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
 .profile-account-details, .profile-card-details, .profile-shipping-details, .profile-account-buttons{
   padding: 20px;
 }
@@ -1340,7 +1334,8 @@ select.form-select {
 }
 
 .subheading {
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 
