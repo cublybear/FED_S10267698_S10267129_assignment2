@@ -132,10 +132,15 @@ function displayProductDetails(productId, products) {
 
     // Display category and subcategory together (e.g., Women, Dress)
     const subcategories = product.subcategory.split(",").map(sub => sub.trim());
-    const filteredSubcategories = subcategories.filter(sub => sub.toLowerCase() !== "all" && sub.toLowerCase() !== "bestsellers");
+    const filteredSubcategories = subcategories.filter(sub => sub.toLowerCase() !== "all");
+
+    const categories = product.category.split(",").map(cat => cat.trim());
+    const filteredCategories = categories.filter(cat => cat.toLowerCase() !== "bestsellers");
 
     // Capitalize the category and subcategory
-    const categoryText = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+    const categoryText = filteredCategories
+        .map(cat => cat.charAt(0).toUpperCase() + cat.slice(1))
+        .join(", ");
     const subcategoryText = filteredSubcategories
         .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
         .join(", ");

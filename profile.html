@@ -60,11 +60,13 @@
 
     <!-- Main section -->
     <main>
-        <div class="loading" id="loadingscreen">add your loading page</div> 
+        <div class="loading" id="loadingscreen">add your loading page</div>
         <div class="profile-container">
             <div class="profile">
-                <p><strong>1jwh3r23ur24</strong></p>
-                <p>12 Followers | 123 Following</p>
+                <!-- Static Username Display -->
+                <p id="profile-username">
+                    <strong>Username12345</strong> <!-- This will be dynamically updated with the profile data -->
+                </p>
             </div>
             <div class="features-container row p-4">
                 <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
@@ -94,60 +96,87 @@
                     <button class="feature-btn"><i class="fa-solid fa-gamepad"></i> Minigames</button>
                 </div>
             </div>
+
+            <div class="profile-account-details">
+                <h2 class="profile-subheading">Account Details</h2>
+                <form id="edit-signup-form">
+                    <div class="row mb-3">
+                        <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+                        <div class="col-sm-10">
+                            <input type="username" class="form-control" id="account-username">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="account-email">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone No.</label>
+                        <div class="col-sm-10">
+                            <input type="tel" class="form-control" id="account-phone">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="account-password">
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Save Changes" class="account-button" id="account-submit">
+                </form>
+            </div>
+
+            <div class="profile-account-details">
+                <h2 class="profile-subheading">Shipping Address Details</h2>
+                <form id="edit-signup-form">
+                    <div class="row mb-3">
+                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="shipping-name">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="shipping-address">
+                        </div>
+                    </div>
+                    <input type="submit" value="Edit Shipping Address Details" class="card-button" id="card-submit">
+                </form>
+            </div>
+
             
             <div class="profile-account-details">
-                <h3>Account Details</h3>
+                <h2 class="profile-subheading">Payment Details</h2>
                 <form id="edit-signup-form">
-                    <div class="signup-input" >
-                        <input class="form-control" id="account-username" name="Username" data-type="text" type="text" required>
-                        <label>Username</label>
+                    <div class="row mb-3">
+                        <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
+                        <div class="col-sm-10">
+                            <input type="card-number" class="form-control" placeholder="1234 5678 9876 5432">
+                        </div>
                     </div>
-                    <div class="signup-input" >
-                        <input class="form-control" id="account-email" name="Email" data-type="text" type="email" required>
-                        <label>Email</label>
-                    </div>
-                    <div class="signup-input">
-                        <input class="form-control" id="account-phone" name="Phone Number" data-type="text" type="number" required>
-                        <label>Phone Number</label>
-                    </div>
-                    <div class="signup-input">
-                        <input class="form-control" id="account-password" name="Password" data-type="text" type="password" required>
-                        <label>Password</label>
-                    </div>
-                    <input type="submit" value="Edit Account Details" class="account-button" id="account-submit">
-                </form>
-            </div>
 
-            <div class="profile-card-details">
-                <h3>Payment Details</h3>
-                <form id="edit-card-form">
-                    <div class="card-input" >
-                        <input class="form-control" id="card-number" name="Card Number" data-type="number" type="number" required>
-                        <label>Card Number: 1234 5678 1234 5678</label>
+                    <div class="row mb-3">
+                        <label for="cardCVV" class="col-sm-2 col-form-label">Card CVV</label>
+                        <div class="col-sm-10">
+                            <input type="card-cvv" class="form-control" placeholder="123">
+                        </div>
                     </div>
-                    <div class="card-input" >
-                        <input class="form-control" id="card-cvv" name="Card CCV" data-type="number" type="number" required>
-                        <label>CVV: 123</label>
-                    </div>
-                    <div class="card-input">
-                        <input class="form-control" id="card-date" name="Expiry Date" type="date" required>
+
+                    <div class="row mb-3">
+                        <label for="expiryDate" class="col-sm-2 col-form-label">Expiry Date</label>
+                        <div class="col-sm-10">
+                            <input type="tel" class="form-control" placeholder="yyyy/mm/dd">
+                        </div>
                     </div>
                     <input type="submit" value="Edit Payment Details" class="card-button" id="card-submit">
-                </form>
-            </div>
-
-            <div class="profile-shipping-details">
-                <h3>Shipping Details</h3>
-                <form id="edit-shipping-form">
-                    <div class="shipping-input" >
-                        <input class="form-control" id="shipping-name" name="Name" data-type="text" type="text" required>
-                        <label>Name: Tan</label>
-                    </div>
-                    <div class="shipping-input">
-                        <input class="form-control" id="shipping-address" name="Shipping Address" data-type="text" type="text" required>
-                        <label>Blk 123 Address Address Road, Singapore 123456 #12-34</label>
-                    </div>
-                    <input type="submit" value="Add Address" class="shipping-button" id="shipping-submit">
                 </form>
             </div>
 
@@ -174,11 +203,11 @@
             <div class="profile-customer-feedback">
                 <h4>Customer Feedback</h4>
                 <form action="#" method="post">
-                    <textarea name="feedback" id="feedback" rows="4" placeholder="Please provide your feedback here..."></textarea>
+                    <textarea name="feedback" id="feedback" rows="4"
+                        placeholder="Please provide your feedback here..."></textarea>
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            
 
             <div class="profile-logout-delete-buttons">
                 <button class="logout">Log Out</button>
@@ -186,6 +215,7 @@
             </div>
         </div>
     </main>
+
 
     <!-- Footer -->
     <footer class="footer" id="contact-us">
@@ -231,6 +261,7 @@
             </div>
         </div>
     </footer>
-    <script src="profile.js"></script> 
+    <script src="profile.js"></script>
 </body>
+
 </html>
