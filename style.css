@@ -558,7 +558,7 @@ textarea {
   margin-bottom: 15px; /* Space between textarea and button */
 }
 
-button {
+.profile-customer-feedback button {
   width: 100%;
   padding: 12px;
   font-size: 1em;
