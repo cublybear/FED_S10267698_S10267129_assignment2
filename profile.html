@@ -45,6 +45,7 @@
                                 <i class="fa-solid fa-bars"></i>
                             </a>
                             <div class="dropdown-content">
+                                <a href="profile.html">Your Profile</a>
                                 <a href="gallery.html?category=men">Men</a>
                                 <a href="gallery.html?category=women">Women</a>
                                 <a href="gallery.html?category=kids">Kids</a>
@@ -99,7 +100,7 @@
 
             <div class="profile-account-details">
                 <h2 class="profile-subheading">Account Details</h2>
-                <form id="edit-signup-form">
+                <form id="edit-acc">
                     <div class="row mb-3">
                         <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
@@ -133,8 +134,8 @@
             </div>
 
             <div class="profile-account-details">
-                <h2 class="profile-subheading">Shipping Address Details</h2>
-                <form id="edit-signup-form">
+                <h2 class="subheading">Shipping Address Details</h2>
+                <form id="edit-shipping">
                     <div class="row mb-3">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
@@ -148,13 +149,13 @@
                             <input type="text" class="form-control" id="shipping-address">
                         </div>
                     </div>
-                    <input type="submit" value="Edit Shipping Address Details" class="card-button" id="card-submit">
+                    <input type="submit" value="Edit Shipping Address Details" class="card-button" id="shipping-submit">
                 </form>
             </div>
 
-            
+
             <div class="profile-account-details">
-                <h2 class="profile-subheading">Payment Details</h2>
+                <h2 class="subheading">Payment Details</h2>
                 <form id="edit-signup-form">
                     <div class="row mb-3">
                         <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
@@ -216,7 +217,6 @@
         </div>
     </main>
 
-
     <!-- Footer -->
     <footer class="footer" id="contact-us">
         <div class="container-fluid footer-container">
@@ -237,9 +237,7 @@
                         <li><a href="gallery.html?category=men">men</a></li>
                         <li><a href="gallery.html?category=women">women</a></li>
                         <li><a href="gallery.html?category=kids">kids</a></li>
-                        <li><a href="gallery.html?category=baby">baby</a></li>
                         <li><a href="gallery.html?category=accessories">accessories</a></li>
-                        <li><a href="gallery.html?category=beauty">beauty</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-3 footer-col">

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // Elements
     const accountUsernameInput = document.getElementById("account-username");
     const accountEmailInput = document.getElementById("account-email");
@@ -8,101 +8,112 @@ document.addEventListener("DOMContentLoaded", function () {
     const accountAddressInput = document.getElementById("shipping-address");
 
     const APIKEY = "678b1d1a19b96a08c0af6336";
-    const accountId = "67a36dd2f63b804800105dfe"; // Replace with the actual account ID from session/localStorage
+    const accountId = "67a36dd2f63b804800105dfe"; // Replace with actual session/localStorage ID
 
-    fetch(`https://fedassignment2-eef5.restdb.io/rest/account/${accountId}`, {
-        method: 'GET',
-        headers: {
-            "x-apikey": APIKEY,
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Failed to load profile: ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('API Response:', data); // Log the response to verify the structure
+    let userProfile = null; // Store fetched profile
 
-        const userProfile = data[0]; // Assuming only one profile is returned
-        if (!userProfile) {
-            throw new Error("Profile data not found.");
-        }
+    try {
+        // Fetch user data
+        const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account/${accountId}`, {
+            method: 'GET',
+            headers: { "x-apikey": APIKEY },
+        });
 
-        // Prefill the form fields with profile data as values (not placeholders)
-        accountUsernameInput.value = userProfile.Username;
-        accountEmailInput.value = userProfile.Email;
-        accountPhoneInput.value = userProfile["Phone Number"];
-        accountPasswordInput.value = ""; // Mask password field
-        accountPasswordInput.placeholder = "********"; // Hide password for security
+        if (!response.ok) throw new Error(`Failed to load profile: ${response.statusText}`);
 
-        // Address handling: Check if address exists in the profile data
-        if ('Address' in userProfile) {
-            accountAddressInput.value = userProfile.Address; // Set value if exists
-        } else {
-            accountAddressInput.value = ""; // Set empty value if not found
-            accountAddressInput.placeholder = "Not set yet"; // Show placeholder if no address found
-        }
+        userProfile = await response.json();
+        console.log("API Response:", userProfile);
 
-        if ('Address Owner' in userProfile) {
-            accountAddressNameInput.value = userProfile["Address Owner"]; // Set value if exists
-        } else {
-            accountAddressNameInput.value = ""; // Set empty value if not found
-            accountAddressNameInput.placeholder = "Not set yet"; // Show placeholder if no address owner found
-        }
+        if (!userProfile || !userProfile._id) throw new Error("Profile data not found.");
 
-        // Handle form submission to save changes
-        document.getElementById("edit-signup-form").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent form from refreshing the page
+        // Assign values safely
+        accountUsernameInput.value = userProfile.Username || "";
+        accountEmailInput.value = userProfile.Email || "";
+        accountPhoneInput.value = userProfile["Phone Number"] || "";
+        accountPasswordInput.placeholder = "********"; // Don't pre-fill passwords
+        accountAddressInput.value = userProfile.Address || "";
+        accountAddressNameInput.value = userProfile["Address Owner"] || "";
 
+    } catch (err) {
+        console.error("Error loading profile data:", err);
+    }
+
+    async function saveProfile(updatedFields) {
+        try {
+            if (!userProfile || !userProfile._id) {
+                throw new Error("User profile ID is missing.");
+            }
+
+            // Make sure all fields are included in the updated profile
             const updatedProfile = {
-                _id: userProfile._id, // Keep the same ID to update the correct profile
-                Username: accountUsernameInput.value || userProfile.Username, // Use current value if no input
-                Email: accountEmailInput.value || userProfile.Email,
-                "Phone Number": accountPhoneInput.value || userProfile["Phone Number"],
-                Password: accountPasswordInput.value || userProfile.Password,
-                Address: accountAddressInput.value || "", // Save empty if no address provided
-                "Address Owner": accountAddressNameInput.value || "" // Save empty if no address owner provided
+                _id: userProfile._id,
+                Username: updatedFields.Username || userProfile.Username,
+                Email: updatedFields.Email || userProfile.Email,
+                "Phone Number": updatedFields["Phone Number"] || userProfile["Phone Number"],
+                Password: updatedFields.Password || userProfile.Password,
+                Address: updatedFields.Address || userProfile.Address,
+                "Address Owner": updatedFields["Address Owner"] || userProfile["Address Owner"]
             };
 
-            console.log('Updated Profile:', updatedProfile); // Log the updated profile
+            console.log("Sending to API:", JSON.stringify(updatedProfile, null, 2));
 
-            // Save the updated profile to the backend
-            saveProfile(updatedProfile);
-        });
-    })
-    .catch(err => {
-        console.error("Error loading profile data:", err);
-        alert("Could not load profile data.");
-    });
+            const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account/${updatedProfile._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-apikey': APIKEY,
+                },
+                body: JSON.stringify(updatedProfile),
+            });
 
-    // Function to save profile data to the API
-    function saveProfile(updatedProfile) {
-        fetch(`https://fedassignment2-eef5.restdb.io/rest/account/${updatedProfile._id}`, {
-            method: 'PUT', // Use PUT for updating data
-            headers: {
-                'Content-Type': 'application/json',
-                'x-apikey': APIKEY,
-            },
-            body: JSON.stringify(updatedProfile),
-        })
-        .then(response => {
-            console.log('Save Response:', response); // Log the response for debugging
             if (!response.ok) {
-                throw new Error(`Failed to save profile: ${response.statusText}`);
+                const errorText = await response.text();
+                throw new Error(`Failed to save profile: ${response.status} - ${errorText}`);
             }
-            return response.json();
-        })
-        .then(data => {
+
+            const data = await response.json();
             console.log("Profile updated:", data);
             alert('Profile updated successfully!');
-        })
-        .catch(error => {
+            return data;
+        } catch (error) {
             console.error('Error saving profile:', error);
-            alert('Error updating profile.');
-        });
+            alert(`Error updating profile: ${error.message}`);
+        }
     }
+
+    // Handle account details form submission
+    document.getElementById("edit-acc").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const updatedFields = {
+            Username: accountUsernameInput.value.trim() || userProfile.Username, // Ensure Username is never empty
+            Email: accountEmailInput.value.trim() || userProfile.Email, // Ensure Email is never empty
+            "Phone Number": accountPhoneInput.value.trim() || userProfile["Phone Number"], // Ensure Phone Number is never empty
+        };
+
+        // Only update password if user enters a new one
+        if (accountPasswordInput.value.trim()) {
+            updatedFields.Password = accountPasswordInput.value.trim();
+        } else {
+            updatedFields.Password = userProfile.Password; // Ensure Password is never empty
+        }
+
+        console.log('Updated Account Details:', updatedFields);
+        await saveProfile(updatedFields);
+    });
+
+    // Handle shipping details form submission
+    document.getElementById("edit-shipping").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const updatedFields = {
+            Address: accountAddressInput.value.trim() || userProfile.Address, // Ensure Address is never empty
+            "Address Owner": accountAddressNameInput.value.trim() || userProfile["Address Owner"], // Ensure Address Owner is never empty
+        };
+
+        console.log('Updated Shipping Details:', updatedFields);
+        await saveProfile(updatedFields);
+    });
 });
 
 
