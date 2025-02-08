@@ -1,4 +1,4 @@
-import { changetab, showGameById } from "./minigames/tabchange.js";
+import { changetab, showGameById } from "../minigames/tabchange.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     //---------------------------------------- Game Tab and Display Logic ----------------------------------------
