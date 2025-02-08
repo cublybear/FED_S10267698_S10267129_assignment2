@@ -1,8 +1,8 @@
 let accountstring = localStorage.getItem("user")
 let account = JSON.parse(accountstring)
-const APIKEY = "678b1d1a19b96a08c0af6336";
+const APIKEY = "67a76d364d8744a119828030";
 console.log(account)
-const container = document.querySelector(".post-con"); // The main container for all posts
+const container = document.querySelector(".community-post-container"); // The main container for all posts
 const images = [
     "https://i.pinimg.com/originals/e3/24/f7/e324f790cfe0a51d76f98356475cc408.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjBL9T_P9pY8ritWs7nP3MBc-X_wyIVZABA&s",
@@ -14,14 +14,28 @@ function getRandomImage() {
     return images[Math.floor(Math.random() * images.length)];
 }
 
+function gotopost(e){
+    if(e.target.closest(".likes")==null){
+        let postnum = parseInt(e.target.closest(".indivcon").id)-1
+        console.log(e.target)
+        let post = postcontent[postnum]
+        post["Likes"] = parseInt(e.target.closest(".indivcon").querySelector(".likebutton").querySelector(".count").textContent)
+        sessionStorage.setItem("post",JSON.stringify(post))
+        console.log(post)
+        const url = `post.html`;
+        window.location.href = url;
+    }
+}
 console.log(getRandomImage()); // Call this function to get a random image URL
 let numberpost = 0
 let postcontent = await getposts();
-
+postcontent.forEach(element => {
+    element["Image"] = getRandomImage()
+});
 // The post content array
 async function getposts() {
     // wait for response
-    const response = await fetch("https://fedassg-78fe.restdb.io/rest/community", {
+    const response = await fetch("https://fedassg2-cd74.restdb.io/rest/community", {
         method: "GET",
         headers: {
             "x-apikey": APIKEY,
@@ -49,7 +63,7 @@ async function getposts() {
 function createpost(postData, container) {
     const postdiv = document.createElement("div");
     postdiv.classList.add("indivcon");
-    postdiv.id = `${++numberpost}`;
+    postdiv.id = `${postcontent.indexOf(postData)+1}`;
     postdiv.style.display = "flex";
     postdiv.style.flexDirection = "column";
     postdiv.style.alignItems = "center";
@@ -67,7 +81,7 @@ function createpost(postData, container) {
     const postimage = document.createElement("div");
     const image = document.createElement("img");
     image.classList.add("image");
-    image.src = getRandomImage();
+    image.src = postData.Image;
     // postData.imageUrl;
     image.style.width = "100%";
     image.style.height = "auto";
@@ -77,8 +91,7 @@ function createpost(postData, container) {
     const postdesc = document.createElement("div");
     postdesc.classList.add("postdesc");
     postdesc.style.width = "85%";
-    console.log(postData.Description)
-    postdesc.textContent = postData.Description;  // Capitalized description
+    postdesc.textContent = postData.Title;
     postdesc.style.fontSize = "16px";
     postdesc.style.fontWeight = "semi-bold"
     postdesc.style.color = "black"
@@ -96,8 +109,11 @@ function createpost(postData, container) {
     reactivelike.style.display = "flex";
     reactivelike.style.justifyContent = "flex-start";
 
+    let postid = postData["_id"]
+    console.log(typeof postid)
     const reactivelikebutton = document.createElement("i");
-    reactivelikebutton.classList.add("far", "fa-heart");
+    let heart = postid in account["LikedPosts"]["posts"] ? "fas" : "far"
+    reactivelikebutton.classList.add(heart, "fa-heart");
     const reactivelikecount = document.createElement("p");
     reactivelikecount.textContent = parseInt(postData.Likes);  // Using like count from post data
     reactivelikecount.classList.add("count");
@@ -118,6 +134,9 @@ function createpost(postData, container) {
             e.target.classList.add("fas");
             e.target.style.color = "red";
             likePost(postid, count)
+            updateliked(postid,1)
+            postcontent[parseInt(e.target.closest(".indivcon").id)]["Likes"] = count
+            console.log(postcontent)
 
         } else {
             count--;
@@ -125,14 +144,20 @@ function createpost(postData, container) {
             e.target.classList.add("far");
             e.target.style.color = "black";
             likePost(postid, count)
+            updateliked(postid,0)
+            postcontent[parseInt(e.target.closest(".indivcon").id)]["Likes"] = count
+            console.log(postcontent)
         }
-
+        console.log(postcontent[parseInt(e.target.closest(".indivcon").id)]["Likes"])
+        
         counter.textContent = count;
     });
 
+    //add them all!!!!
     postdiv.appendChild(postimage);
     postdiv.appendChild(postdesc);
     postdiv.appendChild(likes);
+    postdiv.addEventListener("click",gotopost)
     container.appendChild(postdiv);
 }
 
@@ -151,7 +176,10 @@ function distributePosts() {
     for (let j = 0; j < timesBy; j++) {
         themainarray.push(...thearray);
     }
-
+    let cols = document.querySelectorAll('.sub');
+    cols.forEach(element => {
+        element.remove()
+    });
     // Create sub-columns inside the main container
     for (let i = 1; i <= numCols; i++) {
         const subCol = document.createElement('div');
@@ -173,11 +201,13 @@ function distributePosts() {
     });
 }
 
-async function addpost(username, description) {
+async function addpost(username, description,title) {
     let jsondata = {
         "Username": username,
         "Description": description,
-        "Likes": 0
+        "Likes": 0,
+        "Comments": {},
+        "Title":title
     };
 
     console.log(jsondata)
@@ -190,10 +220,10 @@ async function addpost(username, description) {
         },
         body: JSON.stringify(jsondata)
     };
-    let response = await fetch("https://fedassg-78fe.restdb.io/rest/community", settings)
+    let response = await fetch("https://fedassg2-cd74.restdb.io/rest/community", settings)
     let data = await response.json()
     console.log(data)
-
+    return data
 }
 
 function alllikes() {
@@ -219,12 +249,13 @@ document.getElementById("closepopup").addEventListener("click", () => {
     document.getElementById("blur").style.display = "none";
 })
 function likePost(postId, likes) {
+    
     const data = JSON.stringify({
         Likes: likes  // The field you want to update
     });
     // Send the request with custom headers (including the API key)
-    fetch(`https://fedassg-78fe.restdb.io/rest/community/${postId}`, {
-        method: "PATCH",   // Use POST to simulate a PATCH request
+    fetch(`https://fedassg2-cd74.restdb.io/rest/community/${postId}`, {
+        method: "PATCH",  
         body: data,
         headers: {
             "Content-Type": "application/json",
@@ -248,4 +279,64 @@ function likePost(postId, likes) {
     });
 
 }
+function updateliked(postId,plus){
+    let posts = account["LikedPosts"]["posts"]
+    console.log(typeof postId)
+    if(plus){
+    posts[postId] = 1
+    }
+    else{
+        delete posts[postId]
+    }
+    let jsondata = {
+        "LikedPosts": {"posts":posts}
+    };
+
+    console.log(jsondata)
+    let settings = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": APIKEY,
+            "Cache-Control": "no-cache"
+        },
+        body: JSON.stringify(jsondata)
+    }
+    fetch(`https://fedassg2-cd74.restdb.io/rest/account/${account["_id"]}`, settings)
+    .then(response => {
+        if (!response.ok) {
+            // If the response status isn't OK, throw an error
+            throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();  // Parse the response as JSON
+    })
+    .then(data => {
+        console.log("liked posts updated successfully", data);
+    })
+    .catch(error => {
+        console.error("Error occurred:", error);
+        // Handle errors here, for example, display an error message to the user
+    });
+    account["LikedPosts"]["posts"] = posts
+    localStorage.setItem("user",JSON.stringify(account));
+
+    
+}
 window.addpost = addpost;
+
+async function submit(){
+    let title = document.getElementById("post-title").value;
+    let desc = document.getElementById("post-description").value;
+    let x = await addpost(account["Username"],desc,title);
+    console.log(x)
+    document.getElementById("post-title").value = ""
+    document.getElementById("post-description").value = ""
+    document.querySelector(".popup-box").style.display = "none";
+    document.getElementById("blur").style.display = "none";
+    x["Image"] = getRandomImage()
+    console.log(x)
+    postcontent.push(x)
+
+    distributePosts()
+}
+document.getElementById("submit").addEventListener("click",submit)
