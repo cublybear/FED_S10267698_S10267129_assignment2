@@ -1,5 +1,5 @@
 //------------------------------------------Store Data in Session Storage------------------------------------------
-
+import { fetchUser } from "./fetchUser.js";
 
 // async function fetchProducts() {
 //     // Check if product data is already cached in sessionStorage
@@ -94,13 +94,25 @@
 //----------------------------------------------------- API ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded successfully");
-    
+
     const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';  // Your RestDB API URL
     const apikey = '67a76d364d8744a119828030';  // Your RestDB API key
 
+    // Check if user account information exists in sessionStorage
+    let userAccount = JSON.parse(sessionStorage.getItem("userProfile")); // Check for user profile
+
+    if (!userAccount) {
+        console.log("No user account in sessionStorage");
+        // Optionally, redirect to login page or show login form
+        // window.location.href = "login.html";
+    } else {
+        console.log("User account found:", userAccount);
+        // You can use the userAccount data to personalize the page or display user information
+    }
+
     // Check if products are already stored in sessionStorage
     let products = JSON.parse(sessionStorage.getItem("products"));
-    
+
     if (!products) {
         // Fetch products if not in sessionStorage
         fetch(apiUrl, {
@@ -111,25 +123,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Cache-Control": "no-cache"
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to load products from API");
-            }
-            return response.json();
-        })
-        .then(fetchedProducts => {
-            console.log("Products loaded:", fetchedProducts);
-            products = fetchedProducts;
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to load products from API");
+                }
+                return response.json();
+            })
+            .then(fetchedProducts => {
+                console.log("Products loaded:", fetchedProducts);
+                products = fetchedProducts;
 
-            // Store products in sessionStorage for future use
-            sessionStorage.setItem("products", JSON.stringify(products));
+                // Store products in sessionStorage for future use
+                sessionStorage.setItem("products", JSON.stringify(products));
 
-            updateCartNotification();
-            handlePageContent(products); // Use the function to handle page content
-        })
-        .catch(error => {
-            console.error("Error loading products:", error);
-        });
+                updateCartNotification();
+                handlePageContent(products); // Use the function to handle page content
+            })
+            .catch(error => {
+                console.error("Error loading products:", error);
+            });
     } else {
         // Use cached products from sessionStorage
         console.log("Using cached products");
@@ -175,7 +187,6 @@ function handlePageContent(products) {
         displayProductGallery(category, subcategory, products);
     }
 }
-
 
 // ----------------------------------------------------- Product Details ----------------------------------------------------
 function displayProductDetails(productId, products) {
@@ -292,9 +303,9 @@ function displayProductDetails(productId, products) {
                 alert.classList.remove("show");
                 alert.style.display = "none";
             }, 3000);
-        } 
+        }
         // Check if the selected size is sold out
-        else if (parseInt(stocks[sizeIndex], 10) === 0) { 
+        else if (parseInt(stocks[sizeIndex], 10) === 0) {
             const soldOutAlert = document.getElementById("sold-out-alert");
             soldOutAlert.style.display = "block"; // Show sold-out alert
             soldOutAlert.classList.add("show");
@@ -304,7 +315,7 @@ function displayProductDetails(productId, products) {
                 soldOutAlert.classList.remove("show");
                 soldOutAlert.style.display = "none";
             }, 3000);
-        } 
+        }
         // Proceed with adding to the cart
         else {
             addToCart(product);
@@ -676,8 +687,8 @@ async function renderCheckout() {
             closeButton.classList.add('btn-close');
             closeButton.setAttribute('aria-label', 'Close');
 
-             // Use removeCartItem() to remove item on click
-             closeButton.addEventListener("click", () => {
+            // Use removeCartItem() to remove item on click
+            closeButton.addEventListener("click", () => {
                 removeCartItem(index);
                 renderCheckout(); // Re-render the checkout page
             });
@@ -754,15 +765,16 @@ async function renderCheckout() {
     updateCartNotification(); // Update the cart notification (if necessary)
 }
 
-// Function to populate the checkout details (Moke Points, Address, etc.)
 async function populateCheckoutDetails() {
-    // Fetch the user data asynchronously
-    // const user = await getAccountDetails();  
+    // Fetch the user data from session storage
+    let user = JSON.parse(sessionStorage.getItem('user'));
 
     if (!user) {
-        console.error("User data not available");
+        console.error("No user data available in session");
         return;
     }
+
+    console.log('User from sessionStorage:', user);  // Log the user data to ensure it's correct
 
     // Left Section: Billing Details (Address)
     const addressContainer = document.querySelector('.billing-details .address-option-container');
@@ -790,6 +802,12 @@ async function populateCheckoutDetails() {
     const addressOwners = user["Address Owner"].split(',').map(owner => owner.trim());
 
     let selectedAddress = ''; // Store the selected address globally
+
+    // Check if addresses and address owners have the same length
+    if (addresses.length !== addressOwners.length) {
+        console.error("Mismatch between addresses and address owners.");
+        return;
+    }
 
     // Create address radio buttons dynamically
     addresses.forEach((address, index) => {
@@ -819,18 +837,26 @@ async function populateCheckoutDetails() {
         });
     });
 
+    console.log('Address options populated:', addressContainer); // Debugging
+
     // Right Section: Moke Coins (Redeem Section)
     const mokeCoinsToggle = document.getElementById('moke-coins-toggle');
     const mokePointsLabel = document.querySelector('.moke-coins');
 
-    const mokePointsText = `Redeem ${user["Moke Points"]} MokeCoins`; 
+    const mokePointsText = `Redeem ${user["Moke Points"]} MokeCoins`;
 
     if (mokePointsLabel) {
         mokePointsLabel.innerHTML = `<input type="checkbox" id="moke-coins-toggle">${mokePointsText}`;
     }
 
     if (mokeCoinsToggle) {
-        mokeCoinsToggle.checked = true;  
+        // Disable the checkbox if Moke Points are 0
+        if (user["Moke Points"] === 0) {
+            mokeCoinsToggle.disabled = true;
+            mokeCoinsToggle.checked = false;
+        } else {
+            mokeCoinsToggle.checked = true;
+        }
         updateCartTotal(); // Update cart total based on toggle state
     }
 
@@ -850,85 +876,73 @@ async function populateCheckoutDetails() {
 
         const mokeCoinsRedeemed = mokeCoinsToggle.checked ? user["Moke Points"] : 0;
 
+        // Proceed with placing the order
         await placeOrder(selectedAddress, mokeCoinsRedeemed);
     });
 
+    // Return an object containing selected address and moke coins redeemed
     return { selectedAddress, mokeCoinsRedeemed: mokeCoinsToggle.checked };
 }
 
-// // Fetch the account details from the JSON file
-// async function getAccountDetails() {
-//     try {
-//         // Retrieve the username from session storage
-//         const username = "testing123"; // Replace this with sessionStorage retrieval
 
-//         if (!username) {
-//             console.error("No username found in session storage");
-//             return null;
-//         }
-
-//         // Define the API URL with query filtering by Username
-//         const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
-//         const apiUrl = `https://fedassg-78fe.restdb.io/rest/account?q={"Username":"${username}"}`;
-
-//         // Fetch user data from RestDB
-//         const response = await fetch(apiUrl, {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'x-apikey': apiKey,
-//             },
-//         });
-
-//         if (!response.ok) {
-//             throw new Error('Failed to fetch user account from RestDB');
-//         }
-
-//         const userData = await response.json();
-
-//         // Ensure a user was found
-//         if (!userData || userData.length === 0) {
-//             console.error("User not found in RestDB");
-//             return null;
-//         }
-
-//         return userData[0]; // Return the first matched user
-//     } catch (error) {
-//         console.error("Error fetching account details:", error);
-//         return null;
-//     }
-// }
-
+// Function to update the cart total based on the Moke Coins toggle state
 // Function to update the cart total based on the Moke Coins toggle state
 async function updateCartTotal() {
     const subtotalElement = document.getElementById("subtotal");
     const discountElement = document.getElementById("discount");
     const totalElement = document.getElementById("total");
+    const mokeCoinsLabel = document.querySelector('.moke-coins'); // Label where the redeem text is
 
-    let cart = getCart();
+    let cart = getCart();  // Fetch the cart items
     let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     // Check if we're on the checkout page using a URL or element-based check
     const isCheckoutPage = window.location.href.includes('checkout') || document.querySelector('.checkout-page-element') !== null;
 
-    // Fetch the user profile (assuming getAccountDetails is async)
-    // const userProfile = await getAccountDetails(); // Make sure this is awaited to get the correct user profile
-    const userMokePoints = isCheckoutPage ? userProfile["Moke Points"] : 0;
+    const userProfile = await fetchUser();
+    let userMokePoints = isCheckoutPage ? userProfile["Moke Points"] : 0;
+
     console.log("User Moke Points:", userMokePoints);
 
+    // Ensure userMokePoints is a valid number
+    userMokePoints = isNaN(userMokePoints) ? 0 : userMokePoints;
+
     // Define the redemption value per Moke Coin (only for checkout page)
-    const redemptionValue = 0.01; // Define how much each Moke Coin is worth (e.g., 10 cents per Moke Coin)
+    const redemptionValue = 0.01;  // Define how much each Moke Coin is worth (e.g., 10 cents per Moke Coin)
+
+    // Ensure subtotal is a valid number
+    subtotal = isNaN(subtotal) ? 0 : subtotal;
 
     let discount = 0;
+    let total = subtotal;
+
+    // Check if the user has Moke Coins
+    const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
+    if (userMokePoints === 0) {
+        // If the user has 0 Moke Coins, disable the checkbox and change the redeem text
+        mokeCoinsToggle.disabled = true;
+
+        if (mokeCoinsLabel) {
+            mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem."; // Change the text to inform the user
+        }
+    } else {
+        // Enable the checkbox if they have Moke Coins and update the redeem text
+        mokeCoinsToggle.disabled = false;
+
+        if (mokeCoinsLabel) {
+            mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} MokeCoins`; // Default redeem text
+        }
+    }
+
+    // Check if we're on the checkout page
     if (isCheckoutPage) {
-        // Get the toggle switch element
-        const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
+        // Set the initial discount based on the toggle state
+        if (mokeCoinsToggle.checked) {
+            discount = redemptionValue * userMokePoints;
+        }
 
-        // Listen for toggle state changes
-        mokeCoinsToggle.addEventListener('change', function() {
-            console.log("Moke Coins toggle state changed:", mokeCoinsToggle.checked);
-
-            // Recalculate discount based on toggle state
+        // Add event listener for toggle change
+        mokeCoinsToggle.addEventListener('change', function () {
             if (mokeCoinsToggle.checked) {
                 discount = redemptionValue * userMokePoints;
             } else {
@@ -936,35 +950,28 @@ async function updateCartTotal() {
             }
 
             // Recalculate total after applying the discount
-            let total = subtotal - discount;
+            total = subtotal - discount;
 
             // Update the DOM elements with the recalculated values
-            subtotalElement.textContent = `S$${subtotal.toFixed(2)}`;
-            discountElement.textContent = `S$${discount.toFixed(2)}`;
-            totalElement.textContent = `S$${total.toFixed(2)}`;
+            updateTotalDisplay(subtotal, discount, total);
         });
-
-        // Initial calculation based on toggle state
-        if (mokeCoinsToggle.checked) {
-            discount = redemptionValue * userMokePoints;
-        }
     }
 
-    let total = subtotal - discount;
+    // Recalculate the total when the page is initially loaded
+    total = subtotal - discount;
 
-    // Update the DOM elements with the initial calculated values
-    subtotalElement.textContent = `S$${subtotal.toFixed(2)}`;
-    discountElement.textContent = `S$${discount.toFixed(2)}`;
-    totalElement.textContent = `S$${total.toFixed(2)}`;
+    // Update the DOM with the values
+    document.getElementById("subtotal").textContent = `S$${subtotal.toFixed(2)}`;
+    document.getElementById("discount").textContent = `S$${discount.toFixed(2)}`;
+    document.getElementById("total").textContent = `S$${total.toFixed(2)}`;
 }
 
-// Function to place an order with the selected address and Moke Coins redeemed
 async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     const cartItems = getCart(); // Fetch cart items
-    // const user = await getAccountDetails(); // Fetch user data from RestDB
+    const user = JSON.parse(sessionStorage.getItem("user")); // Fetch user data
 
-    if (!user) {
-        console.error("User not found, cannot place order.");
+    if (!user || !user._id) {
+        console.error("User not found or invalid user ID, cannot place order.");
         return;
     }
 
@@ -972,17 +979,17 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
         orderid: `ORDER_${Date.now()}`,  // Generate a unique order ID based on timestamp
         username: user.Username,  // Ensure username is a string
         products: cartItems.map(item => ({
-            id: item.id,          
-            size: item.size,       
+            id: item.id,
+            size: item.size,
             quantity: item.quantity
-        })),  
-        address: selectedAddress,  
+        })),
+        address: selectedAddress,
         date: new Date().toISOString(),
     };
 
-    const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
-    const orderApiUrl = 'https://fedassg-78fe.restdb.io/rest/orders'; 
-    const userApiUrl = `https://fedassg-78fe.restdb.io/rest/account/${user._id}`; // Use RestDB ObjectId
+    const apiKey = '67a76d364d8744a119828030'; // Replace with your actual API key
+    const orderApiUrl = 'https://fedassg2-cd74.restdb.io/rest/orders';
+    const userApiUrl = `https://fedassg2-cd74.restdb.io/rest/account/${user._id}`; // Use RestDB ObjectId
 
     try {
         // 🛒 **Place Order**
@@ -990,12 +997,12 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-apikey': apiKey, 
+                'x-apikey': apiKey,
             },
             body: JSON.stringify(orderData),
         });
 
-        const orderResult = await orderResponse.json();  
+        const orderResult = await orderResponse.json();
 
         if (!orderResponse.ok) {
             console.error("Error placing order:", orderResult);
@@ -1027,17 +1034,27 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
 
         console.log("✅ User Moke Coins updated successfully:", userResult);
 
+        // 🛒 **Clear the Cart** after order is placed successfully
+        clearCart();
+
     } catch (error) {
         console.error("❌ Failed to place order:", error);
     }
 }
+
+// Function to clear the cart (you'll need to implement this according to your cart logic)
+function clearCart() {
+    sessionStorage.removeItem('cart'); // Clear cart from session storage
+    console.log("🛒 Cart cleared successfully.");
+}
+
 
 // ----------------------------------------------------- MokePoints ----------------------------------------------------
 // Function to update the UI with the current MokePoints
 function updateMokepointDisplay() {
     // Get the user data from sessionStorage
     const user = JSON.parse(sessionStorage.getItem("user"));
-    
+
     // Check if the element exists before trying to update it
     const mokepointDisplayElement = document.getElementById("mokepoint-display");
     if (!mokepointDisplayElement) {
@@ -1049,7 +1066,7 @@ function updateMokepointDisplay() {
     if (user && user["Moke Points"] !== undefined) {
         // Get Moke Points value
         let mokepoints = user["Moke Points"];
-        
+
         // Update the UI
         document.getElementById("mokepoint-display").textContent = `MokeCoins: ${mokepoints}`;
     } else {
