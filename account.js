@@ -120,7 +120,7 @@ async function signin(email, password){
 } 
 
 function storeUser(data){ 
-    localStorage.setItem("user",JSON.stringify(x[0])); 
+    sessionStorage.setItem("user",JSON.stringify(x[0])); 
 } 
 console.log(document.getElementById("account-signup-submit")) 
 

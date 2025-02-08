@@ -976,3 +976,30 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
         console.error("❌ Failed to place order:", error);
     }
 }
+
+// ----------------------------------------------------- MokePoints ----------------------------------------------------
+// Function to update the UI with the current MokePoints
+function updateMokepointDisplay() {
+    // Get the user data from sessionStorage
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    
+    // Check if user exists and has Moke Points
+    if (user && user["Moke Points"] !== undefined) {
+        // Get Moke Points value
+        let mokepoints = user["Moke Points"];
+        
+        // Update the UI
+        document.getElementById("mokepoint-display").textContent = `MokeCoins: ${mokepoints}`;
+    } else {
+        // If Moke Points is not available or user data doesn't exist, show 0
+        document.getElementById("mokepoint-display").textContent = "MokeCoins: 0";
+    }
+}
+
+// Call the function to update the UI when the page loads
+updateMokepointDisplay();
+
+
+
+
+
