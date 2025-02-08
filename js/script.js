@@ -200,7 +200,6 @@ function displayProductDetails(productId, products) {
 
     // Loop through images to create carousel items and indicators
     images.forEach((image, index) => {
-        // Create the carousel indicator button
         const indicator = document.createElement("button");
         indicator.setAttribute("type", "button");
         indicator.setAttribute("data-bs-target", "#carouselExampleIndicators");
@@ -208,21 +207,16 @@ function displayProductDetails(productId, products) {
         indicator.setAttribute("aria-label", `Slide ${index + 1}`);
         if (index === 0) indicator.classList.add("active"); // Make the first indicator active
 
-        // Create the carousel item (image container)
         const carouselItem = document.createElement("div");
         carouselItem.classList.add("carousel-item");
-        if (index === 0) carouselItem.classList.add("active"); // Make the first image active
+        if (index === 0) carouselItem.classList.add("active");
 
-        // Create the image element
         const img = document.createElement("img");
         img.src = image;
         img.classList.add("d-block", "mx-auto");
         img.alt = product.name;
 
-        // Append the image to the carousel item
         carouselItem.appendChild(img);
-
-        // Append the carousel item and the indicator to their respective parent elements
         carouselInner.appendChild(carouselItem);
         carouselIndicators.appendChild(indicator);
     });
@@ -239,18 +233,16 @@ function displayProductDetails(productId, products) {
         .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
         .join(", ");
 
-
     const displayText = [categoryText, subcategoryText].filter(Boolean).join(", ");
-
-    // Display the combined category and subcategory text
     if (displayText) {
         document.getElementById("product-cat").textContent = displayText;
     }
 
     // Handle size selection and stock level
     const sizeSelect = document.getElementById("product-size");
-    const sizes = product.size.split(", ");
-    const stocks = product.stock.split(", ");
+    const sizes = product.size.split(", "); // ["S", "M", "L"]
+    const stocks = product.stock.split(", "); // ["5", "10", "0"]
+
     // Reset size options and add new ones based on product sizes
     sizeSelect.innerHTML = "<option selected>Choose Size</option>";
     sizes.forEach((size, index) => {
@@ -264,53 +256,57 @@ function displayProductDetails(productId, products) {
     sizeSelect.addEventListener("change", function () {
         const selectedSize = sizeSelect.value;
         const sizeIndex = sizes.indexOf(selectedSize);
+
         if (sizeIndex !== -1) {
-            if (parseInt(stocks[sizeIndex], 10) === 0) {
-                document.getElementById("size-alert").style.display = "block"; // Show "Sold out"
+            const stock = parseInt(stocks[sizeIndex], 10); // Convert stock to number
+            if (stock === 0) {
+                // Show the sold-out alert if the size is out of stock
+                document.getElementById("size-alert").style.display = "block";
+            } else {
+                // Hide the alert if the size is available
+                document.getElementById("size-alert").style.display = "none";
             }
         }
     });
 
-    // Initialize quantity control
+
+    // Initialize quantity control (assuming `handleQuantityControls` is a function you have elsewhere)
     const quantityDisplay = document.querySelector(".quantity-display");
     const decrementButton = document.querySelector(".decrement");
     const incrementButton = document.querySelector(".increment");
-
-    // Call the quantity control function
     handleQuantityControls(quantityDisplay, decrementButton, incrementButton);
 
     // Handle adding product to cart
     document.getElementById("add-to-cart").addEventListener("click", function () {
         const selectedSize = sizeSelect.value;
         const sizeIndex = sizes.indexOf(selectedSize);
-        // Check if size is selected
-        if (selectedSize === "Choose Size" || selectedSize === "") {
 
-            // Show the alert if no size is selected
+        // Check if no size is selected
+        if (selectedSize === "Choose Size" || selectedSize === "") {
             const alert = document.getElementById("size-alert");
             alert.style.display = "block"; // Show the alert
-            alert.classList.add("show");  // Make the alert visible with Bootstrap animation
-            
+            alert.classList.add("show");
+
             // Hide the alert after 3 seconds
             setTimeout(function () {
-                alert.classList.remove("show");  // Fade out the alert smoothly
-                alert.style.display = "none"; // Actually hide the alert after fade
-            }, 3000); // 3 seconds for the alert to disappear
-
-        } else if (parseInt(stocks[sizeIndex], 10) === 0) {
-
-            // If the selected size is sold out, show a different alert
+                alert.classList.remove("show");
+                alert.style.display = "none";
+            }, 3000);
+        } 
+        // Check if the selected size is sold out
+        else if (parseInt(stocks[sizeIndex], 10) === 0) { 
             const soldOutAlert = document.getElementById("sold-out-alert");
-            soldOutAlert.style.display = "block"; // Show the sold-out alert
+            soldOutAlert.style.display = "block"; // Show sold-out alert
             soldOutAlert.classList.add("show");
-
+            console.log("Product is sold out.");
             // Hide the alert after 3 seconds
             setTimeout(function () {
                 soldOutAlert.classList.remove("show");
                 soldOutAlert.style.display = "none";
             }, 3000);
-
-        } else {
+        } 
+        // Proceed with adding to the cart
+        else {
             addToCart(product);
         }
     });
@@ -419,6 +415,7 @@ function displayProductGallery(category, subcategory, products) {
             productLink.appendChild(card);
             productCard.appendChild(productLink);
             gallery.appendChild(productCard);
+
         }
     });
 
@@ -760,7 +757,7 @@ async function renderCheckout() {
 // Function to populate the checkout details (Moke Points, Address, etc.)
 async function populateCheckoutDetails() {
     // Fetch the user data asynchronously
-    const user = await getAccountDetails();  
+    // const user = await getAccountDetails();  
 
     if (!user) {
         console.error("User data not available");
@@ -915,7 +912,7 @@ async function updateCartTotal() {
     const isCheckoutPage = window.location.href.includes('checkout') || document.querySelector('.checkout-page-element') !== null;
 
     // Fetch the user profile (assuming getAccountDetails is async)
-    const userProfile = await getAccountDetails(); // Make sure this is awaited to get the correct user profile
+    // const userProfile = await getAccountDetails(); // Make sure this is awaited to get the correct user profile
     const userMokePoints = isCheckoutPage ? userProfile["Moke Points"] : 0;
     console.log("User Moke Points:", userMokePoints);
 
@@ -964,7 +961,7 @@ async function updateCartTotal() {
 // Function to place an order with the selected address and Moke Coins redeemed
 async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     const cartItems = getCart(); // Fetch cart items
-    const user = await getAccountDetails(); // Fetch user data from RestDB
+    // const user = await getAccountDetails(); // Fetch user data from RestDB
 
     if (!user) {
         console.error("User not found, cannot place order.");
@@ -1041,6 +1038,13 @@ function updateMokepointDisplay() {
     // Get the user data from sessionStorage
     const user = JSON.parse(sessionStorage.getItem("user"));
     
+    // Check if the element exists before trying to update it
+    const mokepointDisplayElement = document.getElementById("mokepoint-display");
+    if (!mokepointDisplayElement) {
+        console.warn('Element with ID "mokepoint-display" not found');
+        return; // Exit if the element is not found
+    }
+
     // Check if user exists and has Moke Points
     if (user && user["Moke Points"] !== undefined) {
         // Get Moke Points value

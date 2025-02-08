@@ -63,6 +63,8 @@
     <main>
         <img src="https://cdn-icons-png.flaticon.com/128/507/507257.png" alt="" class="minigame-back"
             id="minigame-back">
+
+        <h2 class="section-heading">Minigames</h2>
         <div class="page minigame-list active">
             <ul class="minigame" id="rock-paper-scissors-game" data-game-id="rock-paper-scissors">
                 <img src="https://mangobile.com/wp-content/uploads/2023/09/image.png">
@@ -291,6 +293,20 @@
     </footer>
     <script type="module" src="js/minigame.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        window.onload = function () {
+            // Header fade-in and slide-up animation
+            gsap.from(".header", { opacity: 0, y: -50, duration: 1 });
+            
+            gsap.from(".minigame", {
+                opacity: 0,
+                y: 30,
+                duration: 1.5,
+                delay: 0.5,
+            });
+        };
+    </script>
 </body>
 
 </html>
