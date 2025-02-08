@@ -572,7 +572,7 @@ function updateCartNotification() {
     }
 }
 
-
+// Update Cart Total
 function handleQuantityControls(quantityDisplay, decrementButton, incrementButton) {
     let quantity = parseInt(quantityDisplay.textContent, 10) || 1; // Ensure the starting quantity is valid
 
@@ -699,9 +699,10 @@ async function renderCheckout() {
     updateCartNotification(); // Update the cart notification (if necessary)
 }
 
+// Function to populate the checkout details (Moke Points, Address, etc.)
 async function populateCheckoutDetails() {
     // Fetch the user data asynchronously
-    const user = await getAccountDetails();  // Use await to wait for the data
+    const user = await getAccountDetails();  
 
     if (!user) {
         console.error("User data not available");
@@ -712,14 +713,30 @@ async function populateCheckoutDetails() {
     const addressContainer = document.querySelector('.billing-details .address-option-container');
     addressContainer.innerHTML = ''; // Clear any existing content
 
-    // Split the addresses into an array by the commas
+    if (!user["Address"] || user["Address"].trim() === "") {
+        // If no address is set, show a button to redirect to profile.html
+        const noAddressMessage = document.createElement('p');
+        noAddressMessage.textContent = "No address found. Please set your address in your profile.";
+
+        const goToProfileButton = document.createElement('button');
+        goToProfileButton.textContent = "Set Address";
+        goToProfileButton.classList.add('checkout-button', 'btn', 'btn-primary', 'w-100'); // Add a class for styling
+        goToProfileButton.addEventListener('click', () => {
+            window.location.href = "profile.html"; // Redirect to profile page
+        });
+
+        addressContainer.appendChild(noAddressMessage);
+        addressContainer.appendChild(goToProfileButton);
+        return; // Stop execution since no address is available
+    }
+
+    // Split the addresses into an array
     const addresses = user["Address"].split(',').map(address => address.trim());
     const addressOwners = user["Address Owner"].split(',').map(owner => owner.trim());
 
-    // Store the selected address globally
-    let selectedAddress = ''; 
+    let selectedAddress = ''; // Store the selected address globally
 
-    // Create the address radio buttons and labels dynamically
+    // Create address radio buttons dynamically
     addresses.forEach((address, index) => {
         const addressOption = document.createElement('div');
         addressOption.classList.add('address-option');
@@ -727,8 +744,8 @@ async function populateCheckoutDetails() {
         const radioButton = document.createElement('input');
         radioButton.type = 'radio';
         radioButton.name = 'billing';
-        radioButton.id = `billing-${index}`; // Unique ID for the radio button
-        radioButton.value = `${addressOwners[index]}: ${address}`; // Store the combined address as the value
+        radioButton.id = `billing-${index}`;
+        radioButton.value = `${addressOwners[index]}: ${address}`;
 
         const label = document.createElement('label');
         label.setAttribute('for', `billing-${index}`);
@@ -738,93 +755,97 @@ async function populateCheckoutDetails() {
         addressOption.appendChild(label);
         addressContainer.appendChild(addressOption);
 
-        // Add event listener to detect when the address is selected
+        // Add event listener to detect when an address is selected
         radioButton.addEventListener('change', () => {
             if (radioButton.checked) {
-                selectedAddress = radioButton.value; // Store selected address
+                selectedAddress = radioButton.value;
                 console.log(`Selected address: ${selectedAddress}`);
             }
         });
     });
 
     // Right Section: Moke Coins (Redeem Section)
-    const mokeCoinsToggle = document.getElementById('moke-coins-toggle'); // Get the toggle input by ID
-    const mokePointsLabel = document.querySelector('.moke-coins');  // The label for MokeCoins
+    const mokeCoinsToggle = document.getElementById('moke-coins-toggle');
+    const mokePointsLabel = document.querySelector('.moke-coins');
 
-    // Format the points text
     const mokePointsText = `Redeem ${user["Moke Points"]} MokeCoins`; 
 
-    // Update the MokeCoins toggle label with the correct text
     if (mokePointsLabel) {
         mokePointsLabel.innerHTML = `<input type="checkbox" id="moke-coins-toggle">${mokePointsText}`;
     }
 
-    // If you want to update the toggle state based on user data, you can do so:
     if (mokeCoinsToggle) {
-        mokeCoinsToggle.checked = true;  // Set toggle to checked state if desired
-        updateCartTotal(); // Update the cart total based on the toggle state
+        mokeCoinsToggle.checked = true;  
+        updateCartTotal(); // Update cart total based on toggle state
     }
 
-    // Handle the "Place Order" button click event
+    // "Place Order" button click event
     const placeOrderButton = document.getElementById('place-order-btn');
     placeOrderButton.addEventListener('click', async () => {
-        // Ensure an address has been selected
         if (!selectedAddress) {
             console.warn("No address selected.");
             return;
         }
 
-        // Fetch the cart items from sessionStorage
-        const cartItems = getCart(); // Assuming this is your method to get cart items
+        const cartItems = getCart();
         if (cartItems.length === 0) {
             console.warn("No items in the cart.");
             return;
         }
 
-        // Determine if Moke Coins were redeemed based on the toggle state
         const mokeCoinsRedeemed = mokeCoinsToggle.checked ? user["Moke Points"] : 0;
 
-        // Return selected address and mokeCoinsRedeemed
         await placeOrder(selectedAddress, mokeCoinsRedeemed);
     });
 
-    // Optionally, return selectedAddress and mokeCoinsRedeemed from the function if needed
     return { selectedAddress, mokeCoinsRedeemed: mokeCoinsToggle.checked };
 }
+
 
 // Fetch the account details from the JSON file
 async function getAccountDetails() {
     try {
         // Retrieve the username from session storage
-        const username = "hi" // session storage username
-        
+        const username = "testing123"; // Replace this with sessionStorage retrieval
+
         if (!username) {
             console.error("No username found in session storage");
             return null;
         }
 
-        const response = await fetch('profile.json');
-        if (!response.ok) {
-            throw new Error('Failed to fetch user profile');
-        }
-        
-        const userData = await response.json();
-        
-        // Find the user with the matching username
-        const user = userData.find(user => user.Username === username);
+        // Define the API URL with query filtering by Username
+        const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
+        const apiUrl = `https://fedassg-78fe.restdb.io/rest/account?q={"Username":"${username}"}`;
 
-        if (!user) {
-            console.error("User not found");
+        // Fetch user data from RestDB
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': apiKey,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch user account from RestDB');
+        }
+
+        const userData = await response.json();
+
+        // Ensure a user was found
+        if (!userData || userData.length === 0) {
+            console.error("User not found in RestDB");
             return null;
         }
 
-        return user;  // Return the user's account details
+        return userData[0]; // Return the first matched user
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching account details:", error);
         return null;
     }
 }
 
+// Function to update the cart total based on the Moke Coins toggle state
 async function updateCartTotal() {
     const subtotalElement = document.getElementById("subtotal");
     const discountElement = document.getElementById("discount");
@@ -883,67 +904,76 @@ async function updateCartTotal() {
     totalElement.textContent = `S$${total.toFixed(2)}`;
 }
 
-// Function to handle placing the order with parameters passed directly
+// Function to place an order with the selected address and Moke Coins redeemed
 async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
-    // Fetch the cart items from sessionStorage using getCart()
-    const cartItems = getCart(); // Assuming getCart() is your method to get cart items
-    const user = await getAccountDetails(); // Fetch the user data
-    
-    // Ensure cartItems is an array
-    if (!Array.isArray(cartItems)) {
-        console.error("Cart items is not an array:", cartItems);
+    const cartItems = getCart(); // Fetch cart items
+    const user = await getAccountDetails(); // Fetch user data from RestDB
+
+    if (!user) {
+        console.error("User not found, cannot place order.");
         return;
     }
 
-    // Prepare the order data
     const orderData = {
-        username: user.Username, // Use the username from the fetched user data
+        orderid: `ORDER_${Date.now()}`,  // Generate a unique order ID based on timestamp
+        username: user.Username,  // Ensure username is a string
         products: cartItems.map(item => ({
-            id: item.id,            // Product ID
-            size: item.size,        // Product size
-            quantity: item.quantity // Product quantity
-        })),  // Format the cart items as a JSON array
-        address: selectedAddress, // The selected address
-        date: new Date().toISOString(), // Current date in ISO format
+            id: item.id,          
+            size: item.size,       
+            quantity: item.quantity
+        })),  
+        address: selectedAddress,  
+        date: new Date().toISOString(),
     };
 
-    // Prepare the data to update Moke Coins (subtract redeemed coins)
-    const updatedUserData = {
-        username: user.Username, // Use the username from the fetched user data
-        newMokeCoinsBalance: user["Moke Points"] - mokeCoinsRedeemed, // Subtract redeemed Moke Coins
-    };
+    const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
+    const orderApiUrl = 'https://fedassg-78fe.restdb.io/rest/orders'; 
+    const userApiUrl = `https://fedassg-78fe.restdb.io/rest/account/${user._id}`; // Use RestDB ObjectId
 
-    // Get your API key (if needed)
-    const apiKey = '67a6f93e76011910f95afd4b'; // Replace this with your actual API key
-    const apiUrl = 'https://fedassg-78fe.restdb.io/rest/orders'; // Replace with your backend URL
-
-    // Send the order data to your backend (use fetch or another AJAX method)
     try {
-        // Start a transaction by sending both the order and user updates
-        const response = await fetch(apiUrl, {
+        // 🛒 **Place Order**
+        const orderResponse = await fetch(orderApiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-apikey': apiKey, // Use x-apikey header if required
+                'x-apikey': apiKey, 
+            },
+            body: JSON.stringify(orderData),
+        });
+
+        const orderResult = await orderResponse.json();  
+
+        if (!orderResponse.ok) {
+            console.error("Error placing order:", orderResult);
+            return;
+        }
+
+        console.log("✅ Order placed successfully:", orderResult);
+
+        // 🎟 **Update Moke Coins**
+        const newMokeCoinsBalance = Math.max(0, user["Moke Points"] - mokeCoinsRedeemed); // Ensure non-negative balance
+
+        const userResponse = await fetch(userApiUrl, {
+            method: 'PATCH', // Update the user document
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': apiKey,
             },
             body: JSON.stringify({
-                order: orderData,
+                "Moke Points": newMokeCoinsBalance, // Update Moke Coins
             }),
         });
 
-        const result = await response.json();
+        const userResult = await userResponse.json();
 
-        if (response.ok) {
-            console.log("Order placed successfully:", result);
-            // Optionally, redirect to an order confirmation page or show a success message
-        } else {
-            console.error("Error placing order:", result);
-            // Show an error message if the order fails
+        if (!userResponse.ok) {
+            console.error("⚠️ Error updating Moke Coins:", userResult);
+            return;
         }
+
+        console.log("✅ User Moke Coins updated successfully:", userResult);
+
     } catch (error) {
-        console.error("Failed to place order:", error);
-        // Handle network errors or other issues
+        console.error("❌ Failed to place order:", error);
     }
 }
-
-
