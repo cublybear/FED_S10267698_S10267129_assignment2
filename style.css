@@ -1356,8 +1356,8 @@ select.form-select {
   position: absolute;
   top: 50px;
   right: 10px;
+  font-size: 14px;
 }
-
 
 .cart-card:hover {
   transform: none;
@@ -1458,6 +1458,8 @@ select.form-select {
   padding: 30px;
   border-radius: 10px;
 }
+
+
 
 .subheading {
   font-size: 24px;
