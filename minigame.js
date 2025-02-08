@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let velocityX = 0, velocityY = 0;
     let setInterValid;
     let score = 0;
-    let highScore = localStorage.getItem("snake-game-high-score") || 0;
+    let highScore = sessionStorage.getItem("snake-game-high-score") || 0;
 
     const changeFoodPosition = () => {
         blockX = Math.floor(Math.random() * 30) + 1;
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
             score++;
             if (score > highScore) {
                 highScore = score;
-                localStorage.setItem("snake-game-high-score", highScore);
+                sessionStorage.setItem("snake-game-high-score", highScore);
             }
             scoreElement.innerText = `Score: ${score}`;
             highScoreElement.innerText = `High score: ${highScore}`;
@@ -226,24 +226,22 @@ document.addEventListener('DOMContentLoaded', function () {
     //---------------------------------------- MokePoints ----------------------------------------
     // Function to check if user qualifies for MokePoints
     async function updateMokepoints(username) {
-        const currentDate = new Date().toISOString().split('T')[0]; // Get today's date
 
-        // Retrieve stored scores from localStorage
-        let memoryScore = parseInt(localStorage.getItem("memory-game-score")) || 0;
-        let snakeScore = parseInt(localStorage.getItem("snake-game-score")) || 0;
+        // Retrieve stored scores from sessionStorage
+        let memoryScore = parseInt(sessionStorage.getItem("memory-game-score")) || 0;
+        let snakeScore = parseInt(sessionStorage.getItem("snake-game-score")) || 0;
 
         // Calculate total score from both games
         let totalScore = memoryScore + snakeScore;
 
         // Retrieve last earned date for MokePoints
-        let lastEarnedDate = localStorage.getItem("lastEarnedDate");
-        let mokepoints = parseInt(localStorage.getItem("Moke Points")) || 0;
+        let lastEarnedDate = sessionStorage.getItem("lastEarnedDate");
+        let mokepoints = parseInt(sessionStorage.getItem("Moke Points")) || 0;
 
-        // If the total score is greater than 50 and the user hasn't earned MokePoints today
-        if (totalScore > 2 && currentDate !== lastEarnedDate) {
+        // If the total score is greater than 100 and the user hasn't earned MokePoints today
+        if (totalScore > 2) { // I PUT THIS TO 2 FOR TESTING!!!!!!!!!!!!!!!
             mokepoints += 1; // Award 1 MokePoint
-            localStorage.setItem("Moke Points", mokepoints); // Save updated mokepoints
-            localStorage.setItem("lastEarnedDate", currentDate); // Update last earned date
+            sessionStorage.setItem("Moke Points", mokepoints); // Save updated mokepoints
 
             // Update MokePoints in RestDB (Assuming RestDB API update function is available)
             await updateRestDB(username, mokepoints);
@@ -251,21 +249,9 @@ document.addEventListener('DOMContentLoaded', function () {
             alert("Congratulations! You've earned 1 MokePoint!");
         } 
         else {
-            if (currentDate === lastEarnedDate) {
-                alert("You have already earned MokePoints today. Try again tomorrow!");
-            } else {
-                alert("You need a combined score greater than 50 to earn MokePoints.");
-            }
+            alert("You need a combined score greater than 100 to earn MokePoints.");
         }
-
-        // Update UI with the current MokePoints
-        updateMokepointDisplay(); // Call this function to update the UI
     }
-
-    // Function to update the UI with the current MokePoints
-    function updateMokepointDisplay() {
-        let mokepoints = localStorage.getItem("Moke Points") || 0;
-        document.getElementById("mokepoint-display").textContent = `MokePoints: ${mokepoints}`;
-    }
+    updateMokepoints("username");
 
 });

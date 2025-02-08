@@ -665,4 +665,16 @@ function renderCheckout() {
 }
 
 
+// ----------------------------------------------------- MokePoints ----------------------------------------------------
+// Function to update the UI with the current MokePoints
+function updateMokepointDisplay() {
+    let mokepoints = sessionStorage.getItem("Moke Points") || 0; // Get MokePoints from localStorage (default to 0 if none found)
+    console.groupCollapsed(mokepoints);
+    document.getElementById("mokepoint-display").textContent = `MokeCoins: ${mokepoints}`; // Update the display text
+}
+
+updateMokepointDisplay(); // Call this function to update the UI when the page loads
+
+
+
 
