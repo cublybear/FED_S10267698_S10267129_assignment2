@@ -1,100 +1,11 @@
-//------------------------------------------Store Data in Session Storage------------------------------------------
+
 import { fetchUser } from "./fetchUser.js";
-
-// async function fetchProducts() {
-//     // Check if product data is already cached in sessionStorage
-//     let products = JSON.parse(sessionStorage.getItem("products"));
-
-//     if (!products) {
-//         try {
-//             // If products are not cached, fetch them from the API
-//             const productsResponse = await fetch("https://fedassg2-cd74.restdb.io/rest/products", {
-//                 headers: { "x-apikey": "67a76d364d8744a119828030 }  // Use your API key if required
-//             });
-
-//             if (!productsResponse.ok) {
-//                 throw new Error("Failed to fetch products");
-//             }
-
-//             // Parse the response and store product data
-//             products = await productsResponse.json();
-
-//             // Store products in sessionStorage for future use
-//             sessionStorage.setItem("products", JSON.stringify(products));
-
-//             return products;  // Return the product data
-
-//         } catch (error) {
-//             console.error("Error fetching products:", error);
-//             return null;  // Return null if there's an error
-//         }
-//     }
-
-//     // If products are already cached in sessionStorage, return the cached data
-//     return products;
-// }
-
-
-//----------------------------------------------------- JSON (testing) ----------------------------------------------------
-// document.addEventListener("DOMContentLoaded", function () {
-//     console.log("Script loaded successfully");
-//     fetch("products.json")
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error("Failed to load products.json");
-//             }
-//             return response.json();
-//         })
-//         .then(products => {
-//             console.log("Products loaded:", products);
-
-//             updateCartNotification();
-
-//             const urlParams = new URLSearchParams(window.location.search);
-//             const productId = urlParams.get("id");
-//             let category = urlParams.get("category") || "Products";
-//             let subcategory = urlParams.get("subcategory") || "all";
-
-//             // Force category to "bestsellers" for the homepage (index.html)
-//             if (window.location.pathname.includes("index.html")) {
-//                 category = "bestsellers"; // Set category to "bestsellers" for homepage
-//             }
-
-//             // Load cart data only if we're on the cart page
-//             const cartContainer = document.getElementById("cart-items-container");
-//             if (cartContainer) {
-//                 renderCartItems();
-//             }
-
-//             // Load checkout summary only if we're on the checkout page
-//             const checkoutContainer = document.getElementById("checkout-items");
-//             if (checkoutContainer) {
-//                 renderCheckout();
-//             }
-
-//             if (productId) {
-//                 console.log("Product ID found, displaying product details");
-//                 const product = products.find(p => p.id === productId);
-//                 if (product) {
-//                     displayProductDetails(productId, products);
-//                 } else {
-//                     console.error("Product not found");
-//                 }
-//             } else {
-//                 // Display product gallery based on the category and subcategory
-//                 console.log("Displaying product gallery");
-//                 displayProductGallery(category, subcategory, products);
-//             }
-//         })
-//         .catch(error => {
-//             console.error("Error loading products:", error);
-//         });
-// });
-
 //----------------------------------------------------- API ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded successfully");
 
+    // Call the function to update the UI when the page loads
+    updateMokepointDisplay();
     const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';  // Your RestDB API URL
     const apikey = '67a76d364d8744a119828030';  // Your RestDB API key
 
@@ -103,11 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!userAccount) {
         console.log("No user account in sessionStorage");
-        // Optionally, redirect to login page or show login form
-        // window.location.href = "login.html";
+
     } else {
         console.log("User account found:", userAccount);
-        // You can use the userAccount data to personalize the page or display user information
     }
 
     // Check if products are already stored in sessionStorage
@@ -142,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => {
                 console.error("Error loading products:", error);
             });
+
     } else {
         // Use cached products from sessionStorage
         console.log("Using cached products");
@@ -453,11 +363,18 @@ function getCart() {
     return JSON.parse(sessionStorage.getItem("cart")) || [];
 }
 
+// Function to clear the cart (you'll need to implement this according to your cart logic)
+function clearCart() {
+    sessionStorage.removeItem('cart'); // Clear cart from session storage
+    console.log("🛒 Cart cleared successfully.");
+}
+
 // Save cart data to sessionStorage
 function saveCart(cart) {
     sessionStorage.setItem("cart", JSON.stringify(cart));
 }
 
+// Function to render cart items
 function renderCartItems() {
     const cartItemsContainer = document.querySelector("#cart-items-container");
 
@@ -884,8 +801,6 @@ async function populateCheckoutDetails() {
     return { selectedAddress, mokeCoinsRedeemed: mokeCoinsToggle.checked };
 }
 
-
-// Function to update the cart total based on the Moke Coins toggle state
 // Function to update the cart total based on the Moke Coins toggle state
 async function updateCartTotal() {
     const subtotalElement = document.getElementById("subtotal");
@@ -1042,13 +957,6 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     }
 }
 
-// Function to clear the cart (you'll need to implement this according to your cart logic)
-function clearCart() {
-    sessionStorage.removeItem('cart'); // Clear cart from session storage
-    console.log("🛒 Cart cleared successfully.");
-}
-
-
 // ----------------------------------------------------- MokePoints ----------------------------------------------------
 // Function to update the UI with the current MokePoints
 function updateMokepointDisplay() {
@@ -1075,8 +983,6 @@ function updateMokepointDisplay() {
     }
 }
 
-// Call the function to update the UI when the page loads
-updateMokepointDisplay();
 
 
 
