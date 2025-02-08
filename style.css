@@ -1357,10 +1357,6 @@ select.form-select {
   border-radius: 0px !important;
 }
 
-.cart-card .btn-close {
-  font-size: 14px; /* Makes the button icon smaller */
-}
-
 .btn-close {
   position: absolute;
   top: 50px;
@@ -1455,20 +1451,11 @@ select.form-select {
 }
 
 /*---------------------------------------- Checkout ----------------------------------------*/
-.checkout-left {
-  flex: 1;
-  max-width: 55%;
-}
-
 .checkout-right {
-  flex: 1;
-  max-width: 100%;
   background: #f9f9f9;
   padding: 30px;
   border-radius: 10px;
 }
-
-
 
 .subheading {
   font-size: 24px;
