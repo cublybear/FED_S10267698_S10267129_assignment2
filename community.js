@@ -4,7 +4,6 @@ const APIKEY = "678b1d1a19b96a08c0af6336";
 console.log(account)
 const container = document.querySelector(".post-con"); // The main container for all posts
 const images = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9LqoCR8_bxqKCRc_1i1Gs8QY6f6UuVhcsXg&s",
     "https://i.pinimg.com/originals/e3/24/f7/e324f790cfe0a51d76f98356475cc408.jpg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjBL9T_P9pY8ritWs7nP3MBc-X_wyIVZABA&s",
     "https://img.freepik.com/premium-photo/funny-black-white-cat-with-green-eyes-open-mouth-talking-cat_72594-2307.jpg?semt=ais_hybrid",

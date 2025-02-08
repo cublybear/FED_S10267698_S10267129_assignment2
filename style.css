@@ -822,13 +822,13 @@ h1 {
   padding: 20px;
 }
 
-.headers{
+.headers {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 40px;
-  font-weight: semi-bold;
-  align-items: flex-start;
+  font-size: 30px; /* Adjusted for better fit */
+  font-weight: 600; /* Semi-bold */
+  align-items: center; /* Centers vertically */
 }
 
 .likes {
