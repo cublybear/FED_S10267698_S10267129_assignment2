@@ -787,7 +787,11 @@ textarea {
 .snake-game{
   width: 65vmin;
   height: 70vmin;
+  max-height: 100%;
+  margin-left: auto;
+  margin-right: auto;
   background: #293447;
+  margin-bottom: 100px;
 }
 
 .snake-game-details{

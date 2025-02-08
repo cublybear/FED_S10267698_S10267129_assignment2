@@ -49,20 +49,19 @@ const initGame = () => {
     let htmlMarkup = `<div class="block" style="grid-area: ${blockY}/${blockX}"></div>`;  // food block
 
     // Check if snake touches the block
-    // Check if snake touches the block
-if (snakeX === blockX && snakeY === blockY){
-    changeFoodPosition();
-    snakeBody.push({ x: blockX, y: blockY }); // Push block to snake body array
-    score++; // increment score by 1
+    if (snakeX === blockX && snakeY === blockY){
+        changeFoodPosition();
+        snakeBody.push({ x: blockX, y: blockY }); // Push block to snake body array
+        score++; // increment score by 1
 
-    if (score > highScore) {  // Update the high score only if the current score is higher
-        highScore = score;
-        localStorage.setItem("snake-game-high-score", highScore); // Save new high score
-    }
+        if (score > highScore) {  // Update the high score only if the current score is higher
+            highScore = score;
+            localStorage.setItem("snake-game-high-score", highScore); // Save new high score
+        }
 
-    // Update score and high score in the display
-    scoreElement.innerText = `Score: ${score}`;
-    highScoreElement.innerText = `High score: ${highScore}`;
+        // Update score and high score in the display
+        scoreElement.innerText = `Score: ${score}`;
+        highScoreElement.innerText = `High score: ${highScore}`;
     }
 
 
