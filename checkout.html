@@ -66,13 +66,8 @@
         <div class="col-lg-7 col-md-12">
           <section class="billing-details">
             <h2 class="subheading">Billing Details</h2>
-            <div class="address-option">
-              <input type="radio" name="billing" checked>
-              <label>Name Tan<br>Blk 123 Address Address Road<br>Singapore 123456 #12-34</label>
-            </div>
-            <div class="address-option">
-              <input type="radio" name="billing">
-              <label>Name Tan<br>Blk 123 Address Address Road<br>Singapore 123456 #12-34</label>
+            <div class="address-option-container">
+              <!-- Dynamic address options will be inserted here -->
             </div>
           </section>
 
@@ -98,8 +93,10 @@
               <!-- Dynamic cart items will be inserted here -->
             </div>
 
+
+            <!-- Moke Coins Section -->
             <label class="moke-coins">
-              <input type="checkbox" checked> Redeem 326 MokeCoins
+              <input type="checkbox" id="moke-coins-toggle">
             </label>
 
             <div class="summary-details">
@@ -110,7 +107,7 @@
               <p><strong>Total:</strong> <span id="total" class="cart-total">S$0.00</span></p>
             </div>
 
-            <a href="checkout.html" class="checkout-button btn btn-primary w-100">Place Order</a>
+            <a href="#" id="place-order-btn" class="checkout-button btn btn-primary w-100">Place Order</a>
           </div>
         </div>
       </div>

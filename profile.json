@@ -1,0 +1,19 @@
+[
+    {
+        "Username": "hi",
+        "Password": "87654321",
+        "Email": "hi@hi.com",
+        "Phone Number": 87654321,
+        "Address Owner": "John Tan, May Lim",
+        "Address": "165 Bukit Merah Central #07-3661 Singapore 150156, 113 Bukit Panjang Central #01-3231 Singapore 123455",
+        "LikedPosts": {
+            "posts": {
+                "67a6fa4dbb50491a00011daa": 1,
+                "67a6fa4dbb50491a00011da9": 1,
+                "67a7037dbb50491a00011ea9": 1,
+                "67a704e8bb50491a00011f14": 1
+            }
+        },
+        "Moke Points": 300
+    }
+]
