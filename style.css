@@ -1154,8 +1154,9 @@ ul {
 
 .category-nav a {
   font-size: 16px;
-  padding: 0 40px;
+  padding: 0 50px;
   color: black;
+  font-weight: bold;
   text-decoration: none;
   transition: color 0.3s ease;
 }
