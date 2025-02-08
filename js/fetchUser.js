@@ -1,21 +1,20 @@
 export async function fetchUser() {
-    // Retrieve the logged-in user ID from sessionStorage
-    const loggedInUserId = sessionStorage.getItem("loggedInUserId");
+    // Retrieve the logged-in username from sessionStorage
+    let loggedInUsername = sessionStorage.getItem("username");
 
-    // If no logged-in user ID is found, return null
-    if (!loggedInUserId) {
-        console.error("No logged-in user ID found in session.");
-        return { user: null };  // No user logged in
+    // If username is not set or its length is greater than 1, default it to "hi"
+    if (!loggedInUsername || loggedInUsername.length > 1) {
+        loggedInUsername = "hi";
     }
 
     // Check if user data is already cached in sessionStorage
     let user = JSON.parse(sessionStorage.getItem("user"));
 
-    // If the user is not cached or the cached user does not match the logged-in ID, fetch the data
-    if (!user || user._id !== loggedInUserId) {
+    // If the user is not cached or the cached user does not match the logged-in username, fetch the data
+    if (!user || user.Username !== loggedInUsername) {
         try {
-            // Fetch user data from the API, filtering by the logged-in user ID
-            const userResponse = await fetch(`https://fedassg2-cd74.restdb.io/rest/account?q={"_id":"${loggedInUserId}"}`, {
+            // Fetch user data from the API, filtering by the logged-in username
+            const userResponse = await fetch(`https://fedassg2-cd74.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
                 headers: { "x-apikey": "67a76d364d8744a119828030" } // Replace with your actual API key
             });
 
@@ -26,7 +25,7 @@ export async function fetchUser() {
             // Parse the response to get the user data
             const users = await userResponse.json();
 
-            // Check if a user with the logged-in ID exists in the response
+            // Check if a user with the logged-in username exists in the response
             if (users.length === 0) {
                 console.error("Logged-in user not found.");
                 return { user: null };
@@ -46,6 +45,6 @@ export async function fetchUser() {
         }
     }
 
-    // If user is already cached in sessionStorage and matches the logged-in user ID, return the cached user
+    // If user is already cached in sessionStorage and matches the logged-in username, return the cached user
     return { user };
 }
