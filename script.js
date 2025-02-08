@@ -55,36 +55,69 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //----------------------------------------------------- API ----------------------------------------------------
 // document.addEventListener("DOMContentLoaded", function () {
-//     const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';  // Your RestDB API URL
-//     const apikey = '678b1d1a19b96a08c0af6336';  // Your RestDB API key
+//     console.log("Script loaded successfully");
+    
+//     const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';  // Your RestDB API URL
+//     const apikey = '67a6f93e76011910f95afd4b';  // Your RestDB API key
 
 //     fetch(apiUrl, {
 //         method: 'GET',
 //         headers: {
-//             'x-apikey': apikey,  // Your RestDB API key
+//             'x-apikey': apikey,
 //             'Content-Type': 'application/json',
 //             "Cache-Control": "no-cache"
 //         }
 //     })
-//         .then(response => response.json()) // Parse the response as JSON
-//         .then(products => {
-//             console.log(products);
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error("Failed to load products from API");
+//         }
+//         return response.json();
+//     })
+//     .then(products => {
+//         console.log("Products loaded:", products);
+//         updateCartNotification();
 
-//             const urlParams = new URLSearchParams(window.location.search);
-//             const productId = urlParams.get("id");
-//             const category = urlParams.get("category") || "Products";
-//             const subcategory = urlParams.get("subcategory") || "all";
+//         const urlParams = new URLSearchParams(window.location.search);
+//         const productId = urlParams.get("id");
+//         let category = urlParams.get("category") || "Products";
+//         let subcategory = urlParams.get("subcategory") || "all";
 
-//             if (productId) {
+//         // Force category to "bestsellers" for the homepage (index.html)
+//         if (window.location.pathname.includes("index.html")) {
+//             category = "bestsellers";
+//         }
+
+//         // Load cart data only if we're on the cart page
+//         const cartContainer = document.getElementById("cart-items-container");
+//         if (cartContainer) {
+//             renderCartItems();
+//         }
+
+//         // Load checkout summary only if we're on the checkout page
+//         const checkoutContainer = document.getElementById("checkout-items");
+//         if (checkoutContainer) {
+//             renderCheckout();
+//         }
+
+//         if (productId) {
+//             console.log("Product ID found, displaying product details");
+//             const product = products.find(p => p.id === productId);
+//             if (product) {
 //                 displayProductDetails(productId, products);
 //             } else {
-//                 displayProductGallery(category, subcategory, products);
+//                 console.error("Product not found");
 //             }
-//         })
-//         .catch(error => {
-//             console.error("Error loading products:", error);
-//         });
+//         } else {
+//             console.log("Displaying product gallery");
+//             displayProductGallery(category, subcategory, products);
+//         }
+//     })
+//     .catch(error => {
+//         console.error("Error loading products:", error);
+//     });
 // });
+
 
 // ----------------------------------------------------- Product Details ----------------------------------------------------
 function displayProductDetails(productId, products) {
@@ -175,7 +208,7 @@ function displayProductDetails(productId, products) {
         const sizeIndex = sizes.indexOf(selectedSize);
         if (sizeIndex !== -1) {
             if (parseInt(stocks[sizeIndex], 10) === 0) {
-                document.getElementById("size-status").style.display = "block"; // Show "Sold out"
+                document.getElementById("size-alert").style.display = "block"; // Show "Sold out"
             }
         }
     });
@@ -194,25 +227,31 @@ function displayProductDetails(productId, products) {
         const sizeIndex = sizes.indexOf(selectedSize);
         // Check if size is selected
         if (selectedSize === "Choose Size" || selectedSize === "") {
+
             // Show the alert if no size is selected
             const alert = document.getElementById("size-alert");
             alert.style.display = "block"; // Show the alert
             alert.classList.add("show");  // Make the alert visible with Bootstrap animation
+            
             // Hide the alert after 3 seconds
             setTimeout(function () {
                 alert.classList.remove("show");  // Fade out the alert smoothly
                 alert.style.display = "none"; // Actually hide the alert after fade
             }, 3000); // 3 seconds for the alert to disappear
+
         } else if (parseInt(stocks[sizeIndex], 10) === 0) {
+
             // If the selected size is sold out, show a different alert
             const soldOutAlert = document.getElementById("sold-out-alert");
             soldOutAlert.style.display = "block"; // Show the sold-out alert
             soldOutAlert.classList.add("show");
+
             // Hide the alert after 3 seconds
             setTimeout(function () {
                 soldOutAlert.classList.remove("show");
                 soldOutAlert.style.display = "none";
             }, 3000);
+
         } else {
             addToCart(product);
         }
@@ -221,14 +260,18 @@ function displayProductDetails(productId, products) {
 
 // ----------------------------------------------------- Product Gallery ----------------------------------------------------
 function displayProductGallery(category, subcategory, products) {
-    // Filter products by category
-    let filteredProducts = products.filter(product => product.category.toLowerCase().includes(category.toLowerCase()));
+    // Filter products by exact category match
+    let filteredProducts = products.filter(product => {
+        const categories = product.category.split(",").map(cat => cat.trim().toLowerCase());
+        return categories.includes(category.toLowerCase());
+    });
 
-    // If subcategory isn't "all", filter further based on subcategory
+    // If subcategory isn't "all", filter further based on exact match
     if (subcategory.toLowerCase() !== "all") {
-        filteredProducts = filteredProducts.filter(product =>
-            product.subcategory.toLowerCase().includes(subcategory.toLowerCase())
-        );
+        filteredProducts = filteredProducts.filter(product => {
+            const subcategories = product.subcategory.split(",").map(sub => sub.trim().toLowerCase());
+            return subcategories.includes(subcategory.toLowerCase());
+        });
     }
 
     const gallery = document.getElementById("product-gallery");
@@ -247,10 +290,16 @@ function displayProductGallery(category, subcategory, products) {
 
     // Loop through products and gather subcategories (excluding "bestsellers")
     products.forEach(product => {
-        if (product.category.toLowerCase().includes(category.toLowerCase())) {
+        const productCategories = product.category.split(",").map(cat => cat.trim().toLowerCase());
+        if (productCategories.includes(category.toLowerCase())) {
             product.subcategory.split(",")
                 .map(sub => sub.trim())
-                .forEach(sub => subcategoriesSet.add(sub));
+                .forEach(sub => {
+                    // Only add subcategories that correspond to the current category
+                    if (productCategories.some(cat => cat === category.toLowerCase())) {
+                        subcategoriesSet.add(sub);
+                    }
+                });
         }
     });
 
@@ -290,11 +339,11 @@ function displayProductGallery(category, subcategory, products) {
                 .map(cat => cat.charAt(0).toUpperCase() + cat.slice(1))
                 .join(", ");
 
-            // Handle subcategory (exclude "bestsellers" and "all")
+            // Handle subcategory (exclude and "all")
             let subcategoryText = product.subcategory
                 .split(",")
                 .map(sub => sub.trim())
-                .filter(sub => sub.toLowerCase() !== "all" && sub.toLowerCase() !== "bestsellers")
+                .filter(sub => sub.toLowerCase() !== "all")
                 .map(sub => sub.charAt(0).toUpperCase() + sub.slice(1))
                 .join(", ");
 
@@ -323,6 +372,7 @@ function displayProductGallery(category, subcategory, products) {
             subcategoryItem.href = `?category=${category}&subcategory=${subcat}`;
             subcategoryItem.classList.add("subcategory-link");
             subcategoryItem.textContent = subcat.charAt(0).toUpperCase() + subcat.slice(1);
+
             if (subcategory.toLowerCase() === subcat.toLowerCase()) {
                 subcategoryItem.classList.add("active-subcategory");
             }
