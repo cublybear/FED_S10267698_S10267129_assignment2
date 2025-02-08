@@ -801,7 +801,6 @@ async function populateCheckoutDetails() {
     return { selectedAddress, mokeCoinsRedeemed: mokeCoinsToggle.checked };
 }
 
-
 // Fetch the account details from the JSON file
 async function getAccountDetails() {
     try {
