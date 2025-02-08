@@ -949,12 +949,25 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
 // ----------------------------------------------------- MokePoints ----------------------------------------------------
 // Function to update the UI with the current MokePoints
 function updateMokepointDisplay() {
-    let mokepoints = sessionStorage.getItem("Moke Points") || 0; // Get MokePoints from localStorage (default to 0 if none found)
-    console.groupCollapsed(mokepoints);
-    document.getElementById("mokepoint-display").textContent = `MokeCoins: ${mokepoints}`; // Update the display text
+    // Get the user data from sessionStorage
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    
+    // Check if user exists and has Moke Points
+    if (user && user["Moke Points"] !== undefined) {
+        // Get Moke Points value
+        let mokepoints = user["Moke Points"];
+        
+        // Update the UI
+        document.getElementById("mokepoint-display").textContent = `MokeCoins: ${mokepoints}`;
+    } else {
+        // If Moke Points is not available or user data doesn't exist, show 0
+        document.getElementById("mokepoint-display").textContent = "MokeCoins: 0";
+    }
 }
 
-updateMokepointDisplay(); // Call this function to update the UI when the page loads
+// Call the function to update the UI when the page loads
+updateMokepointDisplay();
+
 
 
 
