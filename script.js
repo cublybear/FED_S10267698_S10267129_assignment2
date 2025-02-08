@@ -1,123 +1,181 @@
+//------------------------------------------Store Data in Session Storage------------------------------------------
+
+
+// async function fetchProducts() {
+//     // Check if product data is already cached in sessionStorage
+//     let products = JSON.parse(sessionStorage.getItem("products"));
+
+//     if (!products) {
+//         try {
+//             // If products are not cached, fetch them from the API
+//             const productsResponse = await fetch("https://fedassg2-cd74.restdb.io/rest/products", {
+//                 headers: { "x-apikey": "67a76d364d8744a119828030 }  // Use your API key if required
+//             });
+
+//             if (!productsResponse.ok) {
+//                 throw new Error("Failed to fetch products");
+//             }
+
+//             // Parse the response and store product data
+//             products = await productsResponse.json();
+
+//             // Store products in sessionStorage for future use
+//             sessionStorage.setItem("products", JSON.stringify(products));
+
+//             return products;  // Return the product data
+
+//         } catch (error) {
+//             console.error("Error fetching products:", error);
+//             return null;  // Return null if there's an error
+//         }
+//     }
+
+//     // If products are already cached in sessionStorage, return the cached data
+//     return products;
+// }
+
+
 //----------------------------------------------------- JSON (testing) ----------------------------------------------------
+// document.addEventListener("DOMContentLoaded", function () {
+//     console.log("Script loaded successfully");
+//     fetch("products.json")
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error("Failed to load products.json");
+//             }
+//             return response.json();
+//         })
+//         .then(products => {
+//             console.log("Products loaded:", products);
+
+//             updateCartNotification();
+
+//             const urlParams = new URLSearchParams(window.location.search);
+//             const productId = urlParams.get("id");
+//             let category = urlParams.get("category") || "Products";
+//             let subcategory = urlParams.get("subcategory") || "all";
+
+//             // Force category to "bestsellers" for the homepage (index.html)
+//             if (window.location.pathname.includes("index.html")) {
+//                 category = "bestsellers"; // Set category to "bestsellers" for homepage
+//             }
+
+//             // Load cart data only if we're on the cart page
+//             const cartContainer = document.getElementById("cart-items-container");
+//             if (cartContainer) {
+//                 renderCartItems();
+//             }
+
+//             // Load checkout summary only if we're on the checkout page
+//             const checkoutContainer = document.getElementById("checkout-items");
+//             if (checkoutContainer) {
+//                 renderCheckout();
+//             }
+
+//             if (productId) {
+//                 console.log("Product ID found, displaying product details");
+//                 const product = products.find(p => p.id === productId);
+//                 if (product) {
+//                     displayProductDetails(productId, products);
+//                 } else {
+//                     console.error("Product not found");
+//                 }
+//             } else {
+//                 // Display product gallery based on the category and subcategory
+//                 console.log("Displaying product gallery");
+//                 displayProductGallery(category, subcategory, products);
+//             }
+//         })
+//         .catch(error => {
+//             console.error("Error loading products:", error);
+//         });
+// });
+
+//----------------------------------------------------- API ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded successfully");
-    fetch("products.json")
+    
+    const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';  // Your RestDB API URL
+    const apikey = '67a76d364d8744a119828030';  // Your RestDB API key
+
+    // Check if products are already stored in sessionStorage
+    let products = JSON.parse(sessionStorage.getItem("products"));
+    
+    if (!products) {
+        // Fetch products if not in sessionStorage
+        fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'x-apikey': apikey,
+                'Content-Type': 'application/json',
+                "Cache-Control": "no-cache"
+            }
+        })
         .then(response => {
             if (!response.ok) {
-                throw new Error("Failed to load products.json");
+                throw new Error("Failed to load products from API");
             }
             return response.json();
         })
-        .then(products => {
-            console.log("Products loaded:", products);
+        .then(fetchedProducts => {
+            console.log("Products loaded:", fetchedProducts);
+            products = fetchedProducts;
+
+            // Store products in sessionStorage for future use
+            sessionStorage.setItem("products", JSON.stringify(products));
 
             updateCartNotification();
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get("id");
-            let category = urlParams.get("category") || "Products";
-            let subcategory = urlParams.get("subcategory") || "all";
-
-            // Force category to "bestsellers" for the homepage (index.html)
-            if (window.location.pathname.includes("index.html")) {
-                category = "bestsellers"; // Set category to "bestsellers" for homepage
-            }
-
-            // Load cart data only if we're on the cart page
-            const cartContainer = document.getElementById("cart-items-container");
-            if (cartContainer) {
-                renderCartItems();
-            }
-
-            // Load checkout summary only if we're on the checkout page
-            const checkoutContainer = document.getElementById("checkout-items");
-            if (checkoutContainer) {
-                renderCheckout();
-            }
-
-            if (productId) {
-                console.log("Product ID found, displaying product details");
-                const product = products.find(p => p.id === productId);
-                if (product) {
-                    displayProductDetails(productId, products);
-                } else {
-                    console.error("Product not found");
-                }
-            } else {
-                // Display product gallery based on the category and subcategory
-                console.log("Displaying product gallery");
-                displayProductGallery(category, subcategory, products);
-            }
+            handlePageContent(products); // Use the function to handle page content
         })
         .catch(error => {
             console.error("Error loading products:", error);
         });
+    } else {
+        // Use cached products from sessionStorage
+        console.log("Using cached products");
+        updateCartNotification();
+        handlePageContent(products); // Use the function to handle page content
+    }
 });
 
-//----------------------------------------------------- API ----------------------------------------------------
-// document.addEventListener("DOMContentLoaded", function () {
-//     console.log("Script loaded successfully");
-    
-//     const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';  // Your RestDB API URL
-//     const apikey = '67a6f93e76011910f95afd4b';  // Your RestDB API key
+// Function to handle page content
+function handlePageContent(products) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("id");
+    let category = urlParams.get("category") || "Products";
+    let subcategory = urlParams.get("subcategory") || "all";
 
-//     fetch(apiUrl, {
-//         method: 'GET',
-//         headers: {
-//             'x-apikey': apikey,
-//             'Content-Type': 'application/json',
-//             "Cache-Control": "no-cache"
-//         }
-//     })
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error("Failed to load products from API");
-//         }
-//         return response.json();
-//     })
-//     .then(products => {
-//         console.log("Products loaded:", products);
-//         updateCartNotification();
+    // Force category to "bestsellers" for the homepage (index.html)
+    if (window.location.pathname.includes("index.html")) {
+        category = "bestsellers";
+    }
 
-//         const urlParams = new URLSearchParams(window.location.search);
-//         const productId = urlParams.get("id");
-//         let category = urlParams.get("category") || "Products";
-//         let subcategory = urlParams.get("subcategory") || "all";
+    // Load cart data only if we're on the cart page
+    const cartContainer = document.getElementById("cart-items-container");
+    if (cartContainer) {
+        renderCartItems();
+    }
 
-//         // Force category to "bestsellers" for the homepage (index.html)
-//         if (window.location.pathname.includes("index.html")) {
-//             category = "bestsellers";
-//         }
+    // Load checkout summary only if we're on the checkout page
+    const checkoutContainer = document.getElementById("checkout-items");
+    if (checkoutContainer) {
+        renderCheckout();
+    }
 
-//         // Load cart data only if we're on the cart page
-//         const cartContainer = document.getElementById("cart-items-container");
-//         if (cartContainer) {
-//             renderCartItems();
-//         }
+    if (productId) {
+        console.log("Product ID found, displaying product details");
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            displayProductDetails(productId, products);
+        } else {
+            console.error("Product not found");
+        }
+    } else {
+        console.log("Displaying product gallery");
+        displayProductGallery(category, subcategory, products);
+    }
+}
 
-//         // Load checkout summary only if we're on the checkout page
-//         const checkoutContainer = document.getElementById("checkout-items");
-//         if (checkoutContainer) {
-//             renderCheckout();
-//         }
-
-//         if (productId) {
-//             console.log("Product ID found, displaying product details");
-//             const product = products.find(p => p.id === productId);
-//             if (product) {
-//                 displayProductDetails(productId, products);
-//             } else {
-//                 console.error("Product not found");
-//             }
-//         } else {
-//             console.log("Displaying product gallery");
-//             displayProductGallery(category, subcategory, products);
-//         }
-//     })
-//     .catch(error => {
-//         console.error("Error loading products:", error);
-//     });
-// });
 
 // ----------------------------------------------------- Product Details ----------------------------------------------------
 function displayProductDetails(productId, products) {
@@ -801,48 +859,48 @@ async function populateCheckoutDetails() {
     return { selectedAddress, mokeCoinsRedeemed: mokeCoinsToggle.checked };
 }
 
-// Fetch the account details from the JSON file
-async function getAccountDetails() {
-    try {
-        // Retrieve the username from session storage
-        const username = "testing123"; // Replace this with sessionStorage retrieval
+// // Fetch the account details from the JSON file
+// async function getAccountDetails() {
+//     try {
+//         // Retrieve the username from session storage
+//         const username = "testing123"; // Replace this with sessionStorage retrieval
 
-        if (!username) {
-            console.error("No username found in session storage");
-            return null;
-        }
+//         if (!username) {
+//             console.error("No username found in session storage");
+//             return null;
+//         }
 
-        // Define the API URL with query filtering by Username
-        const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
-        const apiUrl = `https://fedassg-78fe.restdb.io/rest/account?q={"Username":"${username}"}`;
+//         // Define the API URL with query filtering by Username
+//         const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
+//         const apiUrl = `https://fedassg-78fe.restdb.io/rest/account?q={"Username":"${username}"}`;
 
-        // Fetch user data from RestDB
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-apikey': apiKey,
-            },
-        });
+//         // Fetch user data from RestDB
+//         const response = await fetch(apiUrl, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'x-apikey': apiKey,
+//             },
+//         });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch user account from RestDB');
-        }
+//         if (!response.ok) {
+//             throw new Error('Failed to fetch user account from RestDB');
+//         }
 
-        const userData = await response.json();
+//         const userData = await response.json();
 
-        // Ensure a user was found
-        if (!userData || userData.length === 0) {
-            console.error("User not found in RestDB");
-            return null;
-        }
+//         // Ensure a user was found
+//         if (!userData || userData.length === 0) {
+//             console.error("User not found in RestDB");
+//             return null;
+//         }
 
-        return userData[0]; // Return the first matched user
-    } catch (error) {
-        console.error("Error fetching account details:", error);
-        return null;
-    }
-}
+//         return userData[0]; // Return the first matched user
+//     } catch (error) {
+//         console.error("Error fetching account details:", error);
+//         return null;
+//     }
+// }
 
 // Function to update the cart total based on the Moke Coins toggle state
 async function updateCartTotal() {

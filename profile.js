@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const accountAddressInput = document.getElementById("shipping-address");
 
     const APIKEY = "678b1d1a19b96a08c0af6336";
-    const accountId = "67a36dd2f63b804800105dfe"; // Replace with actual session/localStorage ID
+    const accountId = "hi"; // Replace with actual session/localStorage ID
 
     let userProfile = null; // Store fetched profile
 
