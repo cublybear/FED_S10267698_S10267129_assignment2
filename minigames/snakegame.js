@@ -101,3 +101,35 @@ const initGame = () => {
 changeFoodPosition();
 setInterValid = setInterval(initGame, 125);
 document.addEventListener("keydown", changeDirection);
+
+//---------------------------------------- MokePoints ----------------------------------------
+// Function to check if user qualifies for MokePoints
+async function updateMokepoints() {
+    // Get MokePoints from sessionStorage
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    let mokepoints = user["Moke Points"];
+
+    console.log("Before update, MokePoints: " + mokepoints); // Log current MokePoints for debugging
+
+    let earnedPoints = 0; // To track the points earned
+
+    // Check snake game score
+    if (score > 2) { // Change to 50 for consistency
+        earnedPoints += 1; // Award 1 MokePoint for snake game
+        console.log("Snake Game - Earned MokePoint!"); // Debugging log
+    }
+
+    // Update MokePoints if any points were earned
+    if (earnedPoints > 0) {
+        mokepoints += earnedPoints;
+        sessionStorage.setItem("Moke Points", mokepoints); // Save updated MokePoints
+        console.log("Updated MokePoints to: " + mokepoints); // Debugging log
+        alert(`Congratulations! You've earned ${earnedPoints} MokePoint${earnedPoints > 1 ? 's' : ''}!`);
+    } 
+    else {
+        alert("You need scores greater than 50 to earn MokePoints.");
+    }
+}
+
+// Call the function to update MokePoints
+updateMokepoints();

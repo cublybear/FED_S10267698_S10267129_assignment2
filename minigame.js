@@ -223,35 +223,4 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterValid = setInterval(initGame, 125);
     document.addEventListener("keydown", changeDirection);
 
-    //---------------------------------------- MokePoints ----------------------------------------
-    // Function to check if user qualifies for MokePoints
-    async function updateMokepoints(username) {
-
-        // Retrieve stored scores from sessionStorage
-        let memoryScore = parseInt(sessionStorage.getItem("memory-game-score")) || 0;
-        let snakeScore = parseInt(sessionStorage.getItem("snake-game-score")) || 0;
-
-        // Calculate total score from both games
-        let totalScore = memoryScore + snakeScore;
-
-        // Retrieve last earned date for MokePoints
-        let lastEarnedDate = sessionStorage.getItem("lastEarnedDate");
-        let mokepoints = parseInt(sessionStorage.getItem("Moke Points")) || 0;
-
-        // If the total score is greater than 100 and the user hasn't earned MokePoints today
-        if (totalScore > 2) { // I PUT THIS TO 2 FOR TESTING!!!!!!!!!!!!!!!
-            mokepoints += 1; // Award 1 MokePoint
-            sessionStorage.setItem("Moke Points", mokepoints); // Save updated mokepoints
-
-            // Update MokePoints in RestDB (Assuming RestDB API update function is available)
-            await updateRestDB(username, mokepoints);
-
-            alert("Congratulations! You've earned 1 MokePoint!");
-        } 
-        else {
-            alert("You need a combined score greater than 100 to earn MokePoints.");
-        }
-    }
-    updateMokepoints("username");
-
 });

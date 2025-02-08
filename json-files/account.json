@@ -1,0 +1,64 @@
+[
+  {
+    "_id": "67a71a94bb50491a00012511",
+    "Username": "testing123",
+    "Email": "hi@bye.com",
+    "Phone Number": 81362473,
+    "Password": "xdcfgvhb",
+    "LikedPosts": [],
+    "Moke Points": 0,
+    "Address Owner": "",
+    "Address": "",
+    "_created": "2025-02-08T08:49:24.706Z",
+    "_changed": "2025-02-08T08:49:24.706Z",
+    "_createdby": "jingyln.lol@gmail.com",
+    "_changedby": "jingyln.lol@gmail.com",
+    "_version": 0
+  },
+  {
+    "_id": "67a6fe46bb50491a00011e4e",
+    "Username": "admin",
+    "Email": "admin@gmail.com",
+    "Phone Number": 98488818,
+    "Password": "kms",
+    "LikedPosts": {
+    "posts": {
+        "67a6fa4dbb50491a00011daa": 1,
+        "67a6fa4dbb50491a00011da9": 1,
+        "67a7037dbb50491a00011ea9": 1,
+        "67a704e8bb50491a00011f14": 1
+    }
+    },
+    "_created": "2025-02-08T06:48:38.263Z",
+    "_changed": "2025-02-08T12:10:31.355Z",
+    "_createdby": "api",
+    "_changedby": "jingyln.lol@gmail.com",
+    "_version": 13,
+    "Address Owner": "",
+    "Address": "",
+    "Moke Points": 11
+  },
+  {
+    "_id": "67a74178bb50491a000127f7",
+    "Username": "hi",
+    "Email": "hi@hi.com",
+    "Phone Number": 87654321,
+    "Password": 87654321,
+    "Address Owner": "John Tan, May Lim",
+    "Address": "165 Bukit Merah Central #07-3661 Singapore 150156, 113 Bukit Panjang Central #01-3231 Singapore 123455",
+    "LikedPosts": {
+    "posts": {
+        "67a6fa4dbb50491a00011daa": 1,
+        "67a6fa4dbb50491a00011da9": 1,
+        "67a7037dbb50491a00011ea9": 1,
+        "67a704e8bb50491a00011f14": 1
+    }
+    },
+    "Moke Points": 0,
+    "_version": 3,
+    "_created": "2025-02-08T11:35:20.592Z",
+    "_createdby": "shopeecandyy@gmail.com",
+    "_changed": "2025-02-08T13:22:11.071Z",
+    "_changedby": "api"
+  }
+]
