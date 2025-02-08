@@ -1114,6 +1114,10 @@ ul {
   width: 100%;
 }
 
+.features-container a{
+  text-decoration: none;
+}
+
 .feature-btn {
   display: flex;
   align-items: center;
@@ -1132,7 +1136,7 @@ ul {
 }
 
 .feature-btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .category-nav {

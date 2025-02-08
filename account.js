@@ -1,6 +1,6 @@
 // --------------- Toggle between Sign In and Sign Up Page --------------- 
 var tabs = document.getElementsByClassName("account-page"); 
-const APIKEY = "678b1d1a19b96a08c0af6336"; 
+const APIKEY = "67a6f93e76011910f95afd4b"; 
 // Function to change the active tab 
 function changetab(name) { 
     // Remove active class from all tabs 
@@ -40,7 +40,7 @@ function getAccounts(limit = 10) {
             "Cache-Control": "no-cache" 
         } 
     }; 
-    fetch("https://fedassignment2-eef5.restdb.io/rest/account", settings) 
+    fetch("https://fedassg-78fe.restdb.io/rest/account", settings) 
         .then(response => response.json()) 
         .then(data => { 
             console.log(data); 
@@ -58,7 +58,7 @@ async function accountexists(number, email,username) {
         ] 
     }); 
     // Wait for response 
-    const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
+    const response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
         method: "GET", 
         headers: { 
             "x-apikey": APIKEY, 
@@ -75,7 +75,8 @@ async function createaccount(email, phone, password,username) {
         "Email": email, 
         "Phone Number": phone, 
         "Password": password, 
-        "Username": username 
+        "Username": username,
+        "Moke Points": 0  // Set "Moke Points" to 0 when creating the account
     }; 
  
     console.log(jsondata) 
@@ -90,7 +91,7 @@ async function createaccount(email, phone, password,username) {
     }; 
  
     document.getElementById("signup-form").reset() 
-    response = await fetch("https://fedassignment2-eef5.restdb.io/rest/account", settings) 
+    response = await fetch("https://fedassg-78fe.restdb.io/rest/account", settings) 
     data = await response.json() 
     console.log(data) 
     getAccounts(); // Refresh the account list 
@@ -104,7 +105,7 @@ async function signin(email, password){
         ] 
     }); 
     // Wait for response 
-    const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
+    const response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
         method: "GET", 
         headers: { 
             "x-apikey": APIKEY, 
@@ -154,21 +155,20 @@ document.addEventListener("DOMContentLoaded", function () {
      
     }); 
     document.getElementById("account-signin-submit").addEventListener("click", async function (e) { 
-        console.log("hihi2") 
         e.preventDefault(); 
      
         // Get the form values 
         let signinEmail = document.getElementById("signin-email").value; 
         let signinPassword = document.getElementById("signin-password").value; 
-        console.log(signinEmail) 
         document.getElementById("loadingscreen").style.display = "flex" // Shows loading screen to wait for check 
         exists = await accountexists(0, signinEmail); // Checks if account exists with either phone or email 
+        
         // After api call 
         if(exists){ 
             x = await signin(signinEmail,signinPassword) 
             if(x.length!=0){ 
-            storeUser(x) 
-            window.location.href = "index.html" // Open tab on itself 
+                storeUser(x) 
+                window.location.href = "index.html" // Open tab on itself 
             } 
             else{ 
                 document.getElementById("noaccount").style.display="block" 

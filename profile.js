@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
         // Fetch user data
-        const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account/${accountId}`, {
+        const response = await fetch(`https://fedassg-78fe.restdb.io/rest/account/${accountId}`, {
             method: 'GET',
             headers: { "x-apikey": APIKEY },
         });
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             console.log("Sending to API:", JSON.stringify(updatedProfile, null, 2));
 
-            const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account/${updatedProfile._id}`, {
+            const response = await fetch(`https://fedassg-78fe.restdb.io/rest/account/${updatedProfile._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

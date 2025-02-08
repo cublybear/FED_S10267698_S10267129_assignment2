@@ -21,7 +21,7 @@ let postcontent = await getposts();
 // The post content array
 async function getposts() {
     // wait for response
-    const response = await fetch("https://fedassignment2-eef5.restdb.io/rest/community", {
+    const response = await fetch("https://fedassg-78fe.restdb.io/rest/community", {
         method: "GET",
         headers: {
             "x-apikey": APIKEY,
@@ -190,7 +190,7 @@ async function addpost(username, description) {
         },
         body: JSON.stringify(jsondata)
     };
-    let response = await fetch("https://fedassignment2-eef5.restdb.io/rest/community", settings)
+    let response = await fetch("https://fedassg-78fe.restdb.io/rest/community", settings)
     let data = await response.json()
     console.log(data)
 
@@ -223,7 +223,7 @@ function likePost(postId, likes) {
         Likes: likes  // The field you want to update
     });
     // Send the request with custom headers (including the API key)
-    fetch(`https://fedassignment2-eef5.restdb.io/rest/community/${postId}`, {
+    fetch(`https://fedassg-78fe.restdb.io/rest/community/${postId}`, {
         method: "PATCH",   // Use POST to simulate a PATCH request
         body: data,
         headers: {

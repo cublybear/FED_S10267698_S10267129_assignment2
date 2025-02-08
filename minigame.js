@@ -1,4 +1,4 @@
-import {changetab,showGameById} from "./minigames/tabchange.js";
+import { changetab, showGameById } from "./minigames/tabchange.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     //---------------------------------------- Game Tab and Display Logic ----------------------------------------
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    document.getElementById("minigame-back").addEventListener("click",changetab)
+    document.getElementById("minigame-back").addEventListener("click", changetab)
 
     //---------------------------------------- Minigame 1 - Memory Game ----------------------------------------
 
@@ -222,4 +222,50 @@ document.addEventListener('DOMContentLoaded', function () {
     changeFoodPosition();
     setInterValid = setInterval(initGame, 125);
     document.addEventListener("keydown", changeDirection);
+
+    //---------------------------------------- MokePoints ----------------------------------------
+    // Function to check if user qualifies for MokePoints
+    async function updateMokepoints(username) {
+        const currentDate = new Date().toISOString().split('T')[0]; // Get today's date
+
+        // Retrieve stored scores from localStorage
+        let memoryScore = parseInt(localStorage.getItem("memory-game-score")) || 0;
+        let snakeScore = parseInt(localStorage.getItem("snake-game-score")) || 0;
+
+        // Calculate total score from both games
+        let totalScore = memoryScore + snakeScore;
+
+        // Retrieve last earned date for MokePoints
+        let lastEarnedDate = localStorage.getItem("lastEarnedDate");
+        let mokepoints = parseInt(localStorage.getItem("Moke Points")) || 0;
+
+        // If the total score is greater than 50 and the user hasn't earned MokePoints today
+        if (totalScore > 2 && currentDate !== lastEarnedDate) {
+            mokepoints += 1; // Award 1 MokePoint
+            localStorage.setItem("Moke Points", mokepoints); // Save updated mokepoints
+            localStorage.setItem("lastEarnedDate", currentDate); // Update last earned date
+
+            // Update MokePoints in RestDB (Assuming RestDB API update function is available)
+            await updateRestDB(username, mokepoints);
+
+            alert("Congratulations! You've earned 1 MokePoint!");
+        } 
+        else {
+            if (currentDate === lastEarnedDate) {
+                alert("You have already earned MokePoints today. Try again tomorrow!");
+            } else {
+                alert("You need a combined score greater than 50 to earn MokePoints.");
+            }
+        }
+
+        // Update UI with the current MokePoints
+        updateMokepointDisplay(); // Call this function to update the UI
+    }
+
+    // Function to update the UI with the current MokePoints
+    function updateMokepointDisplay() {
+        let mokepoints = localStorage.getItem("Moke Points") || 0;
+        document.getElementById("mokepoint-display").textContent = `MokePoints: ${mokepoints}`;
+    }
+
 });
