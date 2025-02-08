@@ -59,12 +59,14 @@
     <main>
         <div class="loading" id="loadingscreen">add your loading page</div>
         <div class="profile-container">
-            <div class="profile">
+            <div class="profile" style="display: flex; align-items: center; gap: 10px;">
                 <!-- Static Username Display -->
-                <p id="profile-username">
-                    <strong>Username12345</strong> <!-- This will be dynamically updated with the profile data -->
-                </p>
+                <h2 id="profile-username">
+                    Stupid Fed <!-- This will be dynamically updated with the profile data -->
+                </h2>
             </div>
+            
+
             <div class="features-container row p-4">
                 <div class="col-6 col-sm-3 d-flex justify-content-center mb-3">
                     <button class="feature-btn"><i class="fa-solid fa-wallet"></i> To Pay</button>
@@ -94,34 +96,34 @@
                 </div>
             </div>
 
-            <div class="profile-account-details">
+            <div class="profile-account-details" id="profile-account-details">
                 <h2 class="profile-subheading">Account Details</h2>
                 <form id="edit-acc">
                     <div class="row mb-3">
                         <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">
-                            <input type="username" class="form-control" id="account-username">
+                            <input type="username" class="form-control" id="account-username" autocomplete="username">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="account-email">
+                            <input type="email" class="form-control" id="account-email" autocomplete="email">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone No.</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="account-phone">
+                            <input type="tel" class="form-control" id="account-phone" autocomplete="tel">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="account-password">
+                            <input type="password" class="form-control" id="account-password" autocomplete="current-password">
                         </div>
                     </div>
 
@@ -255,7 +257,7 @@
             </div>
         </div>
     </footer>
-    <script src="profile.js"></script>
+    <script type="module" src="profile.js"></script>
 </body>
 
 </html>
