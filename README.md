@@ -45,11 +45,7 @@ Link to Figma wireframe [here](https://www.figma.com/design/4J5M9PRrJN0UuTvAqg59
 - **Product Gallery**: The product gallery is dynamically populated with items, categorized into categories and subcategories. The inventory is fetched in real-time from the database using API calls to ensure that the latest products are always displayed.
 - **Cart**: Cart items are updated in real-time via JavaScript. Subtotals and quantities are automatically recalculated to reflect any changes made by the user.
 - **Checkout** - During checkout, users can select from addresses they've previously entered on the profile edit page. Moke points can also be redeemed for discounts. Once the order is placed, it is stored in the database using the backend API.
-
 - **Account Management**: Users can update their account details, including up to two shipping addresses. Any changes are immediately reflected through API calls to keep the profile data synchronized.
-
-### Features Left to Implement
-- **Profile Page** - Allows user to delete account
 
 ## Technologies Used
 - **RestDB** - Database to store user's account details, items ordered and product lists
@@ -61,11 +57,9 @@ Link to Figma wireframe [here](https://www.figma.com/design/4J5M9PRrJN0UuTvAqg59
 ## Testing
 For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
 
-1. Testing jy:
-   1. Go to the "Contact Us" page
-   2. Try to submit the empty form and verify that an error message about the required fields appears
-   3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-   4. Try to submit the form with all inputs valid and verify that a success message appears.
+## 1. Account Page
+1. **Empty form input**: Try to submit empty form in sign up page, an alert will show.
+2. **Wrong password**: Try to submit the form with a wrong password, an alert will pop up.
 
 ## 2. Product Details Page
 1. **Add to Cart (No Size Selected)**: Try adding a product to the cart without selecting a size. An alert should pop up, preventing the product from being added to the cart.
