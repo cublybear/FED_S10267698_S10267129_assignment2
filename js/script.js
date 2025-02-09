@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Fetch user data from the server (assuming fetchUser is an async function)
         userAccount = await fetchUser();
+        
     } else {
         console.log("User account found in sessionStorage:", userAccount);
     }
@@ -810,88 +811,64 @@ async function updateCartTotal() {
     const totalElement = document.getElementById("total");
     const mokeCoinsLabel = document.querySelector('.moke-coins'); // Label where the redeem text is
 
-    if (!subtotalElement || !discountElement || !totalElement) {
-        console.error("Required elements for displaying prices are missing on the page.");
-        return; // Exit if these elements are not found on the page
-    }
-
     let cart = getCart();  // Fetch the cart items
     let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     // Check if we're on the checkout page using a URL or element-based check
     const isCheckoutPage = window.location.href.includes('checkout') || document.querySelector('.checkout-page-element') !== null;
 
-    const userProfile = await fetchUser();  // Ensure fetchUser returns the latest profile
-    let userMokePoints = isCheckoutPage ? userProfile["Moke Points"] : 0;
+    const userProfile = await fetchUser();
+    let userMokePoints = userProfile.user["Moke Points"] || 0;
 
     console.log("User Moke Points:", userMokePoints);
-
-    // Ensure userMokePoints is a valid number
-    userMokePoints = isNaN(userMokePoints) ? 0 : userMokePoints;
 
     // Define the redemption value per Moke Coin (only for checkout page)
     const redemptionValue = 0.01;  // Define how much each Moke Coin is worth (e.g., 10 cents per Moke Coin)
 
-    // Ensure subtotal is a valid number
-    subtotal = isNaN(subtotal) ? 0 : subtotal;
-
     let discount = 0;
     let total = subtotal;
 
-    // Only try to access the mokeCoinsToggle if we are on the checkout page
+    const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
+
+    if (userMokePoints === 0) {
+        mokeCoinsToggle.disabled = true;
+        mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem.";
+    } else {
+        mokeCoinsToggle.disabled = false;
+        mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} Moke Coins`;
+    }
+
+    // Check if we're on the checkout page
     if (isCheckoutPage) {
-        const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
+        // Set the initial discount based on the toggle state
+        if (mokeCoinsToggle.checked) {
+            discount = redemptionValue * userMokePoints;
+        }
 
-        // Check if mokeCoinsToggle exists
-        if (mokeCoinsToggle) {
-            // Check if the user has Moke Coins
-            if (userMokePoints === 0) {
-                // If the user has 0 Moke Coins, disable the checkbox and change the redeem text
-                mokeCoinsToggle.disabled = true;
-
-                if (mokeCoinsLabel) {
-                    mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem."; // Change the text to inform the user
-                }
-            } else {
-                // Enable the checkbox if they have Moke Coins and update the redeem text
-                mokeCoinsToggle.disabled = false;
-
-                if (mokeCoinsLabel) {
-                    mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} MokeCoins`; // Default redeem text
-                }
-            }
-
-            // Set the initial discount based on the toggle state for checkout
+        // Add event listener for toggle change
+        mokeCoinsToggle.addEventListener('change', function () {
             if (mokeCoinsToggle.checked) {
                 discount = redemptionValue * userMokePoints;
+            } else {
+                discount = 0;
             }
 
-            // Add event listener for toggle change to apply discount in checkout
-            mokeCoinsToggle.addEventListener('change', function () {
-                if (mokeCoinsToggle.checked) {
-                    discount = redemptionValue * userMokePoints;
-                } else {
-                    discount = 0;
-                }
+            // Recalculate total after applying the discount
+            total = subtotal - discount;
 
-                // Recalculate total after applying the discount
-                total = subtotal - discount;
-
-                // Update the DOM elements with the recalculated values
-                updateTotalDisplay(subtotal, discount, total);
-            });
-        }
+            // Update the DOM elements with the recalculated values
+            updateTotalDisplay(subtotal, discount, total);
+        });
     }
 
     // Recalculate the total when the page is initially loaded
     total = subtotal - discount;
 
     // Update the DOM with the values
-    subtotalElement.textContent = `S$${subtotal.toFixed(2)}`;
-    discountElement.textContent = `S$${discount.toFixed(2)}`;
-    totalElement.textContent = `S$${total.toFixed(2)}`;
+    document.getElementById("subtotal").textContent = `S$${subtotal.toFixed(2)}`;
+    document.getElementById("discount").textContent = `S$${discount.toFixed(2)}`;
+    document.getElementById("total").textContent = `S$${total.toFixed(2)}`;
 }
-
 
 async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     const cartItems = getCart(); // Fetch cart items

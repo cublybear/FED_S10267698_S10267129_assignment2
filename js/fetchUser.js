@@ -4,7 +4,7 @@ export async function fetchUser() {
 
     // If username is not set or its length is greater than 1, default it to "hi"
     if (!loggedInUsername || loggedInUsername.length > 1) {
-        loggedInUsername = "bye";
+        loggedInUsername = "admin";
     }
 
     // Check if user data is already cached in sessionStorage

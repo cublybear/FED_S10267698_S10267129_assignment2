@@ -107,7 +107,7 @@ async function accountexists(number, email,username) {
         }, 
     }); 
     // Wait for reponse to finish parsing 
-    const data = await response.json()  
+    const data = await response.json()
     return data.length > 0;  // Returns true if there is any found else false 
 }
 
