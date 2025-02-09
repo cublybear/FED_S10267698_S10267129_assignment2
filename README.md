@@ -11,9 +11,13 @@ As a user type, I want to perform an action, so that I can achieve a goal.
 This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory) Include the Adobe XD wireframe as a folder. You can include the XD share url.
 ## Features
 ### Existing Features
-- Feature 1 - gdfhgj
-- Feature 2 - asdefgh
-- Feature 3 - asdefgh
+- Feature jy - gdfhgj
+- Feature jy - asdefgh
+- Feature jy - asdefgh
+
+- Feature xt - gdfhgj
+- Feature xt - asdefgh
+- Feature xt - asdefgh
 ### Features Left to Implement
 - Feature adsfg
 ## Technologies Used
@@ -31,7 +35,14 @@ OR
 ## Testing
 For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
 
-1. Contact form:
+1. Testing jy:
+   1. Go to the "Contact Us" page
+   2. Try to submit the empty form and verify that an error message about the required fields appears
+   3. Try to submit the form with an invalid email address and verify that a relevant error message appears
+   4. Try to submit the form with all inputs valid and verify that a success message appears.
+
+
+1. Testing xt:
    1. Go to the "Contact Us" page
    2. Try to submit the empty form and verify that an error message about the required fields appears
    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
