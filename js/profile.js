@@ -133,69 +133,30 @@ function toggleLoadingScreen(isVisible) {
 // --------------- Delete account from database --------------- 
 // Delete account 
 async function deleteaccount(email, phone, password, username) {
-    let jsondata = { 
-        "Email": email, 
-        "Phone Number": phone, 
-        "Password": password, 
-        "Username": username,
-    };
-
-    console.log(jsondata); 
-    
-    let settings = { 
-        method: "DELETE",  // Change method to DELETE
-        headers: { 
-            "Content-Type": "application/json", 
-            "x-apikey": APIKEY, 
-            "Cache-Control": "no-cache" 
-        }, 
-        body: JSON.stringify(jsondata) // You might need to pass the identifier to delete an account (ID or Email)
-    }; 
-    
-    // Reset form (optional)
-    document.getElementById("signup-form").reset();
-    
-    // Make the DELETE request
-    response = await fetch("https://fedassg2-cd74.restdb.io/rest/account", settings); 
-    
-    data = await response.json();
-    console.log(data); 
-    
-    if (response.ok) {
-        alert("Account successfully deleted.");
-    } else {
-        alert("Error deleting account.");
-    }
-    
-    getAccounts(); // Refresh the account list after deletion
-}
-
-// Modify the DOM event to delete the account (in your event listener part)
-document.addEventListener("DOMContentLoaded", function () {
-    getAccounts();
-    
-    // Add delete account event listener
-    document.getElementById("delete").addEventListener("click", async function (e) {
-        e.preventDefault();
-
-        document.getElementById("loadingscreen").style.display = "flex"; // Shows loading screen to wait
-        
-        exists = await accountexists(parseInt(contactPhone), contactEmail, username); // Check if account exists
-        
-        if (exists) {
-            // Call the delete function
-            await deleteaccount(contactEmail, parseInt(contactPhone), contactPassword, username);
-            window.location.href = "index.html"; // Redirect after deletion
-        } else {
-            document.getElementById("nocreate").style.display = "block"; 
-            setTimeout(function() {
-                document.getElementById("nocreate").style.display = "none";
-            }, 3000);
-        }
-        
-        document.getElementById("loadingscreen").style.display = "none"; 
+    let query = JSON.stringify({ 
+        $and: [ 
+            { "Email": email }, 
+            { "Phone Number": phone }, 
+            { "Username": username }
+        ] 
     });
-});
+
+    // Perform the delete request to the API
+    let response = await fetch(`https://fedassg2-746d.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
+        method: 'DELETE',
+        headers: {
+            "x-apikey": APIKEY,
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to delete account: ${response.statusText}`);
+    }
+
+    let data = await response.json();
+    console.log('Account deleted:', data);
+}
 
 
 // Logout button event listener
