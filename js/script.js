@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const apikey = '678b1d1a19b96a08c0af6336';
 
     // Check if user account information exists in sessionStorage
-    let userAccount = JSON.parse(sessionStorage.getItem("userProfile"));
+    let userAccount = JSON.parse(sessionStorage.getItem("user"));
 
     // Check if the user account is not available in sessionStorage
     if (!userAccount) {
@@ -804,11 +804,7 @@ async function populateCheckoutDetails() {
     return { selectedAddress, mokeCoinsRedeemed: mokeCoinsToggle.checked };
 }
 
-// Function to update the cart total based on the Moke Coins toggle state
 async function updateCartTotal() {
-    const subtotalElement = document.getElementById("subtotal");
-    const discountElement = document.getElementById("discount");
-    const totalElement = document.getElementById("total");
     const mokeCoinsLabel = document.querySelector('.moke-coins .form-check'); // Label where the redeem text is
 
     let cart = getCart();  // Fetch the cart items
@@ -838,8 +834,6 @@ async function updateCartTotal() {
     const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
     if (userMokePoints === 0) {
         // If the user has 0 Moke Coins, disable the checkbox and change the redeem text
-        mokeCoinsToggle.disabled = true;
-
         if (mokeCoinsLabel) {
             mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem."; // Change the text to inform the user
         }
@@ -851,6 +845,9 @@ async function updateCartTotal() {
             mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} MokeCoins`; // Default redeem text
         }
     }
+    
+    // Update the cart display initially
+    updateTotalDisplay(subtotal, discount, total);
 
     // Check if we're on the checkout page
     if (isCheckoutPage) {
@@ -870,17 +867,18 @@ async function updateCartTotal() {
             updateTotalDisplay(subtotal, discount, total);
         });
     }
-
-    // Recalculate and update the total initially when the page is loaded
-    total = subtotal - discount;
-    updateTotalDisplay(subtotal, discount, total);
 }
 
 // Function to update the total display
 function updateTotalDisplay(subtotal, discount, total) {
-    document.getElementById("subtotal").textContent = `S$${subtotal.toFixed(2)}`;
-    document.getElementById("discount").textContent = `S$${discount.toFixed(2)}`;
-    document.getElementById("total").textContent = `S$${total.toFixed(2)}`;
+    const subtotalDisplay = document.getElementById('subtotal');
+    const discountDisplay = document.getElementById('discount');
+    const totalDisplay = document.getElementById('total');
+
+    // Update the text content of the elements
+    subtotalDisplay.textContent = `S$${subtotal.toFixed(2)}`;
+    discountDisplay.textContent = `S$${discount.toFixed(2)}`;
+    totalDisplay.textContent = `S$${total.toFixed(2)}`;
 }
 
 
@@ -906,8 +904,8 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     };
 
     // 1st API
-    const orderApiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
-    const apikey = '678b1d1a19b96a08c0af6336';
+    const orderApiUrl = 'https://fedassignment2-eef5.restdb.io/rest/orders';
+    const apiKey = '678b1d1a19b96a08c0af6336';
 
     // 2nd API
     // const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';

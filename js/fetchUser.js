@@ -1,11 +1,6 @@
 export async function fetchUser() {
-    // Retrieve the logged-in username from sessionStorage
-    let loggedInUsername = sessionStorage.getItem("Username");
-
-    // If username is not set or its length is greater than 1, default it to "hi"
-    if (!loggedInUsername || loggedInUsername.length > 1) {
-        loggedInUsername = "admin";
-    }
+    // Default the logged-in username to "admin" (no need for length check)
+    let loggedInUsername = sessionStorage.getItem("Username") || "admin";
 
     // Check if user data is already cached in sessionStorage
     let user = JSON.parse(sessionStorage.getItem("user"));
@@ -17,16 +12,6 @@ export async function fetchUser() {
             const userResponse = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
                 headers: { "x-apikey": "678b1d1a19b96a08c0af6336" } // Replace with your actual API key
             });
-
-            // 2nd API
-            // const userResponse = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
-            //     headers: { "x-apikey": "67a6f93e76011910f95afd4b" } // Replace with your actual API key
-            // });
-
-            // 3rd API 
-            // const userResponse = await fetch(`https://fedassg2-cd74.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
-            //     headers: { "x-apikey": "67a76d364d8744a119828030" } // Replace with your actual API key
-            // });
 
             if (!userResponse.ok) {
                 throw new Error("Failed to fetch user data");
@@ -58,3 +43,4 @@ export async function fetchUser() {
     // If user is already cached in sessionStorage and matches the logged-in username, return the cached user
     return { user };
 }
+
