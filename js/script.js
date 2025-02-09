@@ -3,11 +3,19 @@ import { fetchUser } from "./fetchUser.js";
 //----------------------------------------------------- API ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded successfully");
-
-    // Call the function to update the UI when the page loads
     updateMokepointDisplay();
-    const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';  // Your RestDB API URL
-    const apikey = '67a76d364d8744a119828030';  // Your RestDB API key
+
+    // 1st API
+    // const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
+    // const apikey = '678b1d1a19b96a08c0af6336';
+
+    // 2nd API
+    const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';
+    const apikey = '67a6f93e76011910f95afd4b';
+
+    // 3rd API 
+    // const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';
+    // const apikey = '67a76d364d8744a119828030';  
 
     // Check if user account information exists in sessionStorage
     let userAccount = JSON.parse(sessionStorage.getItem("userProfile")); // Check for user profile

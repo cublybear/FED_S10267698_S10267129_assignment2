@@ -15,18 +15,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     let userProfile = null;
 
     try {
-        // Fetch the user profile data using fetchUser function
-        const { user } = await fetchUser();
+        // Check if user profile is stored in sessionStorage
+        userProfile = JSON.parse(sessionStorage.getItem("userProfile"));
 
-        if (!user) {
-            throw new Error("Profile data not found.");
+        if (!userProfile) {
+            throw new Error("User profile not found.");
         }
 
-        userProfile = user;
+        console.log("Loaded Profile from sessionStorage:", userProfile);
 
-        console.log("Loaded Profile:", userProfile);
-
-        // Assign values safely to the form fields
+        // Assign values safely to the form fields from sessionStorage
         username.textContent = userProfile.Username || "User"; // Default to "User" if username is missing
         accountUsernameInput.value = userProfile.Username || "";
         accountEmailInput.value = userProfile.Email || "";
@@ -44,9 +42,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         addShippingNameInput.value = owners[1] || ""; // Secondary Address Owner
 
     } catch (err) {
-        console.error("Error loading profile data:", err);
+        console.error("Error loading profile data from sessionStorage:", err);
     }
 
+    // Function to update the profile in sessionStorage
     async function saveProfile(updatedFields) {
         try {
             if (!userProfile || !userProfile._id) {
@@ -91,8 +90,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             sessionStorage.setItem("userProfile", JSON.stringify(updatedSessionData));
 
-            const storedProfile = sessionStorage.getItem("userProfile");
-            console.log("Updated Profile stored in sessionStorage:", storedProfile);
+            // Immediately update the UI after saving and session storage is updated
+            username.textContent = data.Username;
+            accountUsernameInput.value = data.Username;
+            accountEmailInput.value = data.Email;
+            accountPhoneInput.value = data["Phone Number"];
+            accountPasswordInput.placeholder = "********";  // Keep password hidden
+            accountAddressInput.value = data.Address.split(",")[0];  // Update address
+            addShippingAddressInput.value = data.Address.split(",")[1];
+            accountAddressNameInput.value = data["Address Owner"].split(",")[0];
+            addShippingNameInput.value = data["Address Owner"].split(",")[1];
+
+            console.log("Updated Profile stored in sessionStorage:", updatedSessionData);
 
             return data;
 
@@ -101,18 +110,29 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    // Handle shipping details form submission
-    document.getElementById("edit-shipping").addEventListener("submit", async function (event) {
+    // Handle form submission for both account and shipping details
+    document.getElementById("edit-acc-shipping").addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const updatedFields = {
+        // Collect account data
+        const updatedAccountFields = {
+            Username: accountUsernameInput.value.trim() || userProfile.Username,
+            Email: accountEmailInput.value.trim() || userProfile.Email,
+            "Phone Number": accountPhoneInput.value.trim() || userProfile["Phone Number"],
+            Password: accountPasswordInput.value.trim() || userProfile.Password,
+        };
+
+        // Collect shipping data
+        const updatedShippingFields = {
             PrimaryAddress: accountAddressInput.value.trim() || userProfile.Address.split(",")[0],
             SecondaryAddress: addShippingAddressInput.value.trim() || userProfile.Address.split(",")[1],
             PrimaryAddressOwner: accountAddressNameInput.value.trim() || userProfile["Address Owner"].split(",")[0],
             SecondaryAddressOwner: addShippingNameInput.value.trim() || userProfile["Address Owner"].split(",")[1],
         };
 
-        console.log('Updated Shipping Details:', updatedFields);
+        const updatedFields = { ...updatedAccountFields, ...updatedShippingFields };
+
+        console.log('Updated Account and Shipping Details:', updatedFields);
         await saveProfile(updatedFields);
     });
 
