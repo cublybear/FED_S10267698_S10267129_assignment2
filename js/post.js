@@ -1,4 +1,4 @@
-const APIKEY = "67a6f93e76011910f95afd4b";
+const APIKEY = "678b1d1a19b96a08c0af6336";
 
 // Get user data from sessionStorage
 let accountstring = sessionStorage.getItem("user");
@@ -126,7 +126,7 @@ if (account === null || !account.LikedPosts) {
             });
 
             // Send the request with custom headers (including the API key)
-            fetch(`https://fedassg-78fe.restdb.io/rest/community/${postId}`, {
+            fetch(`https://fedassignment2-eef5.restdb.io/rest/community/${postId}`, {
                 method: "PATCH",  
                 body: data,
                 headers: {
@@ -178,7 +178,7 @@ if (account === null || !account.LikedPosts) {
                 body: JSON.stringify(jsondata)
             };
 
-            fetch(`https://fedassg-78fe.restdb.io/rest/community/${account["_id"]}`, settings)
+            fetch(`https://fedassignment2-eef5.restdb.io/rest/community/${account["_id"]}`, settings)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok " + response.statusText);
@@ -207,7 +207,7 @@ async function createcomment(Username, comment) {
         "Comments": postcontent["Comments"]
     });
     // Send the request with custom headers (including the API key)
-    fetch(`https://fedassg-78fe.restdb.io/rest/community/${postcontent["_id"]}`, {
+    fetch(`https://fedassignment2-eef5.restdb.io/rest/community/${postcontent["_id"]}`, {
         method: "PATCH",
         body: data,
         headers: {

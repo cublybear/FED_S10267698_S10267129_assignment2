@@ -12,7 +12,7 @@ if (!account) {
     sessionStorage.setItem("user", JSON.stringify(account));  // Store the account info in sessionStorage
 }
 
-const APIKEY = "67a6f93e76011910f95afd4b";
+const APIKEY = "678b1d1a19b96a08c0af6336";
 console.log(account)
 const container = document.querySelector(".community-post-container"); // The main container for all posts
 const images = [
@@ -57,7 +57,7 @@ postcontent.forEach(element => {
 // The post content array
 async function getposts() {
     // wait for response
-    const response = await fetch("https://fedassg-78fe.restdb.io/rest/community", {
+    const response = await fetch("https://fedassignment2-eef5.restdb.io/rest/community", {
         method: "GET",
         headers: {
             "x-apikey": APIKEY,
@@ -214,7 +214,7 @@ async function addpost(username, description, title) {
         },
         body: JSON.stringify(jsondata)
     };
-    let response = await fetch("https://fedassg-78fe.restdb.io/rest/community", settings);
+    let response = await fetch("https://fedassignment2-eef5.restdb.io/rest/community", settings);
     let data = await response.json();
     console.log(data);
     return data;
@@ -249,7 +249,7 @@ function likePost(postId, likes) {
         Likes: likes
     });
 
-    fetch(`https://fedassg-78fe.restdb.io/rest/community/${postId}`, {
+    fetch(`https://fedassignment2-eef5.restdb.io/rest/community/${postId}`, {
         method: "PATCH",
         body: data,
         headers: {
@@ -296,7 +296,7 @@ function updateliked(postId, plus) {
         body: JSON.stringify(jsondata)
     };
 
-    fetch(`https://fedassg-78fe.restdb.io/rest/community/${account["_id"]}`, settings)
+    fetch(`https://fedassignment2-eef5.restdb.io/rest/community/${account["_id"]}`, settings)
     .then(response => {
         if (!response.ok) {
             throw new Error("Network response was not ok " + response.statusText);

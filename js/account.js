@@ -2,8 +2,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Script loaded successfully");
 
-    const apiUrl = 'https://fedassg-78fe.restdb.io/rest/account';  // Your RestDB API URL
-    const apikey = '67a6f93e76011910f95afd4b';  // Your RestDB API key
+    const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/account';  // Your RestDB API URL
+    const apikey = '678b1d1a19b96a08c0af6336';  // Your RestDB API key
 
     // Check if accounts are already stored in sessionStorage
     let accounts = JSON.parse(sessionStorage.getItem("account"));
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // --------------- Toggle between Sign In and Sign Up Page --------------- 
 var tabs = document.getElementsByClassName("account-page"); 
-const APIKEY = "67a6f93e76011910f95afd4b"; 
+const APIKEY = "678b1d1a19b96a08c0af6336"; 
 // Function to change the active tab 
 function changetab(name) { 
     // Remove active class from all tabs 
@@ -82,7 +82,7 @@ function getAccounts(limit = 10) {
             "Cache-Control": "no-cache" 
         } 
     }; 
-    fetch("https://fedassg-78fe.restdb.io/rest/account", settings) 
+    fetch("https://fedassignment2-eef5.restdb.io/rest/account", settings) 
         .then(response => response.json()) 
         .then(data => { 
             console.log(data); 
@@ -100,7 +100,7 @@ async function accountexists(number, email,username) {
         ] 
     }); 
     // Wait for response 
-    const response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
+    const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
         method: "GET", 
         headers: { 
             "x-apikey": APIKEY, 
@@ -133,7 +133,7 @@ async function createaccount(email, phone, password,username) {
     }; 
  
     document.getElementById("signup-form").reset() 
-    response = await fetch("https://fedassg-78fe.restdb.io/rest/account", settings) 
+    response = await fetch("https://fedassignment2-eef5.restdb.io/rest/account", settings) 
     data = await response.json() 
     console.log(data) 
     getAccounts(); // Refresh the account list 
@@ -147,7 +147,7 @@ async function signin(email, password){
         ] 
     }); 
     // Wait for response 
-    const response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
+    const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q=${encodeURIComponent(query)}`, { 
         method: "GET", 
         headers: { 
             "x-apikey": APIKEY, 

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const addShippingNameInput = document.getElementById("add-shipping-name");
     const addShippingAddressInput = document.getElementById("add-shipping-address");
 
-    const APIKEY = "67a6f93e76011910f95afd4b";
+    const APIKEY = "678b1d1a19b96a08c0af6336";
     let userProfile = null;
 
     try {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             console.log("Sending to API:", JSON.stringify(updatedProfile, null, 2));
 
-            const response = await fetch(`https://fedassg-78fe.restdb.io/rest/account/${userProfile._id}`, {
+            const response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account/${userProfile._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         try {
             // Send DELETE request to the server to remove the account
-            let response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
+            let response = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
                 method: 'DELETE',
                 headers: {
                     "x-apikey": APIKEY,
