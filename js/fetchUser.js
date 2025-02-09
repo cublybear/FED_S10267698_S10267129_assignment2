@@ -14,14 +14,14 @@ export async function fetchUser() {
     if (!user || user.Username !== loggedInUsername) {
         try {
             // 1st API
-            // const userResponse = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
-            //     headers: { "x-apikey": "678b1d1a19b96a08c0af6336" } // Replace with your actual API key
-            // });
+            const userResponse = await fetch(`https://fedassignment2-eef5.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
+                headers: { "x-apikey": "678b1d1a19b96a08c0af6336" } // Replace with your actual API key
+            });
 
             // 2nd API
-            const userResponse = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
-                headers: { "x-apikey": "67a6f93e76011910f95afd4b" } // Replace with your actual API key
-            });
+            // const userResponse = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
+            //     headers: { "x-apikey": "67a6f93e76011910f95afd4b" } // Replace with your actual API key
+            // });
 
             // 3rd API 
             // const userResponse = await fetch(`https://fedassg2-cd74.restdb.io/rest/account?q={"Username":"${loggedInUsername}"}`, {
