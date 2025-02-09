@@ -1164,6 +1164,18 @@ h2 {
   transform: scale(1.2);
 }
 
+@media (max-width: 768px) {
+  .post-container {
+      flex-direction: column; /* Stack items vertically */
+      align-items: center;
+  }
+
+  .post-left-container, 
+  .post-right-container {
+      width: 100%; /* Full width on small screens */
+  }
+}
+
 /*---------------------------------------- Footer ----------------------------------------*/
 .footer {
   background-color: #EBEBEB;
