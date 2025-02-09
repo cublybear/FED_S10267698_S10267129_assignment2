@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     // --------------- Delete account from database ---------------
+    // Function to toggle the loading screen visibility
     function toggleLoadingScreen(isVisible) {
         const loadingScreen = document.getElementById("loadingscreen");
         if (loadingScreen) {
@@ -124,52 +125,70 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    async function deleteaccount(email, phone, password, username) {
-        let query = JSON.stringify({
-            $and: [
-                { "Email": email },
-                { "Phone Number": phone },
-                { "Username": username }
-            ]
-        });
-
-        let response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
-            method: 'DELETE',
-            headers: {
-                "x-apikey": APIKEY,
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to delete account: ${response.statusText}`);
-        }
-
-        let data = await response.json();
-        console.log('Account deleted:', data);
-    }
-
+    // Event listener for the delete account button
     document.getElementById("delete-account-btn").addEventListener("click", async function (e) {
-        e.preventDefault(); // Prevent default form behavior
+        e.preventDefault();  // Prevent default form behavior
 
-        const email = accountEmailInput.value;
-        const phone = accountPhoneInput.value;
-        const password = accountPasswordInput.value;
-        const username = accountUsernameInput.value;
+        // Retrieve the user data from sessionStorage
+        let accountstring = sessionStorage.getItem("user");
+        let account = accountstring ? JSON.parse(accountstring) : null;
 
-        toggleLoadingScreen(true);
+        if (account) {
+            const username = account.Username;  // Access the username directly
+            console.log(`Deleting account for: ${username}`);
 
-        try {
-            await deleteaccount(email, phone, password, username);
-            alert("Your account has been deleted.");
-            window.location.href = "index.html";
-        } catch (error) {
-            console.error("Error deleting account:", error);
-            alert("An error occurred while deleting your account.");
-        } finally {
-            toggleLoadingScreen(false);
+            toggleLoadingScreen(true);  // Show loading screen
+
+            try {
+                // Call delete account function using the username
+                await deleteAccount(username);
+                alert("Your account has been deleted.");
+                window.location.href = "index.html";  // Redirect to homepage or login page after deletion
+            } catch (error) {
+                console.error("Error deleting account:", error);
+                alert("An error occurred while deleting your account.");
+            } finally {
+                toggleLoadingScreen(false);  // Hide loading screen
+            }
+        } else {
+            console.error("Account data not found.");
+            alert("Account data not found.");
         }
     });
+
+    // Function to delete the account based on the username
+    async function deleteAccount(username) {
+        if (!username) {
+            console.error("Username is required to delete the account.");
+            return;
+        }
+
+        // Set up the query to find the account by username
+        let query = JSON.stringify({ "Username": username });
+
+        try {
+            // Send DELETE request to the server to remove the account
+            let response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
+                method: 'DELETE',
+                headers: {
+                    "x-apikey": APIKEY,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to delete account: ${response.statusText}`);
+            }
+
+            // Parse the response (optional, depending on API response)
+            let data = await response.json();
+            console.log('Account deleted:', data);
+
+        } catch (error) {
+            console.error("Error occurred while deleting account:", error);
+            throw error;  // Re-throw error for further handling
+        }
+    }
 
     // --------------- Logout Button Fix ---------------
     const logoutButton = document.getElementById("logout");
