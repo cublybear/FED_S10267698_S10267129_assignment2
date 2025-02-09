@@ -103,7 +103,6 @@ setInterValid = setInterval(initGame, 125);
 document.addEventListener("keydown", changeDirection);
 
 //---------------------------------------- MokePoints ----------------------------------------
-// Function to check if user qualifies for MokePoints
 async function updateMokepoints() {
     // Get MokePoints from sessionStorage
     const user = JSON.parse(sessionStorage.getItem("user"));
@@ -114,8 +113,8 @@ async function updateMokepoints() {
     let earnedPoints = 0; // To track the points earned
 
     // Check snake game score
-    if (score > 2) { // Change to 50 for consistency
-        earnedPoints += 1; // Award 1 MokePoint for snake game
+    if (score > 50) { // Requires score greater than 50 for MokePoints
+        earnedPoints += 1; // Award MokePoint
         console.log("Snake Game - Earned MokePoint!"); // Debugging log
     }
 
@@ -127,7 +126,7 @@ async function updateMokepoints() {
         alert(`Congratulations! You've earned ${earnedPoints} MokePoint${earnedPoints > 1 ? 's' : ''}!`);
     } 
     else {
-        alert("You need scores greater than 50 to earn MokePoints.");
+        alert("You need a score greater than 50 to earn MokePoints.");
     }
 }
 

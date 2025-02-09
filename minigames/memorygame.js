@@ -114,3 +114,34 @@ const observer = new MutationObserver((mutationsList) => {
 
 // Start observing the div for class attribute changes
 observer.observe(targetDiv, { attributes: true });
+
+//---------------------------------------- MokePoints ----------------------------------------
+async function updateMokepoints() {
+    // Get MokePoints from sessionStorage
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    let mokepoints = user["Moke Points"];
+
+    console.log("Before update, MokePoints: " + mokepoints); // Log current MokePoints for debugging
+
+    let earnedPoints = 0; // To track the points earned
+
+    // Check matchCard score
+    if (matchCard === 8) { // Check if 8 matched cards
+        earnedPoints += 1; // Award MokePoint
+        console.log("Memory Game - Earned MokePoints!"); // Debugging log
+    }
+
+    // Update MokePoints if any points were earned
+    if (earnedPoints > 0) {
+        mokepoints += earnedPoints;
+        sessionStorage.setItem("Moke Points", mokepoints); // Save updated MokePoints
+        console.log("Updated MokePoints to: " + mokepoints); // Debugging log
+        alert(`Congratulations! You've earned ${earnedPoints} MokePoint${earnedPoints > 1 ? 's' : ''}!`);
+    } 
+    else {
+        alert("You need to match 8 cards to earn MokePoints.");
+    }
+}
+
+// Call the function to update MokePoints
+updateMokepoints();
