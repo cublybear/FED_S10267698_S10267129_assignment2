@@ -4,10 +4,20 @@ const APIKEY = "67a76d364d8744a119828030";
 console.log(account)
 const container = document.querySelector(".community-post-container"); // The main container for all posts
 const images = [
-    "https://i.pinimg.com/originals/e3/24/f7/e324f790cfe0a51d76f98356475cc408.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjBL9T_P9pY8ritWs7nP3MBc-X_wyIVZABA&s",
-    "https://img.freepik.com/premium-photo/funny-black-white-cat-with-green-eyes-open-mouth-talking-cat_72594-2307.jpg?semt=ais_hybrid",
-    "https://images.ctfassets.net/ub3bwfd53mwy/5WFv6lEUb1e6kWeP06CLXr/acd328417f24786af98b1750d90813de/4_Image.jpg?w=750"
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-beigeshirt_zgkhmn.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-washedhoodie_oxlezq.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/m-cargodenimtrousers_pnysyx.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-waistcoatdress1_haoz5s.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-softcheckminiskirt_dvt19o.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-denimtrousers_kw3z2y.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-straplessmididress_y8zctm.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-beltedribbedshirt_ipisyy.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/w-denimeffectjacket_okaxkc.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/w-ribbedtop_zo36sl.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-heartcollardress_i8bmou.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747238/k-kidsprintedshirt_ux6k8g.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-elegantgoldnecklace_xhtjsi.jpg",
+    "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747237/a-blackleatherbelt_nwzppg.jpg"
 ];
 
 function getRandomImage() {
