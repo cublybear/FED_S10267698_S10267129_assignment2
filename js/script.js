@@ -1,7 +1,6 @@
 
 import { fetchUser } from "./fetchUser.js";
 document.addEventListener("DOMContentLoaded", async function () {
-    toggleLoadingScreen(true); // Show the loading screen
     console.log("Script loaded successfully");
     updateMokepointDisplay();
 
@@ -65,9 +64,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("Using cached products");
         updateCartNotification();
         handlePageContent(products); // Use the function to handle page content
-
-        // Hide the loading screen after using cached products
-        toggleLoadingScreen(false); 
     }
 });
 
