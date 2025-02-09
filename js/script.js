@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Fetch user data from the server (assuming fetchUser is an async function)
         userAccount = await fetchUser();
-        
+
     } else {
         console.log("User account found in sessionStorage:", userAccount);
     }
@@ -809,7 +809,7 @@ async function updateCartTotal() {
     const subtotalElement = document.getElementById("subtotal");
     const discountElement = document.getElementById("discount");
     const totalElement = document.getElementById("total");
-    const mokeCoinsLabel = document.querySelector('.moke-coins'); // Label where the redeem text is
+    const mokeCoinsLabel = document.querySelector('.moke-coins .form-check'); // Label where the redeem text is
 
     let cart = getCart();  // Fetch the cart items
     let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -818,57 +818,71 @@ async function updateCartTotal() {
     const isCheckoutPage = window.location.href.includes('checkout') || document.querySelector('.checkout-page-element') !== null;
 
     const userProfile = await fetchUser();
-    let userMokePoints = userProfile.user["Moke Points"] || 0;
+    let userMokePoints = isCheckoutPage ? userProfile.user["Moke Points"] : 0;
 
     console.log("User Moke Points:", userMokePoints);
+
+    // Ensure userMokePoints is a valid number
+    userMokePoints = isNaN(userMokePoints) ? 0 : userMokePoints;
 
     // Define the redemption value per Moke Coin (only for checkout page)
     const redemptionValue = 0.01;  // Define how much each Moke Coin is worth (e.g., 10 cents per Moke Coin)
 
+    // Ensure subtotal is a valid number
+    subtotal = isNaN(subtotal) ? 0 : subtotal;
+
     let discount = 0;
     let total = subtotal;
 
+    // Check if the user has Moke Coins
     const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
-
     if (userMokePoints === 0) {
+        // If the user has 0 Moke Coins, disable the checkbox and change the redeem text
         mokeCoinsToggle.disabled = true;
-        mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem.";
+
+        if (mokeCoinsLabel) {
+            mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem."; // Change the text to inform the user
+        }
     } else {
+        // Enable the checkbox if they have Moke Coins and update the redeem text
         mokeCoinsToggle.disabled = false;
-        mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} Moke Coins`;
+
+        if (mokeCoinsLabel) {
+            mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} MokeCoins`; // Default redeem text
+        }
     }
 
     // Check if we're on the checkout page
     if (isCheckoutPage) {
-        // Set the initial discount based on the toggle state
-        if (mokeCoinsToggle.checked) {
-            discount = redemptionValue * userMokePoints;
-        }
-
         // Add event listener for toggle change
         mokeCoinsToggle.addEventListener('change', function () {
             if (mokeCoinsToggle.checked) {
                 discount = redemptionValue * userMokePoints;
+                console.log("Discount:", discount);
+
             } else {
                 discount = 0;
             }
 
-            // Recalculate total after applying the discount
             total = subtotal - discount;
 
-            // Update the DOM elements with the recalculated values
+            // Update the DOM with the recalculated values
             updateTotalDisplay(subtotal, discount, total);
         });
     }
 
-    // Recalculate the total when the page is initially loaded
+    // Recalculate and update the total initially when the page is loaded
     total = subtotal - discount;
+    updateTotalDisplay(subtotal, discount, total);
+}
 
-    // Update the DOM with the values
+// Function to update the total display
+function updateTotalDisplay(subtotal, discount, total) {
     document.getElementById("subtotal").textContent = `S$${subtotal.toFixed(2)}`;
     document.getElementById("discount").textContent = `S$${discount.toFixed(2)}`;
     document.getElementById("total").textContent = `S$${total.toFixed(2)}`;
 }
+
 
 async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     const cartItems = getCart(); // Fetch cart items
