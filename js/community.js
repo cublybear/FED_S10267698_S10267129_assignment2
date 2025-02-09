@@ -1,7 +1,20 @@
 let accountString = sessionStorage.getItem("user");
 let account = accountString ? JSON.parse(accountString) : null;
+
+// If account is null (meaning the user is not logged in yet), handle login or fetch user info
+if (!account) {
+    // Set account details here when the user logs in or is fetched
+    account = {
+        username: "exampleUser",
+        email: "user@example.com",
+        // Add any other necessary fields
+    };
+    sessionStorage.setItem("user", JSON.stringify(account));  // Store the account info in sessionStorage
+}
+
 const APIKEY = "67a6f93e76011910f95afd4b";
-const container = document.querySelector(".community-post-container");
+console.log(account)
+const container = document.querySelector(".community-post-container"); // The main container for all posts
 const images = [
     "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-beigeshirt_zgkhmn.jpg",
     "https://res.cloudinary.com/dqgaw5bri/image/upload/v1738747239/m-washedhoodie_oxlezq.jpg",
@@ -26,52 +39,38 @@ function getRandomImage() {
 function gotopost(e) {
     if (e.target.closest(".likes") == null) {
         let postnum = parseInt(e.target.closest(".indivcon").id) - 1;
+        console.log(e.target);
         let post = postcontent[postnum];
-        post["Likes"] = parseInt(e.target.closest(".indivcon").querySelector(".likebutton .count").textContent);
+        post["Likes"] = parseInt(e.target.closest(".indivcon").querySelector(".likebutton").querySelector(".count").textContent);
         sessionStorage.setItem("post", JSON.stringify(post));
-        window.location.href = `post.html`;
+        console.log(post);
+        const url = `post.html`;
+        window.location.href = url;
     }
 }
 
-// Function to check if session storage data is expired
-function isDataExpired() {
-    const expiryTime = 10 * 60 * 1000; // 10 minutes
-    const storedTimestamp = sessionStorage.getItem("posts_timestamp");
-    return !storedTimestamp || (Date.now() - storedTimestamp > expiryTime);
-}
-
-// Function to fetch posts from API
-async function fetchPosts() {
+let numberpost = 0;
+let postcontent = await getposts();
+postcontent.forEach(element => {
+    element["Image"] = getRandomImage()
+});
+// The post content array
+async function getposts() {
+    // wait for response
     const response = await fetch("https://fedassg-78fe.restdb.io/rest/community", {
         method: "GET",
-        headers: { "x-apikey": APIKEY },
+        headers: {
+            "x-apikey": APIKEY,
+        },
     });
-
+    //wait for reponse to finish parsing
+    const data = await response.json();
     if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
     }
-
-    const data = await response.json();
-    sessionStorage.setItem("posts", JSON.stringify(data));  // Save data
-    sessionStorage.setItem("posts_timestamp", Date.now());  // Save timestamp
+    console.log(data); //for debugging
     return data;
 }
-
-// Function to get posts (from session storage if available)
-async function getposts() {
-    let storedData = sessionStorage.getItem("posts");
-
-    if (storedData && !isDataExpired()) {
-        console.log("Using cached posts from session storage");
-        return JSON.parse(storedData);
-    } else {
-        console.log("Fetching posts from API");
-        return await fetchPosts();
-    }
-}
-
-let postcontent = await getposts();
-postcontent.forEach(element => element["Image"] = getRandomImage());
 
 function createpost(postData, container) {
     const postdiv = document.createElement("div");
@@ -85,26 +84,43 @@ function createpost(postData, container) {
     postheader.classList.add("postheader");
     postheader.textContent = postData.Username;
     postheader.style.fontSize = "12px";
+    postheader.style.display = "flex";
+    postheader.style.flexWrap = "wrap";
+    postheader.style.maxWidth = "70%";
     postheader.style.color = "#757575";
 
     const postimage = document.createElement("div");
     const image = document.createElement("img");
     image.classList.add("image");
     image.src = postData.Image;
+    image.style.width = "100%";
+    image.style.height = "auto";
+    image.style.objectFit = "contain";
     postimage.appendChild(image);
 
     const postdesc = document.createElement("div");
     postdesc.classList.add("postdesc");
+    postdesc.style.width = "85%";
     postdesc.textContent = postData.Title;
+    postdesc.style.fontSize = "16px";
+    postdesc.style.fontWeight = "semi-bold";
+    postdesc.style.color = "black";
 
     const likes = document.createElement("div");
     likes.classList.add("likes");
 
     const reactivelike = document.createElement("div");
+    reactivelike.style.maxWidth = "15%";
     reactivelike.classList.add("likebutton");
+    reactivelike.style.display = "flex";
+    reactivelike.style.justifyContent = "space-between";
+    reactivelike.style.gap = "10px";
+    likes.style.width = "85%";
+    reactivelike.style.display = "flex";
+    reactivelike.style.justifyContent = "flex-start";
 
     const reactivelikebutton = document.createElement("i");
-    let heart = postData["_id"] in account.LikedPosts.posts ? "fas" : "far";
+    let heart = postData["_id"] in (account.LikedPosts ? account.LikedPosts.posts : {}) ? "fas" : "far";
     reactivelikebutton.classList.add(heart, "fa-heart");
 
     const reactivelikecount = document.createElement("p");
@@ -120,15 +136,20 @@ function createpost(postData, container) {
         const counter = e.target.closest(".likebutton").querySelector(".count");
         let count = parseInt(counter.textContent);
         let postid = postcontent[e.target.closest(".indivcon").id - 1]["_id"];
-
         if (e.target.classList.contains("far")) {
             count++;
-            e.target.classList.replace("far", "fas");
+            e.target.classList.remove("far");
+            e.target.classList.add("fas");
             e.target.style.color = "red";
+            likePost(postid, count);
+            updateliked(postid, 1); // Mark post as liked
         } else {
             count--;
-            e.target.classList.replace("fas", "far");
+            e.target.classList.remove("fas");
+            e.target.classList.add("far");
             e.target.style.color = "black";
+            likePost(postid, count);
+            updateliked(postid, 0); // Remove the like
         }
         counter.textContent = count;
     });
@@ -141,13 +162,75 @@ function createpost(postData, container) {
 }
 
 function distributePosts() {
-    document.querySelector(".community-post-container").innerHTML = ""; // Clear previous posts
-    postcontent.forEach(post => createpost(post, container));
+    const numCols = postcontent.length < 4 ? postcontent.length : 4;
+    const masonryCon = document.querySelector('.community-post-container');
+    const thearray = [...Array(numCols).keys()];
+    const themainarray = [];
+
+    const timesBy = Math.ceil(postcontent.length / numCols);
+    for (let j = 0; j < timesBy; j++) {
+        themainarray.push(...thearray);
+    }
+
+    let cols = document.querySelectorAll('.sub');
+    cols.forEach(element => {
+        element.remove();
+    });
+
+    for (let i = 1; i <= numCols; i++) {
+        const subCol = document.createElement('div');
+        subCol.classList.add('sub');
+        subCol.classList.add('box' + i);
+        subCol.style.maxWidth = "13%";
+        subCol.style.minWidth = "243.5px";
+        masonryCon.appendChild(subCol);
+    }
+
+    const subs = document.querySelectorAll('.sub');
+    let postIndex = 0;
+    postcontent.forEach(post => {
+        const colIndex = themainarray[postIndex];
+        createpost(post, subs[colIndex]);
+        postIndex++;
+    });
+}
+
+async function addpost(username, description, title) {
+    let jsondata = {
+        "Username": username,
+        "Description": description,
+        "Likes": 0,
+        "Comments": {},
+        "Title": title
+    };
+
+    console.log(jsondata)
+    let settings = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": APIKEY,
+            "Cache-Control": "no-cache"
+        },
+        body: JSON.stringify(jsondata)
+    };
+    let response = await fetch("https://fedassg-78fe.restdb.io/rest/community", settings);
+    let data = await response.json();
+    console.log(data);
+    return data;
+}
+
+function alllikes() {
+    allcount = document.querySelectorAll(".count");
+    eachcount = [];
+    allcount.forEach(element => {
+        eachcount.push({ "post": parseInt(element.closest(".indivcon").id.slice(-1)), "likes": parseInt(element.textContent) });
+    });
+    return eachcount;
 }
 
 distributePosts();
 
-// Popup event listeners
 document.getElementById("blur").addEventListener("click", () => {
     document.getElementById("blur").style.display = "none";
     document.querySelector(".popup-box").style.display = "none";
@@ -160,7 +243,6 @@ document.getElementById("closepopup").addEventListener("click", () => {
     document.querySelector(".popup-box").style.display = "none";
     document.getElementById("blur").style.display = "none";
 });
-
 
 function likePost(postId, likes) {
     const data = JSON.stringify({
