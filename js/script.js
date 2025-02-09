@@ -1018,10 +1018,12 @@ function updateMokepointDisplay() {
 
 function toggleLoadingScreen(isVisible) {
     const loadingScreen = document.getElementById("loadingscreen");
-    loadingScreen.style.display = isVisible ? "flex" : "none";
+
+    // Check if the loading screen exists before trying to manipulate it
+    if (loadingScreen) {
+        loadingScreen.style.display = isVisible ? "flex" : "none";
+    } else {
+        console.warn("Loading screen element not found on this page.");
+    }
 }
-
-
-
-
 
