@@ -1,4 +1,6 @@
 # FED_S10267698_S10267129_assignment2
+Click for [Github Page](https://cublybear.github.io/FED_S10267698_S10267129_assignment2/)
+
 Welcome to our dynamic clothing e-commerce platform, where fashion meets fun and community! Discover an extensive collection of stylish products, from the latest trends to timeless classics. With the added bonus of earning loyalty points through engaging mini-games, shopping here is more rewarding than ever. Our user-friendly interface allows you to easily navigate and find exactly what you need, while enjoying a seamless shopping experience from start to finish.
 
 But shopping is just the beginning — our platform thrives on community interaction. Post your own fashion looks, like and comment on others’ posts, and show off your creativity. Whether you’re sharing your style inspiration or discovering new trends, the community experience is all about connection, creativity, and fun. Plus, with convenient account management and dedicated customer support, we’re here to ensure your experience is always smooth and enjoyable.
