@@ -1,10 +1,10 @@
 export async function fetchUser() {
     // Retrieve the logged-in username from sessionStorage
-    let loggedInUsername = sessionStorage.getItem("username");
+    let loggedInUsername = sessionStorage.getItem("Username");
 
     // If username is not set or its length is greater than 1, default it to "hi"
     if (!loggedInUsername || loggedInUsername.length > 1) {
-        loggedInUsername = "hi";
+        loggedInUsername = "bye";
     }
 
     // Check if user data is already cached in sessionStorage

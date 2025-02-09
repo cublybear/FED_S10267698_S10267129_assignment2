@@ -1,30 +1,23 @@
 
 import { fetchUser } from "./fetchUser.js";
-//----------------------------------------------------- API ----------------------------------------------------
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     console.log("Script loaded successfully");
     updateMokepointDisplay();
 
-    // 1st API
-    // const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
-    // const apikey = '678b1d1a19b96a08c0af6336';
-
-    // 2nd API
     const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';
     const apikey = '67a6f93e76011910f95afd4b';
 
-    // 3rd API 
-    // const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';
-    // const apikey = '67a76d364d8744a119828030';  
-
     // Check if user account information exists in sessionStorage
-    let userAccount = JSON.parse(sessionStorage.getItem("userProfile")); // Check for user profile
+    let userAccount = JSON.parse(sessionStorage.getItem("userProfile"));
 
+    // Check if the user account is not available in sessionStorage
     if (!userAccount) {
-        console.log("No user account in sessionStorage");
+        console.log("No user account in sessionStorage. Fetching from API...");
 
+        // Fetch user data from the server (assuming fetchUser is an async function)
+        userAccount = await fetchUser();
     } else {
-        console.log("User account found:", userAccount);
+        console.log("User account found in sessionStorage:", userAccount);
     }
 
     // Check if products are already stored in sessionStorage
@@ -55,6 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 updateCartNotification();
                 handlePageContent(products); // Use the function to handle page content
+
+                // Hide the loading screen after all tasks are complete
+                toggleLoadingScreen(false); 
             })
             .catch(error => {
                 console.error("Error loading products:", error);
@@ -67,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
         handlePageContent(products); // Use the function to handle page content
     }
 });
+
 
 // Function to handle page content
 function handlePageContent(products) {
@@ -1012,8 +1009,14 @@ function updateMokepointDisplay() {
     }
 }
 
+function toggleLoadingScreen(isVisible) {
+    const loadingScreen = document.getElementById("loadingscreen");
 
-
-
-
+    // Check if the loading screen exists before trying to manipulate it
+    if (loadingScreen) {
+        loadingScreen.style.display = isVisible ? "flex" : "none";
+    } else {
+        console.warn("Loading screen element not found on this page.");
+    }
+}
 
