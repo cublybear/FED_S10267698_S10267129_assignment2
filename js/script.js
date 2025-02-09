@@ -48,9 +48,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 updateCartNotification();
                 handlePageContent(products); // Use the function to handle page content
-
-                // Hide the loading screen after all tasks are complete
-                toggleLoadingScreen(false); 
             })
             .catch(error => {
                 console.error("Error loading products:", error);
