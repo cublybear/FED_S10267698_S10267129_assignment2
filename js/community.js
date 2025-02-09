@@ -140,7 +140,7 @@ function createpost(postData, container) {
 }
 
 function distributePosts() {
-    const numCols = postcontent.length < 3 ? postcontent.length : 3;
+    const numCols = postcontent.length < 4 ? postcontent.length : 4;
     const masonryCon = document.querySelector('.community-post-container');
     const thearray = [...Array(numCols).keys()];
     const themainarray = [];

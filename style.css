@@ -605,6 +605,13 @@ textarea {
 }
 
 /*---------------------------------------- Minigame ----------------------------------------*/
+.memory-cards,
+.snake-game-play-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Auto responsive layout */
+    gap: 10px;
+}
+
 /* Styling the minigame-list container */
 .minigame-back{
   width: 30px;
@@ -846,6 +853,7 @@ h2 {
 
 .community-post-container {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   padding: 10px;
