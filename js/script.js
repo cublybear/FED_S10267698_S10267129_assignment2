@@ -881,7 +881,6 @@ function updateTotalDisplay(subtotal, discount, total) {
     totalDisplay.textContent = `S$${total.toFixed(2)}`;
 }
 
-
 async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     const cartItems = getCart(); // Fetch cart items
     const user = JSON.parse(sessionStorage.getItem("user")); // Fetch user data
