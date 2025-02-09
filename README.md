@@ -66,6 +66,7 @@ For any scenarios that have not been automated, test the user stories manually a
    2. Try to submit the empty form and verify that an error message about the required fields appears
    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
    4. Try to submit the form with all inputs valid and verify that a success message appears.
+
 ## 2. Product Details Page
 1. **Add to Cart (No Size Selected)**: Try adding a product to the cart without selecting a size. An alert should pop up, preventing the product from being added to the cart.
 2. **Add to Cart (Size Out of Stock)**: Choose size 'L' for a product where all 'L' sizes are out of stock in the database. An alert should pop up, and the product should not be added to the cart.
@@ -75,23 +76,20 @@ For any scenarios that have not been automated, test the user stories manually a
 2. **Moke Coins (No Coins)**: If no Moke Coins are available, the checkbox for redeeming Moke Coins should be disabled, and a message indicating that there are no Moke Coins should appear.
 3. **Moke Coins (Available)**: If Moke Coins are available, the checkbox should become enabled, allowing the user to redeem their Moke Coins for discounts during checkout.
 
-
-
-   
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
 ### Responsiveness
 - **Product Cards Layout**: On mobile devices, product cards are displayed in 2 columns; on smaller screens, 3 columns; and on full screens, 4 columns.
 - **Responsive Layout**: Pages with a left and right layout will shift the right section to the bottom on all smaller screen sizes.
 - **Responsive Grid**: The website utilizes Bootstrap's responsive grid system for adapting layouts to different screen sizes.
 
-
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
+### Interesting Bugs
+- Image is weirdly placed 
+[images/interestingbugsss]
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
 ## Credits
-### Content
-- sdfghjk
 ### Media
-- sdfghjk
+- All product images are credited to ZARA. https://www.zara.com/sg/
+- Profile Picture image: Redirect notice. (n.d.). Retrieved February 9, 2025, from https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fprofile-pic&psig=AOvVaw28oeLZomLiNWnzM2YXYjz2&ust=1739186808314000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIivzPC9tosDFQAAAAAdAAAAABAE
+- Game images were made by us using Canva and Flaticon. https://www.flaticon.com/
 ### Acknowledgements
-- sdfghjk
+- I would like to acknowledge OpenAI’s ChatGPT for assisting us with the overall code of our project. https://chatgpt.com/g/g-3bxChvw71-link
