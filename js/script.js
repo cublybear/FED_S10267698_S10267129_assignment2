@@ -816,13 +816,18 @@ async function updateCartTotal() {
     const totalElement = document.getElementById("total");
     const mokeCoinsLabel = document.querySelector('.moke-coins'); // Label where the redeem text is
 
+    if (!subtotalElement || !discountElement || !totalElement) {
+        console.error("Required elements for displaying prices are missing on the page.");
+        return; // Exit if these elements are not found on the page
+    }
+
     let cart = getCart();  // Fetch the cart items
     let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     // Check if we're on the checkout page using a URL or element-based check
     const isCheckoutPage = window.location.href.includes('checkout') || document.querySelector('.checkout-page-element') !== null;
 
-    const userProfile = await fetchUser();
+    const userProfile = await fetchUser();  // Ensure fetchUser returns the latest profile
     let userMokePoints = isCheckoutPage ? userProfile["Moke Points"] : 0;
 
     console.log("User Moke Points:", userMokePoints);
@@ -839,55 +844,60 @@ async function updateCartTotal() {
     let discount = 0;
     let total = subtotal;
 
-    // Check if the user has Moke Coins
-    const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
-    if (userMokePoints === 0) {
-        // If the user has 0 Moke Coins, disable the checkbox and change the redeem text
-        mokeCoinsToggle.disabled = true;
-
-        if (mokeCoinsLabel) {
-            mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem."; // Change the text to inform the user
-        }
-    } else {
-        // Enable the checkbox if they have Moke Coins and update the redeem text
-        mokeCoinsToggle.disabled = false;
-
-        if (mokeCoinsLabel) {
-            mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} MokeCoins`; // Default redeem text
-        }
-    }
-
-    // Check if we're on the checkout page
+    // Only try to access the mokeCoinsToggle if we are on the checkout page
     if (isCheckoutPage) {
-        // Set the initial discount based on the toggle state
-        if (mokeCoinsToggle.checked) {
-            discount = redemptionValue * userMokePoints;
-        }
+        const mokeCoinsToggle = document.getElementById("moke-coins-toggle");
 
-        // Add event listener for toggle change
-        mokeCoinsToggle.addEventListener('change', function () {
-            if (mokeCoinsToggle.checked) {
-                discount = redemptionValue * userMokePoints;
+        // Check if mokeCoinsToggle exists
+        if (mokeCoinsToggle) {
+            // Check if the user has Moke Coins
+            if (userMokePoints === 0) {
+                // If the user has 0 Moke Coins, disable the checkbox and change the redeem text
+                mokeCoinsToggle.disabled = true;
+
+                if (mokeCoinsLabel) {
+                    mokeCoinsLabel.innerHTML = "You have no Moke Coins to redeem."; // Change the text to inform the user
+                }
             } else {
-                discount = 0;
+                // Enable the checkbox if they have Moke Coins and update the redeem text
+                mokeCoinsToggle.disabled = false;
+
+                if (mokeCoinsLabel) {
+                    mokeCoinsLabel.innerHTML = `Redeem ${userMokePoints} MokeCoins`; // Default redeem text
+                }
             }
 
-            // Recalculate total after applying the discount
-            total = subtotal - discount;
+            // Set the initial discount based on the toggle state for checkout
+            if (mokeCoinsToggle.checked) {
+                discount = redemptionValue * userMokePoints;
+            }
 
-            // Update the DOM elements with the recalculated values
-            updateTotalDisplay(subtotal, discount, total);
-        });
+            // Add event listener for toggle change to apply discount in checkout
+            mokeCoinsToggle.addEventListener('change', function () {
+                if (mokeCoinsToggle.checked) {
+                    discount = redemptionValue * userMokePoints;
+                } else {
+                    discount = 0;
+                }
+
+                // Recalculate total after applying the discount
+                total = subtotal - discount;
+
+                // Update the DOM elements with the recalculated values
+                updateTotalDisplay(subtotal, discount, total);
+            });
+        }
     }
 
     // Recalculate the total when the page is initially loaded
     total = subtotal - discount;
 
     // Update the DOM with the values
-    document.getElementById("subtotal").textContent = `S$${subtotal.toFixed(2)}`;
-    document.getElementById("discount").textContent = `S$${discount.toFixed(2)}`;
-    document.getElementById("total").textContent = `S$${total.toFixed(2)}`;
+    subtotalElement.textContent = `S$${subtotal.toFixed(2)}`;
+    discountElement.textContent = `S$${discount.toFixed(2)}`;
+    totalElement.textContent = `S$${total.toFixed(2)}`;
 }
+
 
 async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     const cartItems = getCart(); // Fetch cart items
@@ -910,9 +920,21 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
         date: new Date().toISOString(),
     };
 
-    const apiKey = '67a76d364d8744a119828030'; // Replace with your actual API key
-    const orderApiUrl = 'https://fedassg2-cd74.restdb.io/rest/orders';
-    const userApiUrl = `https://fedassg2-cd74.restdb.io/rest/account/${user._id}`; // Use RestDB ObjectId
+    // 1st API
+    // const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
+    // const apikey = '678b1d1a19b96a08c0af6336';
+
+    // 2nd API
+    // const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';
+    // const apikey = '67a6f93e76011910f95afd4b';
+
+    // 3rd API 
+    // const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';
+    // const apikey = '67a76d364d8744a119828030';  
+
+    const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
+    const orderApiUrl = 'https://fedassg-78fe.restdb.io/rest/orders';
+    const userApiUrl = `https://fedassg-78fe.restdb.io/rest/account/${user._id}`; // Use RestDB ObjectId
 
     try {
         // 🛒 **Place Order**
@@ -957,7 +979,6 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
 
         console.log("✅ User Moke Coins updated successfully:", userResult);
 
-        // 🛒 **Clear the Cart** after order is placed successfully
         clearCart();
 
     } catch (error) {
