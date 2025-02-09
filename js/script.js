@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log("Script loaded successfully");
     updateMokepointDisplay();
 
-    const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';
-    const apikey = '67a6f93e76011910f95afd4b';
+    const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
+    const apikey = '678b1d1a19b96a08c0af6336';
 
     // Check if user account information exists in sessionStorage
     let userAccount = JSON.parse(sessionStorage.getItem("userProfile"));
@@ -906,8 +906,8 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     };
 
     // 1st API
-    // const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
-    // const apikey = '678b1d1a19b96a08c0af6336';
+    const orderApiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
+    const apikey = '678b1d1a19b96a08c0af6336';
 
     // 2nd API
     // const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';
@@ -917,9 +917,9 @@ async function placeOrder(selectedAddress, mokeCoinsRedeemed) {
     // const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';
     // const apikey = '67a76d364d8744a119828030';  
 
-    const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
-    const orderApiUrl = 'https://fedassg-78fe.restdb.io/rest/orders';
-    const userApiUrl = `https://fedassg-78fe.restdb.io/rest/account/${user._id}`; // Use RestDB ObjectId
+    // const apiKey = '67a6f93e76011910f95afd4b'; // Replace with your actual API key
+    // const orderApiUrl = 'https://fedassg-78fe.restdb.io/rest/orders';
+    const userApiUrl = `https://fedassignment2-eef5.restdb.io/rest/account/${user._id}`; // Use RestDB ObjectId
 
     try {
         // 🛒 **Place Order**
