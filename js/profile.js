@@ -117,13 +117,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     // --------------- Delete account from database ---------------
-    // Function to toggle loading screen visibility
     function toggleLoadingScreen(isVisible) {
         const loadingScreen = document.getElementById("loadingscreen");
-        loadingScreen.style.display = isVisible ? "flex" : "none";
+        if (loadingScreen) {
+            loadingScreen.style.display = isVisible ? "flex" : "none";
+        }
     }
 
-    // Function to delete account
     async function deleteaccount(email, phone, password, username) {
         let query = JSON.stringify({
             $and: [
@@ -133,7 +133,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             ]
         });
 
-        // Perform the delete request to the API
         let response = await fetch(`https://fedassg-78fe.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
             method: 'DELETE',
             headers: {
@@ -150,47 +149,48 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log('Account deleted:', data);
     }
 
-    // Add event listener for delete account button
     document.getElementById("delete-account-btn").addEventListener("click", async function (e) {
-        e.preventDefault(); // Prevent default form behavior if this is in a form
+        e.preventDefault(); // Prevent default form behavior
 
-        // Get the required user information from the profile (or sessionStorage)
         const email = accountEmailInput.value;
         const phone = accountPhoneInput.value;
         const password = accountPasswordInput.value;
         const username = accountUsernameInput.value;
 
-        // Show loading screen
         toggleLoadingScreen(true);
 
         try {
-            // Call the deleteaccount function
             await deleteaccount(email, phone, password, username);
-
-            // After successful deletion, show a message or redirect
             alert("Your account has been deleted.");
-            window.location.href = "index.html"; // Redirect to a different page (e.g., homepage) after deletion
-
+            window.location.href = "index.html";
         } catch (error) {
             console.error("Error deleting account:", error);
             alert("An error occurred while deleting your account.");
         } finally {
-            // Hide the loading screen
             toggleLoadingScreen(false);
         }
     });
 
-    // Logout button event listener
-    document.getElementById("logout").addEventListener("click", function () {
-        logout();  // Call the logout function
-    });
+    // --------------- Logout Button Fix ---------------
+    const logoutButton = document.getElementById("logout");
 
-    // Logout function
+    if (logoutButton) {
+        logoutButton.addEventListener("click", function () {
+            console.log("Logout button clicked!");
+            logout();
+        });
+    } else {
+        console.error("Logout button not found in the DOM.");
+    }
+
     function logout() {
-        // Clear session storage (to remove logged-in user data)
-        sessionStorage.removeItem("user");
+        console.log("Logging out...");
 
-        // Redirect to the login page
+        // Clear all session storage
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("userProfile");
+
+        // Redirect to login page
         window.location.href = "account.html";
     }
 });

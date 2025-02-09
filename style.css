@@ -605,13 +605,6 @@ textarea {
 }
 
 /*---------------------------------------- Minigame ----------------------------------------*/
-.memory-cards,
-.snake-game-play-board {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Auto responsive layout */
-    gap: 10px;
-}
-
 /* Styling the minigame-list container */
 .minigame-back{
   width: 30px;
@@ -721,6 +714,7 @@ textarea {
   background: #FBFFD1;
   position: absolute;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  backface-visibility: hidden;  /* Ensure the back face is hidden when flipped */
 }
 
 .memory-cards{
@@ -773,11 +767,11 @@ textarea {
   max-width: 45px;
 }
 
-.memory-card.flip .front-view{
+.memory-card.flip .front-view {
   transform: rotateY(180deg);
 }
 
-.memory-card.flip .back-view{
+.memory-card.flip .back-view {
   transform: rotateY(0);
 }
 
@@ -818,7 +812,7 @@ textarea {
 }
 
 /*---------------------------------------- Community ----------------------------------------*/
-h2 {
+.section-heading {
   text-align: center;
   margin: 20px;
   padding: 20px;

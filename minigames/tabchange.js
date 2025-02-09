@@ -1,18 +1,24 @@
 export function changetab() {
+    // Reset the URL by removing the 'id' query parameter
+    const url = new URL(window.location);
+    url.searchParams.delete('id'); // Delete the 'id' query parameter
+    history.pushState(null, '', url.toString()); // Update the URL in the browser
+
+    // Show the main game list (make the list visible again and hide game content)
     const nonGameElements = document.querySelectorAll('.minigame-list');
     nonGameElements.forEach(element => {
-        element.style.display = 'grid';
-        element.classList.add("active")
+        element.style.display = 'grid'; // Make sure the game list is visible
+        element.classList.add("active");
     });
 
-    // Hide all game content sections initially
+    // Hide all game content sections
     const gameContents = document.querySelectorAll('.game-content');
     gameContents.forEach(content => {
         content.style.display = 'none';
-        content.classList.remove("active")
+        content.classList.remove("active");
     });
 }
-// Function to show the corresponding game based on the game ID in the URL
+
 
 export function showGameById(gameId) {
     // Hide all non-game content
