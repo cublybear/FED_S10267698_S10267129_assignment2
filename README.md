@@ -2,33 +2,49 @@
 Welcome to our dynamic clothing e-commerce platform, where fashion meets fun and community! Discover an extensive collection of stylish products, from the latest trends to timeless classics. With the added bonus of earning loyalty points through engaging mini-games, shopping here is more rewarding than ever. Our user-friendly interface allows you to easily navigate and find exactly what you need, while enjoying a seamless shopping experience from start to finish.
 
 But shopping is just the beginning — our platform thrives on community interaction. Post your own fashion looks, like and comment on others’ posts, and show off your creativity. Whether you’re sharing your style inspiration or discovering new trends, the community experience is all about connection, creativity, and fun. Plus, with convenient account management and dedicated customer support, we’re here to ensure your experience is always smooth and enjoyable.
+
 ## Design Process
-Provide us insights about your design process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
+### **Target Audience **
+Mokesell is designed to offer users an engaging and interactive shopping experience, while connecting them with a vibrant community of like-minded individuals.
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
+### **User Goals**
+Explore Products: Users want to easily browse products and view detailed descriptions to make informed purchases.
+Engage in Fun Activities: Users want to play mini-games for entertainment and possibly earn rewards.
+Build and Manage Profiles: Users want to create and edit their profiles, track their activities, and manage personal details.
+Make Purchases: Users aim to add items to their cart, proceed with checkout, and complete their purchases smoothly.
+Engage in Community: Users want to interact with others through the community, share posts, and be part of discussions.
 
-As a user type, I want to perform an action, so that I can achieve a goal.
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory) Include the Adobe XD wireframe as a folder. You can include the XD share url.
+### **User Stories**
+As a user, I want to view product details, so that I can make an informed decision before purchasing.
+As a user, I want to play mini-games, so that I can have fun and possibly earn rewards or points.
+As a user, I want to manage my account, so that I can update my personal details and preferences.
+As a user, I want to add items to my cart and proceed to checkout, so that I can make a purchase.
+As a user, I want to participate in the community, so that I can connect with others and share my thoughts or creations.
+As a user, I want to share posts, so that I can interact with the community and engage in discussions.
+As a user, I want to manage my profile, so that I can keep my information up-to-date and track my activity.
+As a user, I want to browse through a gallery, so that I can view images and media shared by others in the community.
+
+### **Wireframe**
+Link to Figma wireframe [here]([https://www.figma.com/design/4J5M9PRrJN0UuTvAqg594X/FED?node-id=0-1&t=2PEObHQbDKjO9HeG-1])
+
 ## Features
 ### Existing Features
-- Feature jy - gdfhgj
-- Feature jy - asdefgh
-- Feature jy - asdefgh
-
+- **Account Page** - Allow user to sign in or sign up for an account
+- **Minigame Page** - Let user to earn Moke Points by hitting the game requirements, which can be used to offset transaction amount
+- **Community Page** - Page designed for social interaction, allowing users to connect, share content and participate in community discussions
+- **Post Page** - Page where users can and interact with posts by commenting or liking, enhancing interaction between users
 - **Product Gallery**: The product gallery is dynamically populated with items, categorized into categories and subcategories. The inventory is fetched in real-time from the database using API calls to ensure that the latest products are always displayed.
-
 - **Cart**: Cart items are updated in real-time via JavaScript. Subtotals and quantities are automatically recalculated to reflect any changes made by the user.
-
 - **Checkout** - During checkout, users can select from addresses they've previously entered on the profile edit page. Moke points can also be redeemed for discounts. Once the order is placed, it is stored in the database using the backend API.
 
 - **Account Management**: Users can update their account details, including up to two shipping addresses. Any changes are immediately reflected through API calls to keep the profile data synchronized.
-### Features Left to Implement
-- Feature adsfg
-## Technologies Used
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
 
-- JQuery
-  - The project uses JQuery to simplify DOM manipulation.
+### Features Left to Implement
+- **Profile Page** - Allows user to delete account
+
+## Technologies Used
+- **RestDB** - Database to store user's account details, items ordered and product lists
+
 ## Assistive AI
 1. **Using API**: ChatGPT helped generate JavaScript code for API calls, async operations, for areas that needed API. It greatly helped me understand how APIs work.
 [images/source-code-ss1]
