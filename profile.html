@@ -61,12 +61,10 @@
     <!-- Main section -->
     <main>
         <!-- Loading screen -->
-        <div id="loadingscreen" style="display: none;">
-            <div id="lottie-container" style="width: 100px; height: 100px;"></div>
+        <div class="loading" id="loadingscreen">
+            <dotlottie-player src="https://lottie.host/3c21a388-775a-4c30-8dfa-47d1850f72f3/2flB88VcIK.lottie"
+                background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
         </div>
-
-
-        <div class="loading" id="loadingscreen">add your loading page</div>
         <div class="profile-container">
             <div class="profile" style="display: flex; align-items: center; gap: 10px;">
                 <!-- Profile Photo -->
@@ -251,8 +249,8 @@
             </div>
 
             <div class="profile-logout-delete-buttons">
-                <button class="logout">Log Out</button>
-                <button class="delete">Delete Account</button>
+                <button class="logout" id="logout">Log Out</button>
+                <button class="delete" id="delete">Delete Account</button>
             </div>
         </div>
     </main>
