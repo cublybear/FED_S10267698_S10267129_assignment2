@@ -34,7 +34,7 @@ As a user, I want to share posts, so that I can interact with the community and 
 As a user, I want to manage my profile, so that I can keep my information up-to-date and track my activity.
 
 ### **Wireframe**
-Link to Figma wireframe [here]([https://www.figma.com/design/4J5M9PRrJN0UuTvAqg594X/FED?node-id=0-1&t=2PEObHQbDKjO9HeG-1])
+Link to Figma wireframe [here](https://www.figma.com/design/4J5M9PRrJN0UuTvAqg594X/FED?node-id=0-1&t=2PEObHQbDKjO9HeG-1)
 
 ## Features
 ### Existing Features
