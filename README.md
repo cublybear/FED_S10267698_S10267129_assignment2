@@ -76,8 +76,8 @@ For any scenarios that have not been automated, test the user stories manually a
 - **Responsive Grid**: The website utilizes Bootstrap's responsive grid system for adapting layouts to different screen sizes.
 
 ### Interesting Bugs
-- Image is weirdly placed 
-[images/interestingbugsss]
+- Really weird layout at the bottom but the top is fine
+[image](https://github.com/user-attachments/assets/b8e55e5c-881f-4df1-b95c-0dfdd85aed60)
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
 ## Credits
