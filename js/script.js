@@ -54,9 +54,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             })
             .catch(error => {
                 console.error("Error loading products:", error);
-                
-                // Hide the loading screen if there's an error
-                toggleLoadingScreen(false);
             });
 
     } else {
