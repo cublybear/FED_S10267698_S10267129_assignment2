@@ -4,25 +4,34 @@ Welcome to our dynamic clothing e-commerce platform, where fashion meets fun and
 But shopping is just the beginning — our platform thrives on community interaction. Post your own fashion looks, like and comment on others’ posts, and show off your creativity. Whether you’re sharing your style inspiration or discovering new trends, the community experience is all about connection, creativity, and fun. Plus, with convenient account management and dedicated customer support, we’re here to ensure your experience is always smooth and enjoyable.
 
 ## Design Process
-### **Target Audience **
+### **Target Audience**
 Mokesell is designed to offer users an engaging and interactive shopping experience, while connecting them with a vibrant community of like-minded individuals.
 
 ### **User Goals**
 Explore Products: Users want to easily browse products and view detailed descriptions to make informed purchases.
+
 Engage in Fun Activities: Users want to play mini-games for entertainment and possibly earn rewards.
+
 Build and Manage Profiles: Users want to create and edit their profiles, track their activities, and manage personal details.
+
 Make Purchases: Users aim to add items to their cart, proceed with checkout, and complete their purchases smoothly.
+
 Engage in Community: Users want to interact with others through the community, share posts, and be part of discussions.
 
 ### **User Stories**
-As a user, I want to view product details, so that I can make an informed decision before purchasing.
-As a user, I want to play mini-games, so that I can have fun and possibly earn rewards or points.
-As a user, I want to manage my account, so that I can update my personal details and preferences.
-As a user, I want to add items to my cart and proceed to checkout, so that I can make a purchase.
-As a user, I want to participate in the community, so that I can connect with others and share my thoughts or creations.
+As a buyer, I want to view product details, so that I can make an informed decision before purchasing.
+
+As a buyer, I want to play mini-games, so that I can have fun and possibly earn rewards or points.
+
+As a buyer, I want to manage my account, so that I can update my personal details and preferences.
+
+As a buyer, I want to add items to my cart and proceed to checkout, so that I can make a purchase.
+
+As a seller, I want to participate in the community, so that I can connect with others and promote my products or creations.
+
 As a user, I want to share posts, so that I can interact with the community and engage in discussions.
+
 As a user, I want to manage my profile, so that I can keep my information up-to-date and track my activity.
-As a user, I want to browse through a gallery, so that I can view images and media shared by others in the community.
 
 ### **Wireframe**
 Link to Figma wireframe [here]([https://www.figma.com/design/4J5M9PRrJN0UuTvAqg594X/FED?node-id=0-1&t=2PEObHQbDKjO9HeG-1])
