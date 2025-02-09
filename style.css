@@ -811,13 +811,163 @@ textarea {
 }
 
 /*---------------------------------------- Community ----------------------------------------*/
-h1 {
+h2 {
   text-align: center;
   margin: 20px;
   padding: 20px;
 }
 
 /*---------------------------------------- Post ----------------------------------------*/
+.post-container {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  max-width: 100%;
+  gap: 20px;
+  min-height: 60vh; /* Allows the container to expand dynamically */
+  margin: auto;
+  margin-bottom: 50px;
+  padding: 20px;
+  align-items: flex-start; /* Align items at the top */
+  justify-content: space-between; /* Ensures left stays on the left & right stays on the right */
+  border-radius: 10px;
+}
+
+.post-left-container {
+  width: 48%; /* Ensures left section stays on the left */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns content to the left */
+}
+
+.post-right-container {
+  width: 48%; /* Ensures right section stays on the right */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns content to the right */
+  gap: 10px;
+}
+
+.post-left-container .Image {
+  width: 100%; /* Fill parent container */
+  max-width: 100%; /* Ensure it doesn't overflow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13px;
+  overflow: hidden;
+}
+
+.post-left-container .Image img {
+  max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Prevent cropping */
+  display: block;
+}
+
+.post-right-container .line {
+  width: 100%;  /* Full width */
+  height: 2px;  /* Thickness of the line */
+  background-color: black;  /* Color of the line */
+}
+
+.post-right-container .comment-box .text{
+  font-size: 13px;
+}
+
+.post-left-container .Description {
+  text-align: left;
+  width: 100%;
+}
+
+.post-left-container .description-likes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.post-left-container  .Title {
+  max-width: 70%;
+  text-align: left; /* Align title text to the left */
+}
+
+.post-left-container  .Likes {
+  display: flex;
+  justify-content: flex-end; /* Align likes to the right */
+  gap: 10px;
+  margin-left: auto; /* Push likes to the far right */
+  width: 20%;
+}
+
+.post-right-container .comment-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  margin-top: auto;
+}
+
+.post-right-container #comment-input {
+  flex: 1;
+  min-height: 36px;
+  max-height: 150px;
+  resize: none;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.post-right-container #send-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.post-right-container #send-button:hover {
+  background-color: #0056b3;
+}
+
+.post-right-container .Comments {
+  text-align: left;
+  width: 100%;  /* Set a width */
+  max-height: 60%; /* Limit height */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  padding: 10px;
+}
+
+.post-right-container .Comments::-webkit-scrollbar {
+  width: 8px;
+}
+
+.post-right-container .Comments::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.post-right-container .Comments::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/*hearts*/
+.fas{
+  color: red;
+}
+
+.far{
+  color: black;
+}
+
 .post-back{
   width: 30px;
   height: auto;
