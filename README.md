@@ -52,7 +52,7 @@ Link to Figma wireframe [here](https://www.figma.com/design/4J5M9PRrJN0UuTvAqg59
 
 ## Assistive AI
 1. **Using API**: ChatGPT helped generate JavaScript code for API calls, async operations, for areas that needed API. It greatly helped me understand how APIs work.
-[images/source-code-ss1]
+![](images/source-code-ss1.png)
 
 ## Testing
 For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
@@ -77,7 +77,7 @@ For any scenarios that have not been automated, test the user stories manually a
 
 ### Interesting Bugs
 - Really weird layout at the bottom but the top is fine
-[image](https://github.com/user-attachments/assets/b8e55e5c-881f-4df1-b95c-0dfdd85aed60)
+![](https://github.com/user-attachments/assets/b8e55e5c-881f-4df1-b95c-0dfdd85aed60)
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
 ## Credits
