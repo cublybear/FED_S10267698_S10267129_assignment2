@@ -1,21 +1,12 @@
 
 import { fetchUser } from "./fetchUser.js";
-//----------------------------------------------------- API ----------------------------------------------------
 document.addEventListener("DOMContentLoaded", async function () {
+    toggleLoadingScreen(true); // Show the loading screen
     console.log("Script loaded successfully");
     updateMokepointDisplay();
 
-    // 1st API
-    // const apiUrl = 'https://fedassignment2-eef5.restdb.io/rest/products';
-    // const apikey = '678b1d1a19b96a08c0af6336';
-
-    // 2nd API
     const apiUrl = 'https://fedassg-78fe.restdb.io/rest/products';
     const apikey = '67a6f93e76011910f95afd4b';
-
-    // 3rd API 
-    // const apiUrl = 'https://fedassg2-cd74.restdb.io/rest/products';
-    // const apikey = '67a76d364d8744a119828030';  
 
     // Check if user account information exists in sessionStorage
     let userAccount = JSON.parse(sessionStorage.getItem("userProfile"));
@@ -29,9 +20,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
         console.log("User account found in sessionStorage:", userAccount);
     }
-
-    // Proceed with further operations using userAccount
-
 
     // Check if products are already stored in sessionStorage
     let products = JSON.parse(sessionStorage.getItem("products"));
@@ -61,9 +49,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 updateCartNotification();
                 handlePageContent(products); // Use the function to handle page content
+
+                // Hide the loading screen after all tasks are complete
+                toggleLoadingScreen(false); 
             })
             .catch(error => {
                 console.error("Error loading products:", error);
+                
+                // Hide the loading screen if there's an error
+                toggleLoadingScreen(false);
             });
 
     } else {
@@ -71,8 +65,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log("Using cached products");
         updateCartNotification();
         handlePageContent(products); // Use the function to handle page content
+
+        // Hide the loading screen after using cached products
+        toggleLoadingScreen(false); 
     }
 });
+
 
 // Function to handle page content
 function handlePageContent(products) {
@@ -1018,6 +1016,10 @@ function updateMokepointDisplay() {
     }
 }
 
+function toggleLoadingScreen(isVisible) {
+    const loadingScreen = document.getElementById("loadingscreen");
+    loadingScreen.style.display = isVisible ? "flex" : "none";
+}
 
 
 
