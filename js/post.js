@@ -198,3 +198,64 @@ if (account === null || !account.LikedPosts) {
         }
     }
 }
+
+async function createcomment(Username, comment) {
+    let length = Object.keys(postcontent["Comments"]).length
+    postcontent["Comments"][`comment${length + 1}`] = {"Username":Username,"Contents":comment}
+    console.log(postcontent)
+    const data = JSON.stringify({
+        "Comments": postcontent["Comments"]
+    });
+    // Send the request with custom headers (including the API key)
+    fetch(`https://fedassg2-cd74.restdb.io/rest/community/${postcontent["_id"]}`, {
+        method: "PATCH",
+        body: data,
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": APIKEY,  // API key in the header
+            "Cache-Control": "no-cache"  // Optional, prevents caching
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                // If the response status isn't OK, throw an error
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            return response.json();  // Parse the response as JSON
+        })
+        .then(data => {
+            console.log("Post updated successfully", data);
+            return data;
+        })
+        .catch(error => {
+            console.error("Error occurred:", error);
+            // Handle errors here, for example, display an error message to the user
+        });
+}
+
+async function holder() {
+    let length = Object.keys(postcontent["Comments"]).length
+    let comment = document.getElementById("comment-input").value
+    console.log(comment)
+    let x = await createcomment(account["Username"], comment)
+    console.log(postcontent)
+    let container = document.querySelector(".Comments")
+    let newdiv = document.createElement("div")
+    newdiv.classList.add("comment")
+    console.log(newdiv)
+    let username = document.createElement("div")
+    username.classList.add("Username")
+    username.textContent = postcontent["Comments"][`comment${length+1}`]["Username"]
+    let text = document.createElement("div")
+    text.classList.add("text")
+    text.textContent = postcontent["Comments"][`comment${length+1}`]["Contents"]
+    newdiv.appendChild(username)
+    newdiv.appendChild(text)
+    container.appendChild(newdiv)
+    let count = document.querySelector(".count")
+    count.textContent = length +1 == 1 ? `${length+1} Comment` :`${length+1} Comments`
+}
+
+document.getElementById("send-button").addEventListener("click", () => {
+    holder()
+})

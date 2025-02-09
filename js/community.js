@@ -288,3 +288,22 @@ function updateliked(postId, plus) {
         console.error("Error occurred:", error);
     });
 }
+
+window.addpost = addpost;
+
+async function submit(){
+    let title = document.getElementById("post-title").value;
+    let desc = document.getElementById("post-description").value;
+    let x = await addpost(account["Username"],desc,title);
+    console.log(x)
+    document.getElementById("post-title").value = ""
+    document.getElementById("post-description").value = ""
+    document.querySelector(".popup-box").style.display = "none";
+    document.getElementById("blur").style.display = "none";
+    x["Image"] = getRandomImage()
+    console.log(x)
+    postcontent.push(x)
+
+    distributePosts()
+}
+document.getElementById("submit").addEventListener("click",submit)
