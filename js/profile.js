@@ -1,7 +1,6 @@
 import { fetchUser } from "./fetchUser.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
-    // Elements
     const username = document.getElementById("profile-username");
     const accountUsernameInput = document.getElementById("account-username");
     const accountEmailInput = document.getElementById("account-email");
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const addShippingAddressInput = document.getElementById("add-shipping-address");
 
     const APIKEY = "67a76d364d8744a119828030";
-
     let userProfile = null;
 
     try {
@@ -84,21 +82,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             const data = await response.json();
             console.log("Profile updated:", data);
 
-
-            // Now update sessionStorage with the new profile data, including mock points and liked posts
+            // Now update sessionStorage with the new profile data
             const updatedSessionData = {
                 ...data,
                 mockPoints: userProfile.mockPoints,
                 likedPosts: userProfile.likedPosts
             };
 
-            // Save the updated user profile to sessionStorage
             sessionStorage.setItem("userProfile", JSON.stringify(updatedSessionData));
 
-            // Retrieve the updated data from sessionStorage and log it
             const storedProfile = sessionStorage.getItem("userProfile");
             console.log("Updated Profile stored in sessionStorage:", storedProfile);
-
 
             return data;
 
@@ -107,67 +101,96 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-
     // Handle shipping details form submission
     document.getElementById("edit-shipping").addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const updatedFields = {
-            PrimaryAddress: accountAddressInput.value.trim() || userProfile.Address.split(",")[0], // Ensure Primary Address is never empty
-            SecondaryAddress: addShippingAddressInput.value.trim() || userProfile.Address.split(",")[1], // Ensure Secondary Address is never empty
-            PrimaryAddressOwner: accountAddressNameInput.value.trim() || userProfile["Address Owner"].split(",")[0], // Ensure Primary Address Owner is never empty
-            SecondaryAddressOwner: addShippingNameInput.value.trim() || userProfile["Address Owner"].split(",")[1], // Ensure Secondary Address Owner is never empty
+            PrimaryAddress: accountAddressInput.value.trim() || userProfile.Address.split(",")[0],
+            SecondaryAddress: addShippingAddressInput.value.trim() || userProfile.Address.split(",")[1],
+            PrimaryAddressOwner: accountAddressNameInput.value.trim() || userProfile["Address Owner"].split(",")[0],
+            SecondaryAddressOwner: addShippingNameInput.value.trim() || userProfile["Address Owner"].split(",")[1],
         };
 
         console.log('Updated Shipping Details:', updatedFields);
         await saveProfile(updatedFields);
     });
-});
 
-// Function to toggle loading screen visibility
-function toggleLoadingScreen(isVisible) {
-    const loadingScreen = document.getElementById("loadingscreen");
-    loadingScreen.style.display = isVisible ? "flex" : "none";
-}
-
-// --------------- Delete account from database --------------- 
-// Delete account 
-async function deleteaccount(email, phone, password, username) {
-    let query = JSON.stringify({ 
-        $and: [ 
-            { "Email": email }, 
-            { "Phone Number": phone }, 
-            { "Username": username }
-        ] 
-    });
-
-    // Perform the delete request to the API
-    let response = await fetch(`https://fedassg2-746d.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
-        method: 'DELETE',
-        headers: {
-            "x-apikey": APIKEY,
-            "Content-Type": "application/json",
-        },
-    });
-
-    if (!response.ok) {
-        throw new Error(`Failed to delete account: ${response.statusText}`);
+    // --------------- Delete account from database ---------------
+    // Function to toggle loading screen visibility
+    function toggleLoadingScreen(isVisible) {
+        const loadingScreen = document.getElementById("loadingscreen");
+        loadingScreen.style.display = isVisible ? "flex" : "none";
     }
 
-    let data = await response.json();
-    console.log('Account deleted:', data);
-}
+    // Function to delete account
+    async function deleteaccount(email, phone, password, username) {
+        let query = JSON.stringify({
+            $and: [
+                { "Email": email },
+                { "Phone Number": phone },
+                { "Username": username }
+            ]
+        });
 
+        // Perform the delete request to the API
+        let response = await fetch(`https://fedassg2-746d.restdb.io/rest/account?q=${encodeURIComponent(query)}`, {
+            method: 'DELETE',
+            headers: {
+                "x-apikey": APIKEY,
+                "Content-Type": "application/json",
+            },
+        });
 
-// Logout button event listener
-document.getElementById("logout").addEventListener("click", function () {
-    logout();  // Call the logout function
+        if (!response.ok) {
+            throw new Error(`Failed to delete account: ${response.statusText}`);
+        }
+
+        let data = await response.json();
+        console.log('Account deleted:', data);
+    }
+
+    // Add event listener for delete account button
+    document.getElementById("delete-account-btn").addEventListener("click", async function (e) {
+        e.preventDefault(); // Prevent default form behavior if this is in a form
+
+        // Get the required user information from the profile (or sessionStorage)
+        const email = accountEmailInput.value;
+        const phone = accountPhoneInput.value;
+        const password = accountPasswordInput.value;
+        const username = accountUsernameInput.value;
+
+        // Show loading screen
+        toggleLoadingScreen(true);
+
+        try {
+            // Call the deleteaccount function
+            await deleteaccount(email, phone, password, username);
+
+            // After successful deletion, show a message or redirect
+            alert("Your account has been deleted.");
+            window.location.href = "index.html"; // Redirect to a different page (e.g., homepage) after deletion
+
+        } catch (error) {
+            console.error("Error deleting account:", error);
+            alert("An error occurred while deleting your account.");
+        } finally {
+            // Hide the loading screen
+            toggleLoadingScreen(false);
+        }
+    });
+
+    // Logout button event listener
+    document.getElementById("logout").addEventListener("click", function () {
+        logout();  // Call the logout function
+    });
+
+    // Logout function
+    function logout() {
+        // Clear session storage (to remove logged-in user data)
+        sessionStorage.removeItem("user");
+
+        // Redirect to the login page
+        window.location.href = "account.html";
+    }
 });
-// Logout function
-function logout() {
-    // Clear session storage (to remove logged-in user data)
-    sessionStorage.removeItem("user");
-
-    // Redirect to the login page
-    window.location.href = "account.html";
-}
