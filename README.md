@@ -1,5 +1,6 @@
 # FED_S10267698_S10267129_assignment2
-Click for [Github Page](https://cublybear.github.io/FED_S10267698_S10267129_assignment2/)
+[Click here to visit the main page.](https://cublybear.github.io/FED_S10267698_S10267129_assignment2/)  
+[Click here to access the login page](https://cublybear.github.io/FED_S10267698_S10267129_assignment2/account.html) to ensure all content loads properly, as we are using session storage.  
 
 Welcome to our dynamic clothing e-commerce platform, where fashion meets fun and community! Discover an extensive collection of stylish products, from the latest trends to timeless classics. With the added bonus of earning loyalty points through engaging mini-games, shopping here is more rewarding than ever. Our user-friendly interface allows you to easily navigate and find exactly what you need, while enjoying a seamless shopping experience from start to finish.
 
