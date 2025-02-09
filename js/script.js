@@ -1,7 +1,7 @@
 
 import { fetchUser } from "./fetchUser.js";
 //----------------------------------------------------- API ----------------------------------------------------
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     console.log("Script loaded successfully");
     updateMokepointDisplay();
 
@@ -18,14 +18,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // const apikey = '67a76d364d8744a119828030';  
 
     // Check if user account information exists in sessionStorage
-    let userAccount = JSON.parse(sessionStorage.getItem("userProfile")); // Check for user profile
+    let userAccount = JSON.parse(sessionStorage.getItem("userProfile"));
 
+    // Check if the user account is not available in sessionStorage
     if (!userAccount) {
-        console.log("No user account in sessionStorage");
+        console.log("No user account in sessionStorage. Fetching from API...");
 
+        // Fetch user data from the server (assuming fetchUser is an async function)
+        userAccount = await fetchUser();
     } else {
-        console.log("User account found:", userAccount);
+        console.log("User account found in sessionStorage:", userAccount);
     }
+
+    // Proceed with further operations using userAccount
+
 
     // Check if products are already stored in sessionStorage
     let products = JSON.parse(sessionStorage.getItem("products"));
